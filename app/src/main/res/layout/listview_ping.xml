@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="发包数量"
+            android:textAlignment="textStart"
+            android:textColor="#817c7c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee" />
+    <TextView
+        android:id="@+id/send_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:text="@string/text_null"
+        android:textAlignment="center"
+        android:textColor="#a4d11b"
+        android:textSize="12sp"
+
+        android:ellipsize="marquee" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="收包数量"
+            android:textAlignment="textStart"
+            android:textColor="#817c7c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee" />
+    <TextView
+        android:id="@+id/received_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:text="@string/text_null"
+        android:textAlignment="center"
+        android:textColor="#98d64a"
+        android:textSize="12sp"
+        android:ellipsize="marquee" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="5dp"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="最大时延"
+            android:textAlignment="textStart"
+            android:textColor="#817c7c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee" />
+        <TextView
+            android:id="@+id/max_delay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/text_null"
+            android:textAlignment="center"
+            android:textColor="#a4d11b"
+            android:textSize="12sp"
+
+            android:ellipsize="marquee" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="最小时延"
+            android:textAlignment="textStart"
+            android:textColor="#817c7c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee" />
+        <TextView
+            android:id="@+id/min_delay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/text_null"
+            android:textAlignment="center"
+            android:textColor="#98d64a"
+            android:textSize="12sp"
+            android:ellipsize="marquee" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="5dp"
+        android:layout_weight="1">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="平均延时"
+            android:textAlignment="textStart"
+            android:textColor="#817c7c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee" />
+        <TextView
+            android:id="@+id/average_delay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/text_null"
+            android:textAlignment="center"
+            android:textColor="#f01717"
+            android:textSize="12sp"
+            android:ellipsize="marquee" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="收包率"
+            android:textAlignment="textStart"
+            android:textColor="#817c7c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee" />
+        <TextView
+            android:id="@+id/percent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/text_null"
+            android:textAlignment="center"
+            android:textColor="#f01717"
+            android:textSize="12sp"
+            android:ellipsize="marquee" />
+    </LinearLayout>
+</LinearLayout>

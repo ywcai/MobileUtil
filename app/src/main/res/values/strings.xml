@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">MobileUtil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bot_menu1"> </string>
+    <string name="bot_menu2"> </string>
+    <string name="bot_menu3"> </string>
+    <string name="bot_menu4"> </string>
+    <string-array name="menu1_tab_title">
+        <item>Ping</item>
+        <item>基站</item>
+        <item>传感</item>
+        <item>GPS</item>
+        <item>WIFI</item>
+        <item>蓝牙</item>
+    </string-array>
+    <string name="menu1">更新</string>
+    <string name="menu2">关于</string>
+    <string name="saved_station">是否在本地保存记录</string>
+    <string name="saved_gps">设置GPS硬件开关</string>
+    <string name="saved_sensor">是否在本地保存记录</string>
+    <string name="saved_ble">是否在本地保存记录</string>
+    <string name="saved_wifi">是否在本地保存记录</string>
+    <string name="saved_ping">是否保存PING测试结果</string>
+    <string name="text_null">null</string>
+    <string name="tip_sensor">点击选项可实时查看传感器感应数据</string>
+
+    <string-array name="ping_results">
+        <item>send</item>
+        <item>receive</item>
+        <item>percent</item>
+        <item>max</item>
+        <item>min</item>
+        <item>average</item>
+    </string-array>
+
+    <string-array name="thread_count">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+    </string-array>
+    <string-array name="send_count">
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>5000</item>
+        <item>10000</item>
+    </string-array>
+
+
+
+</resources>

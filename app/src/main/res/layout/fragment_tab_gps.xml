@@ -1,0 +1,55 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ywcai.ls.ui.child.GpsFragment"
+    android:orientation="vertical"
+    android:id="@+id/tab_gps" >
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/isGpsSave"
+        android:text="@string/saved_gps"
+        android:checked="false"
+        android:hapticFeedbackEnabled="false"
+        android:singleLine="true"
+        android:soundEffectsEnabled="true"
+        android:textSize="20sp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="#e7ecea"
+        android:textColor="#62161f"
+        android:duplicateParentState="false"
+        android:keepScreenOn="true"
+        android:enabled="true"
+        android:visibility="visible" />
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/findGps"
+        android:layout_gravity="center_horizontal"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:theme="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminateBehavior="cycle"
+        android:mirrorForRtl="false"
+        android:nestedScrollingEnabled="false" />
+
+    <android.support.v7.widget.ListViewCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/now_gps"
+        android:layout_gravity="center_horizontal"
+        android:divider="#bebebe"
+        android:footerDividersEnabled="true"
+        android:dividerHeight="1dp"
+        android:fitsSystemWindows="false"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:choiceMode="singleChoice"
+        android:keepScreenOn="true" />
+
+</LinearLayout >
