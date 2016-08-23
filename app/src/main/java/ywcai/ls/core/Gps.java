@@ -17,8 +17,11 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +39,11 @@ import ywcai.ls.ui.UpdateViewInf;
 public class Gps implements UpdateViewInf, LocationListener, GpsStatus.Listener {
 
     private String gps_x = "0", gps_y = "0";
-    private int gps_h = 0, gps_num = 0;//高层单位为毫米
-    private boolean isGpsEnable = false;//GPS模块开关状态
-    private boolean gps_finding = false;//GPS是否在搜索卫星的状态， 未开启和已定位都将是false。
+    private double gps_h=0;
+    private int gps_num = 0;
+    private boolean isGpsEnable = false;
+    private boolean gps_finding = false;
+    private boolean gps_output_format=true;
     private Context context;
     private LocationManager lm;
     private List<HashMap<String, String>> list;
@@ -56,30 +61,20 @@ public class Gps implements UpdateViewInf, LocationListener, GpsStatus.Listener 
     public void InitGpsStatus()
     {
         lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        SwitchCompat switchCompat=(SwitchCompat)tabView.findViewById(R.id.isGpsSave);
         if (context.getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, "ywcai.ls.mobileutil") == PackageManager.PERMISSION_GRANTED && context.getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, "ywcai.ls.mobileutil") == PackageManager.PERMISSION_GRANTED) {
             if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //Toast.makeText(context, "您没有打开GPS模块", Toast.LENGTH_SHORT).show();
                 isGpsEnable = false;
-                switchCompat.setChecked(false);
+
             } else {
                 //Toast.makeText(context, "GPS模块为开启状态", Toast.LENGTH_SHORT).show();
                 isGpsEnable = true;
-                switchCompat.setChecked(true);
             }
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             lm.addGpsStatusListener(this);
         } else {
             //Toast.makeText(context, "没有获取到GPS使用权限", Toast.LENGTH_SHORT).show();
         }
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    openGPS();
-                }
-            }
-        });
     }
 
     public void InitListView()
@@ -89,7 +84,25 @@ public class Gps implements UpdateViewInf, LocationListener, GpsStatus.Listener 
         list = getList();
         adpter = new SimpleAdapter(context, list, R.layout.listview_gps, new String[]{"title", "info"}, new int[]{R.id.title_gps, R.id.info_gps});
         listViewCompat.setAdapter(adpter);
+        listViewCompat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 1) {
+                    openGPS();
+                }
+                if (position == 3) {
+                    changOutputFormat();
+                }
+                return false;
+            }
+        });
         updateStatus();
+    }
+    private  void changOutputFormat()
+    {
+        gps_output_format=!gps_output_format;
+        updateView();
+
     }
     @Override
     public String toString() {
@@ -101,17 +114,19 @@ public class Gps implements UpdateViewInf, LocationListener, GpsStatus.Listener 
         }
         String gpsStatus="";
         if (isGpsEnable) {
-            gpsStatus = "已打开";
+            gpsStatus = "打开（长按此项进行设置）";
         } else {
-            gpsStatus = "已关闭";
+            gpsStatus = "关闭（长按此项进行设置）";
         }
+        //if output the degree min second ,the gps_output_format is true , otherwise the gps_output_format  is false
         return
-                "GPS工作状态=" + searchStatus +
-                        ",GPS硬件是否开启=" + gpsStatus +
+                "GPS搜星状态=" + searchStatus +
+                        ",GPS硬件状态=" + gpsStatus +
                         ",当前收星数量=" + gps_num +
+                        ",输出坐标格式=" + (gps_output_format?"度 分 秒":"度") + "（长按此项进行切换）" +
                         ",WGS84-经度=" + gps_x +
                         ",WGS84-维度=" + gps_y +
-                        ",WGS84-高程=" + gps_h + "mm"
+                        ",WGS84-高程=" + gps_h + "米"
                 ;
     }
 
@@ -193,9 +208,19 @@ public class Gps implements UpdateViewInf, LocationListener, GpsStatus.Listener 
         gps_finding = false;
         //只有GPS开启的时候才获取经纬度变换信息，否则则缓存的上一次的位置
         if (isGpsEnable) {
-            gps_x = Location.convert(location.getLongitude(), Location.FORMAT_SECONDS);
-            gps_y = Location.convert(location.getLatitude(), Location.FORMAT_SECONDS);
-            gps_h = (int) (location.getAltitude() * 1000);//高程，单位mm
+            if(gps_output_format)
+            {
+                String[] temp_x= Location.convert(location.getLongitude(), Location.FORMAT_SECONDS).split(":");
+                String[] temp_y= Location.convert(location.getLatitude(), Location.FORMAT_SECONDS).split(":");
+                gps_x =temp_x[0]+"度 "+temp_x[1]+"分 "+temp_x[2]+"秒";
+                gps_y =temp_y[0]+"度 "+temp_y[1]+"分 "+temp_y[2]+"秒";
+            }
+            else
+            {
+                gps_x = Location.convert(location.getLongitude(), Location.FORMAT_DEGREES)+"度";
+                gps_y = Location.convert(location.getLatitude(), Location.FORMAT_DEGREES) +"度";
+            }
+            gps_h = location.getAltitude();
         }
         updateView();
     }

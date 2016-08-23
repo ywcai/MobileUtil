@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -31,297 +32,278 @@ import ywcai.ls.mobileutil.R;
 import ywcai.ls.task.MyThreadFactory;
 import ywcai.ls.task.PingFast;
 import ywcai.ls.task.PingNormal;
-import ywcai.ls.ui.UpdateViewInf;
 
 
 /**
  * Created by zmy_11 on 2016/8/12.
  */
-public class Ping implements UpdateViewInf {
+public class Ping extends Handler {
+
+    public PingParameter pingParameter;
+    public ExecutorService executorService;
 
     private View tabView;
     private Context context;
+    private MyThreadFactory myThreadFactory ;
     private List<HashMap<String, String>> list;
     private Resources rs;
     private String[] title;
-    private PingResult pingResult;
+//    private PingResult pingResult;
     private SimpleAdapter simpleAdapter;
-    public PingParameter pingParameter;
-    private HashMap<String, String> hs;
+    private TextView tv_log, tv_packageLenth, tv_ipAddress, tv_threadSize, tv_taskCount;
+    private Button btn_ctrl, btn_saveLog, btn_clearLog;
+    private Spinner spn_threadSize, spn_taskCount;
+    private SwitchCompat swc_sendMethod;
+    private ProgressBar bar_loading;
+
+
+
+    private int sendCount = 0;
+
     public Ping(View view) {
+        InitObj(view);
+        InitView();
+        regEventListener();
+        InitList();
+    }
+    private void InitObj(View view) {
         context = MyApplication.getInstance().getApplicationContext();
         tabView = view;
         rs = context.getResources();
         title = rs.getStringArray(R.array.ping_results);
-        InitView();
-        setWorkMethod();
+        myThreadFactory = new MyThreadFactory();
+        pingParameter = new PingParameter();
+        //pingResult = new PingResult();
+        pingParameter.sendMethod = false;
+    }
+    private void InitView() {
 
+        tv_log = (TextView) tabView.findViewById(R.id.tv_ping_log);
+        tv_log.setMovementMethod(ScrollingMovementMethod.getInstance());
+        tv_threadSize = (TextView) tabView.findViewById(R.id.textView4);
+        tv_taskCount = (TextView) tabView.findViewById(R.id.textView5);
+        swc_sendMethod = (SwitchCompat) tabView.findViewById(R.id.send_method);
+        btn_ctrl = (Button) tabView.findViewById(R.id.ping_ctrl);
+        btn_saveLog = (Button) tabView.findViewById(R.id.ping_save_log);
+        btn_clearLog = (Button) tabView.findViewById(R.id.ping_clear_log);
+        tv_packageLenth = (TextView) tabView.findViewById(R.id.tv_package_lenth);
+        tv_ipAddress = (TextView) tabView.findViewById(R.id.tv_ip);
+        spn_threadSize = (Spinner) tabView.findViewById(R.id.tv_thread_count);
+        spn_taskCount = (Spinner) tabView.findViewById(R.id.tv_package_count);
+        bar_loading = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
+    }
+    private void InitList()
+    {
+        list = new ArrayList<>();
+        HashMap<String, String> hs = new HashMap();
+        hs.put(title[0], "0");
+        hs.put(title[1], "0");
+        hs.put(title[2], "0%");
+        hs.put(title[3], "0ms");
+        hs.put(title[4], "0ms");
+        hs.put(title[5], "0ms");
+        list.add(hs);
         ListViewCompat listViewCompat = (ListViewCompat) tabView.findViewById(R.id.now_ping);
-        list = getList();
         simpleAdapter = new SimpleAdapter(context, list, R.layout.listview_ping, title, new int[]{R.id.send_num, R.id.received_num
                 , R.id.percent, R.id.max_delay, R.id.min_delay, R.id.average_delay});
         listViewCompat.setAdapter(simpleAdapter);
     }
-
-    private void InitView() {
-        TextView textView = (TextView) tabView.findViewById(R.id.tv_ping_log);
-        textView.setMovementMethod(ScrollingMovementMethod.getInstance());
-        pingParameter = new PingParameter();
-        pingResult = new PingResult();
-        SwitchCompat switchCompat = (SwitchCompat) tabView.findViewById(R.id.send_method);
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    private void regEventListener() {
+        swc_sendMethod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     pingParameter.sendMethod = true;
-                    TextView textView4 = (TextView) tabView.findViewById(R.id.textView4);
-                    TextView textView5 = (TextView) tabView.findViewById(R.id.textView5);
-                    Spinner thread_count = (Spinner) tabView.findViewById(R.id.tv_thread_count);
-                    Spinner data_count = (Spinner) tabView.findViewById(R.id.tv_package_count);
-                    textView4.setVisibility(View.VISIBLE);
-                    textView5.setVisibility(View.VISIBLE);
-                    thread_count.setVisibility(View.VISIBLE);
-                    data_count.setVisibility(View.VISIBLE);
+                    tv_threadSize.setVisibility(View.VISIBLE);
+                    tv_taskCount.setVisibility(View.VISIBLE);
+                    spn_threadSize.setVisibility(View.VISIBLE);
+                    spn_taskCount.setVisibility(View.VISIBLE);
                 } else {
                     pingParameter.sendMethod = false;
-                    TextView textView4 = (TextView) tabView.findViewById(R.id.textView4);
-                    TextView textView5 = (TextView) tabView.findViewById(R.id.textView5);
-                    Spinner thread_count = (Spinner) tabView.findViewById(R.id.tv_thread_count);
-                    Spinner data_count = (Spinner) tabView.findViewById(R.id.tv_package_count);
-                    textView4.setVisibility(View.GONE);
-                    textView5.setVisibility(View.GONE);
-                    thread_count.setVisibility(View.GONE);
-                    data_count.setVisibility(View.GONE);
+                    tv_threadSize.setVisibility(View.GONE);
+                    tv_taskCount.setVisibility(View.GONE);
+                    spn_threadSize.setVisibility(View.GONE);
+                    spn_taskCount.setVisibility(View.GONE);
                 }
             }
         });
-    }
-
-    private void setWorkMethod() {
-        Button ctrl = (Button) tabView.findViewById(R.id.ping_ctrl);
-        Button saveLog = (Button) tabView.findViewById(R.id.ping_save_log);
-        Button clearLog = (Button) tabView.findViewById(R.id.ping_clear_log);
-        ctrl.setOnClickListener(new View.OnClickListener() {
+        btn_ctrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!pingParameter.isWorking) {
-                    pingParameter.isWorking = true;
                     if (!pingParameter.sendMethod) {
-                        startNormalPing();
+                        startPingNormal();
                     } else {
-                        startFastPing();
+                        startPingFast();
                     }
                 } else {
-                    if (!pingParameter.sendMethod)
-                    {
-                        stopPing();
-                    }
-                    else
-                    {
-                        changUiToEnd();
-                        TextView log = (TextView) tabView.findViewById(R.id.tv_ping_log);
-                        log.append("\n----PING OVER !----");
+                    setWorkFalse();
+                    if (!pingParameter.sendMethod) {
+                        //normal ping : send over message by the background thread to draw the desk
+                        setBtnCtrlFalse();
+
+                    } else {
+                        //fast ping :  draw the desk on the ui thread and shutdown the background threads  at once .
+                        breakBackgroundThread();
+                        changUiToOver();
                     }
                 }
             }
         });
-        saveLog.setOnClickListener(new View.OnClickListener() {
+        btn_saveLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveLog();
             }
         });
 
-        clearLog.setOnClickListener(new View.OnClickListener() {
+        btn_clearLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView log = (TextView) tabView.findViewById(R.id.tv_ping_log);
-                log.setText("");
-                ProgressBar loader = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
-                loader.setIndeterminate(false);
+                tv_log.setText("");
+                //bar_loading.setIndeterminate(false);
                 changLoader(0);
             }
         });
     }
-
-    private void startNormalPing() {
-        if(!checkInput())
-        {
-            return;
-        }
-        changUiToStart();
-        ProgressBar loader = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
-        loader.setIndeterminate(true);
-        Handler pingHandler = new PingHandler();
-        MyThreadFactory myThreadFactory = new MyThreadFactory();
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor(myThreadFactory);
-        PingNormal pingNormal = new PingNormal(pingHandler, pingParameter);
-        executorService.execute(pingNormal);
-    }
-
     private boolean checkInput() {
-        TextView tv_ipAddress = (TextView) tabView.findViewById(R.id.tv_ip);
-        TextView tv_log = (TextView) tabView.findViewById(R.id.tv_ping_log);
         pingParameter.ipAddress = tv_ipAddress.getText().toString();
         if (pingParameter.ipAddress.equals("")) {
-
             tv_log.setText("填写IP地址");
             return false;
         }
-        TextView packageLenth = (TextView) tabView.findViewById(R.id.tv_package_lenth);
-        if (!packageLenth.getText().toString().equals("")) {
+        if (!tv_packageLenth.getText().toString().equals("")) {
             try {
-                pingParameter.lenth = Integer.parseInt(packageLenth.getText().toString());
-                if (pingParameter.lenth > 10000) {
-                    tv_log.setText("负载长度不能大于10000");
+                pingParameter.lenth = Integer.parseInt(tv_packageLenth.getText().toString());
+                if (pingParameter.lenth > 1460) {
+                    tv_log.setText("负载长度不能大于1460");
                     return false;
                 }
                 if (pingParameter.lenth < 32) {
                     return false;
                 }
             } catch (Exception e) {
-                tv_log.setText("负载填写超出范围:" + e.toString());
+                tv_log.setText("负载填写错误:" + e.toString());
                 return false;
             }
         }
         return true;
     }
-    private void startFastPing() {
-        if(!checkInput())
-        {
+    private void setBtnCtrlFalse() {
+        btn_ctrl.setText("正在停止");
+        btn_ctrl.setEnabled(false);
+    }
+    private void changUiToRunning() {
+        tv_ipAddress.setEnabled(false);
+        tv_packageLenth.setEnabled(false);
+        swc_sendMethod.setEnabled(false);
+        spn_threadSize.setEnabled(false);
+        spn_taskCount.setEnabled(false);
+        btn_ctrl.setText("停止测试");
+        btn_saveLog.setEnabled(false);
+        btn_clearLog.setEnabled(false);
+        tv_log.setText("");
+    }
+    private void changUiToOver() {
+        bar_loading.setIndeterminate(false);
+        tv_ipAddress.setEnabled(true);
+        tv_packageLenth.setEnabled(true);
+        swc_sendMethod.setEnabled(true);
+        spn_threadSize.setEnabled(true);
+        spn_taskCount.setEnabled(true);
+        btn_ctrl.setText("开始测试");
+        btn_ctrl.setEnabled(true);
+        btn_saveLog.setEnabled(true);
+        btn_clearLog.setEnabled(true);
+        tv_log.append("\n----PING OVER !----");
+    }
+    private void startPingNormal() {
+        if (!checkInput()) {
             return;
         }
-        Spinner data_size = (Spinner) tabView.findViewById(R.id.tv_package_count);
-        pingParameter.count = Integer.parseInt(data_size.getSelectedItem().toString());
-        Spinner thread_size = (Spinner) tabView.findViewById(R.id.tv_thread_count);
-        int threadPoolSize = Integer.parseInt(thread_size.getSelectedItem().toString());
-        changUiToStart();
-        ProgressBar loader = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
-        loader.setIndeterminate(false);
-        changLoader(0);
+        pingParameter.isWorking = true;
+        bar_loading.setIndeterminate(true);
 
-        Handler pingHandler = new PingHandler();
-        MyThreadFactory myThreadFactory = new MyThreadFactory();
-        ExecutorService executorService = Executors.newFixedThreadPool(threadPoolSize, myThreadFactory);
-        PingFast pingFast = new PingFast(pingHandler, pingParameter);
+        changUiToRunning();
+        ScheduledExecutorService executorSingle = Executors.newSingleThreadScheduledExecutor(myThreadFactory);
+        PingNormal pingNormal = new PingNormal(this, pingParameter);
+        executorSingle.execute(pingNormal);
+    }
+
+    private void startPingFast() {
+        if (!checkInput()) {
+            return;
+        }
+        sendCount=0;
+        pingParameter.isWorking = true;
+        pingParameter.count = Integer.parseInt(spn_taskCount.getSelectedItem().toString());
+        int threadPoolSize = Integer.parseInt(spn_threadSize.getSelectedItem().toString());
+        changUiToRunning();
+        tv_log.setText("多线程PING模式将会尽可能的使用设备计算资源，为减轻CPU负担，将不显示单包测试信息!");
+        bar_loading.setIndeterminate(false);
+        changLoader(0);
+        executorService = Executors.newFixedThreadPool(threadPoolSize, myThreadFactory);
+        PingFast pingFast = new PingFast(this, pingParameter);
         for (int i = 0; i < pingParameter.count; i++) {
             executorService.execute(pingFast);
         }
     }
 
-    private void stopPing() {
+    private void setWorkFalse() {
+        //sendCount=0;
         pingParameter.isWorking = false;
-
     }
 
-    private void setClose()
-    {
-        Button ctrl = (Button) tabView.findViewById(R.id.ping_ctrl);
-        ctrl.setText("正在停止");
-        ctrl.setEnabled(false);
-
+    private void breakBackgroundThread() {
+        try {
+            executorService.shutdownNow();
+        } catch (Exception e) {
+            //Toast.makeText(context,"shutdown thread failed ! "+e,Toast.LENGTH_SHORT).show();
+        }
     }
 
-
-    private void changUiToStart() {
-        TextView log = (TextView) tabView.findViewById(R.id.tv_ping_log);
-        log.setText("");
-        Button ctrl = (Button) tabView.findViewById(R.id.ping_ctrl);
-        ctrl.setText("停止测试");
-        Button saveLog = (Button) tabView.findViewById(R.id.ping_save_log);
-        saveLog.setEnabled(false);
-        TextView packageLenth=(TextView)tabView.findViewById(R.id.tv_package_lenth);
-        packageLenth.setEnabled(false);
-        TextView tv_ipAddress = (TextView) tabView.findViewById(R.id.tv_ip);
-        tv_ipAddress.setEnabled(false);
-        Spinner thread_size = (Spinner) tabView.findViewById(R.id.tv_thread_count);
-        thread_size.setEnabled(false);
-        Spinner data_size = (Spinner) tabView.findViewById(R.id.tv_package_count);
-        data_size.setEnabled(false);
-    }
-
-    private void changUiToEnd() {
-        setClose();
-        ProgressBar loader = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
-        loader.setIndeterminate(false);
-        //loader.setProgress(0);
-        Button ctrl = (Button) tabView.findViewById(R.id.ping_ctrl);
-        ctrl.setText("开始测试");
-        ctrl.setEnabled(true);
-        Button saveLog = (Button) tabView.findViewById(R.id.ping_save_log);
-        saveLog.setEnabled(true);
-        TextView packageLenth=(TextView)tabView.findViewById(R.id.tv_package_lenth);
-        packageLenth.setEnabled(true);
-        TextView tv_ipAddress = (TextView) tabView.findViewById(R.id.tv_ip);
-        tv_ipAddress.setEnabled(true);
-        Spinner thread_size = (Spinner) tabView.findViewById(R.id.tv_thread_count);
-        thread_size.setEnabled(true);
-        Spinner data_size = (Spinner) tabView.findViewById(R.id.tv_package_count);
-        data_size.setEnabled(true);
-    }
 
     private void changLoader(int per) {
-        ProgressBar loader = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
-        loader.setProgress(per);
+        bar_loading.setProgress(per);
     }
 
     private void saveLog() {
 
-
     }
 
-    private List<HashMap<String, String>> getList() {
-        List<HashMap<String, String>> myList = new ArrayList<>();
-        hs = new HashMap();
-        pingResult = new PingResult();
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        PingResult pingResult = (PingResult) msg.obj;
+        list.clear();
+        HashMap<String,String> hs=new HashMap<String,String>();
         hs.put(title[0], pingResult.send + "");
         hs.put(title[1], pingResult.receive + "");
         hs.put(title[2], pingResult.percent + "%");
         hs.put(title[3], pingResult.max + "ms");
         hs.put(title[4], pingResult.min + "ms");
         hs.put(title[5], pingResult.average + "ms");
-        myList.add(hs);
-        return myList;
-    }
-
-    @Override
-    public void updateView() {
-
-    }
-
-    class PingHandler extends Handler {
-        int sendCount=0;
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            pingResult =(PingResult)msg.obj;
-            TextView log = (TextView) tabView.findViewById(R.id.tv_ping_log);
-            log.append( pingResult.log);
-            list.clear();
-            hs.put(title[0], pingResult.send + "");
-            hs.put(title[1], pingResult.receive + "");
-            hs.put(title[2], pingResult.percent + "%");
-            hs.put(title[3], pingResult.max + "ms");
-            hs.put(title[4], pingResult.min + "ms");
-            hs.put(title[5], pingResult.average + "ms");
-            list.add(hs);
-            simpleAdapter.notifyDataSetChanged();
-            switch (msg.what) {
-                case 0:
-                    break;
-                case 1:
-                    changUiToEnd();
-                    break;
-                case 2:
-                    sendCount++;
-                        changLoader(Math.round(sendCount * 100 / pingParameter.count));
-                        if (sendCount >= pingParameter.count) {
-                            log.append("\n----PING OVER !----");
-                            changUiToEnd();
-                        }
-                    break;
-            }
+        list.add(hs);
+        simpleAdapter.notifyDataSetChanged();
+        switch (msg.what) {
+            //ping normal :send the work data
+            case 0:
+                tv_log.append(pingResult.log);
+                break;
+            //ping normal :send the stop message
+            case 1:
+                changUiToOver();
+                break;
+            case 2:
+            //ping fast :send the all work message until  the work is end !
+                sendCount++;
+                changLoader(Math.round(sendCount * 100 / pingParameter.count));
+                if (sendCount >= pingParameter.count)
+                {
+                    setWorkFalse();
+                    changUiToOver();
+                }
+                break;
         }
     }
-
 }

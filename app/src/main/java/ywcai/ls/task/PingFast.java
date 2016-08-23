@@ -2,10 +2,8 @@ package ywcai.ls.task;
 
 import android.os.Handler;
 import android.os.Message;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
 
@@ -64,7 +62,6 @@ public class PingFast implements Runnable {
                         updateDetailLog(pingResult);
                         break;
                     }
-
                 }
             } else {
                 synchronized (pingResult) {
@@ -75,9 +72,9 @@ public class PingFast implements Runnable {
                 }
             }
         } catch (Exception e) {
-            //pingParameter.isWorking = false;
-            pingResult.log = "\nPING异常:" + e + "\n";
-            updateDetailLog(pingResult);
+            pingParameter.isWorking = false;
+            //pingResult.log = "\nPING异常:" + e ;
+            //updateDetailLog(pingResult);
         }
 
     }

@@ -3,6 +3,7 @@ package ywcai.ls.mobileutil;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -18,7 +20,8 @@ import com.baidu.appx.BDBannerAd;
 import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
 import com.baidu.autoupdatesdk.UICheckUpdateCallback;
 
-import ywcai.ls.mobileutil.R;
+import ywcai.ls.assist.AboutActivity;
+import ywcai.ls.assist.HelpActivity;
 import ywcai.ls.ui.FirstFragment;
 
 
@@ -38,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
     }
     private void InitBanner()
     {
-        final LinearLayout ll=(LinearLayout)findViewById(R.id.ad_banner);
+        final RelativeLayout rl=(RelativeLayout)findViewById(R.id.ad_banner);
         final BDBannerAd bdBannerAd=new BDBannerAd(MainActivity.this);
         bdBannerAd.setAdSize(BDBannerAd.SIZE_FLEXIBLE);
         bdBannerAd.setAdListener(new BDBannerAd.BannerAdListener() {
             @Override
             public void onAdvertisementDataDidLoadSuccess() {
-                if (ll != null) {
-                    ll.addView(bdBannerAd);
+                if (rl != null) {
+                    rl.addView(bdBannerAd);
                     Toast.makeText(MainActivity.this,"load the BDBannerAd success",Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -80,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setIndeterminate(true);
         dialog.setTitle("检查更新");
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        mToolbar.setTitle("标题测试");
         setSupportActionBar(mToolbar);
         BDAutoUpdateSDK.asUpdateAction(context, new MyUICheckUpdateCallback());
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -93,7 +97,10 @@ public class MainActivity extends AppCompatActivity {
                         BDAutoUpdateSDK.asUpdateAction(context, new MyUICheckUpdateCallback());
                         break;
                     case R.id.menu2:
-                        //BDAutoUpdateSDK.asUpdateAction(context, new MyUICheckUpdateCallback());
+                        showHelpInfo();
+                        break;
+                    case R.id.menu3:
+                        showCopyInfo();
                         break;
                 }
                 return false;
@@ -116,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main, menu);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return true;
     }
 
@@ -124,5 +132,18 @@ public class MainActivity extends AppCompatActivity {
         public void onCheckComplete() {
             dialog.dismiss();
         }
+    }
+
+    private void showHelpInfo()
+    {
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this, HelpActivity.class);
+        this.startActivity(intent);
+    }
+    private void showCopyInfo()
+    {
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this, AboutActivity.class);
+        this.startActivity(intent);
     }
 }

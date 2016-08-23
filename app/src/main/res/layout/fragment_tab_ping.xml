@@ -221,11 +221,9 @@
         android:layout_marginTop="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp" />
-
-
     <android.support.v4.widget.ContentLoadingProgressBar
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="wrap_content"
         android:id="@+id/fast_ping_loader"
         android:layout_gravity="center_horizontal"
         android:indeterminate="false"
@@ -233,19 +231,20 @@
         android:theme="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
         android:indeterminateBehavior="cycle"
         android:mirrorForRtl="false"
-        android:layout_below="@+id/now_ping" />
+        android:layout_below="@+id/now_ping"
+        android:layout_marginTop="5dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tv_ping_log"
-        android:layout_below="@+id/now_ping"
+        android:layout_below="@+id/fast_ping_loader"
         android:inputType="text|textMultiLine"
-        android:layout_marginTop="5dp"
-        android:background="#f5f1f1"
+        android:background="#fcf3d0"
         android:alpha="1"
         android:scrollbars="vertical"
         android:fadeScrollbars="false"
         android:padding="5dp"
-        android:scrollbarStyle="outsideInset"/>
+        android:scrollbarStyle="outsideInset"
+        android:layout_marginTop="5dp" />
 </RelativeLayout >

@@ -15,5 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="ywcai.ls.assist.HelpActivity">
+        </activity>
+        <activity android:name="ywcai.ls.assist.AboutActivity">
+        </activity>
     </application>
 </manifest>

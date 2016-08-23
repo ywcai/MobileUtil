@@ -11,10 +11,10 @@
         android:id="@+id/tab"
         android:layout_gravity="center_horizontal"
         android:fillViewport="false"
-        android:background="#0e80fa"
-        app:tabIndicatorColor="@android:color/holo_green_light"
-        app:tabIndicatorHeight="3dp"
-        android:alpha="0.7" />
+        android:background="@android:color/holo_blue_dark"
+        app:tabIndicatorColor="@android:color/holo_orange_light"
+        app:tabIndicatorHeight="3dp">
+    </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_width="wrap_content"

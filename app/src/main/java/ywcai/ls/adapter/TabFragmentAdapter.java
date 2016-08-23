@@ -30,16 +30,16 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
         fragmentList = new ArrayList<Fragment>();
         PingFragment pingFragment=new PingFragment();
         StationFragment stationFragment=new StationFragment();
+        WifiFragment wifiFragment=new WifiFragment();
         SensorFragment sensorFragment=new SensorFragment();
         GpsFragment gpsFragment=new GpsFragment();
-        WifiFragment wifiFragment=new WifiFragment();
-        BleFragment bleFragment=new BleFragment();
+        //BleFragment bleFragment=new BleFragment();
         fragmentList.add(pingFragment);
         fragmentList.add(stationFragment);
+        fragmentList.add(wifiFragment);
         fragmentList.add(sensorFragment);
         fragmentList.add(gpsFragment);
-        fragmentList.add(wifiFragment);
-        fragmentList.add(bleFragment);
+        //fragmentList.add(bleFragment);
 
     }
     @Override

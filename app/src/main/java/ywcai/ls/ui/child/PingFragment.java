@@ -39,8 +39,14 @@ public class PingFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        super.onDestroy();
-        //ping.pingParameter.isWorking=false;
-        ping=null;
+        ping.pingParameter.isWorking=false;
+        try
+        {
+            ping.executorService.shutdownNow();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 }
