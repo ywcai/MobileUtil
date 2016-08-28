@@ -22,16 +22,13 @@
         android:background="#e7ecea"
         android:textColor="#62161f"
         android:duplicateParentState="false"
-        android:keepScreenOn="false" />
+        android:keepScreenOn="false"
+        android:visibility="gone" />
 
     <android.support.v7.widget.ListViewCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/now_station"
-            android:layout_gravity="center_horizontal"
-            android:divider="#bebebe"
-            android:footerDividersEnabled="true"
-            android:dividerHeight="1dp"
-            android:fitsSystemWindows="false" />
+            style="@style/MyListViewTheme"/>
 
 </LinearLayout >

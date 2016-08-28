@@ -32,11 +32,9 @@ public class Sensor implements UpdateViewInf , SensorEventListener {
     private SensorAdapter adpter;
     private View tabView;
     private Context context;
-    private String strs="";
     private SensorEventListener listener;
     private int permissionMaxSensorNum=3;
     private int openSensorNum=0;
-    //private int[] sensorPos;
     private HashMap<Integer,Integer> sensorPos=new HashMap<>();
 
     public Sensor(View view) {
@@ -44,7 +42,6 @@ public class Sensor implements UpdateViewInf , SensorEventListener {
         tabView = view;
         listener=this;
         ListViewCompat listViewCompat = (ListViewCompat) tabView.findViewById(R.id.now_sensor);
-
         list = getList();
         adpter=new SensorAdapter(list);
         listViewCompat.setAdapter(adpter);
@@ -187,7 +184,6 @@ public class Sensor implements UpdateViewInf , SensorEventListener {
         int pos=sensorPos.get(event.sensor.getType());
         sensorInfo = list.get(pos);
         String temp="";
-        Boolean isDraw=false;
         for(int i=0;i<event.values.length;i++)
         {
             temp+="value"+i+" : "+(int)event.values[i]+" ";
@@ -200,8 +196,8 @@ public class Sensor implements UpdateViewInf , SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(android.hardware.Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(android.hardware.Sensor sensor, int accuracy)
+    {
 
     }
-
 }

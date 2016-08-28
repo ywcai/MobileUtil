@@ -7,8 +7,10 @@
       <w>baidu</w>
       <w>bdappid</w>
       <w>bdappkey</w>
+      <w>boder</w>
       <w>cdma</w>
       <w>conta</w>
+      <w>corlor</w>
       <w>detaildata</w>
       <w>dialoig</w>
       <w>ehrpd</w>
@@ -19,7 +21,9 @@
       <w>hspa</w>
       <w>hsupa</w>
       <w>icmp</w>
+      <w>infos</w>
       <w>integrationsdk</w>
+      <w>ipaddr</w>
       <w>iters</w>
       <w>lenth</w>
       <w>mobileutil</w>
@@ -30,6 +34,7 @@
       <w>rscp</w>
       <w>rsrp</w>
       <w>sersor</w>
+      <w>ssid</w>
       <w>stationtest</w>
       <w>strs</w>
       <w>uikit</w>

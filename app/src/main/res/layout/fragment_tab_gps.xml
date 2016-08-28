@@ -6,25 +6,6 @@
     android:orientation="vertical"
     android:id="@+id/tab_gps" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--<android.support.v7.widget.SwitchCompat-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:id="@+id/isGpsSave"-->
-        <!--android:text="@string/saved_gps"-->
-        <!--android:checked="false"-->
-        <!--android:hapticFeedbackEnabled="false"-->
-        <!--android:singleLine="true"-->
-        <!--android:soundEffectsEnabled="true"-->
-        <!--android:textSize="20sp"-->
-        <!--android:paddingLeft="30dp"-->
-        <!--android:paddingRight="30dp"-->
-        <!--android:background="#e7ecea"-->
-        <!--android:textColor="#62161f"-->
-        <!--android:duplicateParentState="false"-->
-        <!--android:keepScreenOn="true"-->
-        <!--android:enabled="true"-->
-        <!--android:visibility="visible" />-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -39,6 +20,9 @@
         android:background="#d0bcbc"
         android:clickable="true"
         android:visibility="gone" />
+
+
+
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:layout_width="match_parent"
@@ -56,14 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/now_gps"
-        android:layout_gravity="center_horizontal"
-        android:divider="#bebebe"
-        android:footerDividersEnabled="true"
-        android:dividerHeight="1dp"
-        android:fitsSystemWindows="false"
-        android:animateLayoutChanges="true"
-        android:animationCache="true"
-        android:choiceMode="singleChoice"
-        android:keepScreenOn="true" />
+        style="@style/MyListViewTheme"/>
 
 </LinearLayout >

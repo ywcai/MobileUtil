@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import ywcai.ls.core.Wifi;
 import ywcai.ls.mobileutil.R;
 
 /**
@@ -19,7 +19,6 @@ public class WifiFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +29,7 @@ public class WifiFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_wifi, container, false);
-
+        Wifi wifi=new Wifi(tab_view);
         return tab_view;
     }
 }

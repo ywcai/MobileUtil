@@ -6,7 +6,6 @@
     android:id="@+id/tab_ping"
     android:paddingLeft="5dp"
     android:paddingTop="5dp"
-    android:visibility="visible"
     android:paddingRight="5dp"
     android:paddingBottom="5dp">
 
@@ -45,7 +44,6 @@
         android:textSize="10sp"
         android:inputType="text" />
 
-
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="100dp"
         android:layout_height="35dp"
@@ -62,7 +60,7 @@
         android:visibility="visible" />
 
     <android.support.design.widget.TextInputEditText
-        android:layout_width="70dp"
+        android:layout_width="50dp"
         android:layout_height="35dp"
         android:id="@+id/tv_package_lenth"
         android:layout_alignParentTop="false"
@@ -76,6 +74,21 @@
         android:layout_below="@+id/tv_ip"
         android:layout_marginTop="5dp"
         android:visibility="visible" />
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="不填则为默认值"
+        android:textSize="10sp"
+        android:gravity="left|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:textColor="#f66060"
+        android:visibility="visible"
+        android:layout_alignTop="@+id/tv_package_lenth"
+        android:layout_toRightOf="@+id/tv_package_lenth"
+        android:singleLine="true"
+        android:ellipsize="marquee" />
 
 
     <android.support.v7.widget.AppCompatTextView
@@ -194,7 +207,8 @@
         android:layout_marginTop="5dp"
         style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_alignLeft="@+id/send_method"
-        android:layout_below="@+id/tv_package_count" />
+        android:layout_below="@+id/tv_package_count"
+        android:visibility="gone" />
 
     <android.support.v7.widget.AppCompatButton
         android:layout_width="wrap_content"
@@ -205,7 +219,7 @@
         android:enabled="true"
         android:layout_marginTop="5dp"
         style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:layout_toRightOf="@+id/ping_save_log"
+        android:layout_toRightOf="@+id/ping_ctrl"
         android:layout_below="@+id/tv_package_count"
         android:layout_marginLeft="25dp" />
 
@@ -240,7 +254,7 @@
         android:id="@+id/tv_ping_log"
         android:layout_below="@+id/fast_ping_loader"
         android:inputType="text|textMultiLine"
-        android:background="#fcf3d0"
+        android:background="#dcdcdb"
         android:alpha="1"
         android:scrollbars="vertical"
         android:fadeScrollbars="false"

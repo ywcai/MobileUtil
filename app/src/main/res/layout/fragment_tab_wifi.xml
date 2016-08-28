@@ -1,49 +1,37 @@
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab_wifi"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ywcai.ls.ui.child.WifiFragment"
     android:orientation="vertical"
-    android:id="@+id/tab_wifi" >
+    tools:context="ywcai.ls.ui.child.WifiFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.SwitchCompat
+    <TextView
+        android:id="@+id/tv_connNet"
+        style="@style/MyTitleTextTheme"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/isWifiSave"
-        android:text="@string/saved_wifi"
-        android:checked="false"
-        android:hapticFeedbackEnabled="false"
-        android:singleLine="true"
-        android:soundEffectsEnabled="true"
-        android:textSize="20sp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:background="#e7ecea"
-        android:textColor="#62161f"
-        android:duplicateParentState="false"
-        android:keepScreenOn="false" />
+        android:textSize="10sp"
+        android:lineSpacingExtra="3dp"
+        android:textColor="#b1f3b1" />
 
-    <android.support.v4.widget.ContentLoadingProgressBar
+    <TextView
+        android:id="@+id/tv_wifiTip"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/findWifi"
-        android:layout_gravity="center_horizontal"
-        android:indeterminate="true"
-        android:visibility="gone"
-        android:theme="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-        android:indeterminateBehavior="repeat"
-        android:mirrorForRtl="false"
-        android:nestedScrollingEnabled="false" />
+        android:textSize="16sp"
+        android:lineSpacingExtra="3dp"
+        android:textColor="#000000"
+
+        android:minHeight="50dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:visibility="visible" />
 
     <android.support.v7.widget.ListViewCompat
+        android:id="@+id/now_wifiInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/now_wifi"
-        android:layout_gravity="center_horizontal"
-        android:divider="#bebebe"
-        android:footerDividersEnabled="true"
-        android:dividerHeight="1dp"
-        android:fitsSystemWindows="false" />
-
-</LinearLayout >
+        style="@style/MyListViewTheme" />
+</LinearLayout>

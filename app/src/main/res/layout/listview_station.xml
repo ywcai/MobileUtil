@@ -4,14 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_height"
     android:gravity="center_vertical"
+    android:paddingBottom="5dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:id="@+id/list_item_station"
-    android:divider="#63e165"
-    android:dividerPadding="5dp"
-    android:showDividers="middle|beginning|end">
+    android:id="@+id/list_item_station">
 <TextView
     android:layout_width="0dp"
     android:layout_height="wrap_content"

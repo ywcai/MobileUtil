@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">MobileUtil</string>
+    <string name="app_name">网络工具大全</string>
 
     <string name="str_back"><![CDATA[<< 返回]]></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="bot_menu1">网络测试</string>
+    <string name="bot_menu1">网络工具</string>
     <string name="bot_menu2">        </string>
     <string name="bot_menu3">        </string>
     <string name="bot_menu4">        </string>
@@ -13,9 +13,8 @@
         <item>Ping</item>
         <item>基站</item>
         <item>WIFI</item>
-        <item>传感</item>
         <item>GPS</item>
-
+        <item>传感</item>
     </string-array>
     <string name="menu1">升级</string>
     <string name="menu2">帮助</string>
@@ -28,7 +27,7 @@
     <string name="saved_ping">是否保存PING测试结果</string>
     <string name="text_null">null</string>
     <string name="tip_sensor">点击选项可实时查看传感器感应数据</string>
-
+    <string name="tip_wifi">当前未连接WIFI!</string>
 
     <string-array name="ping_results">
         <item>send</item>
@@ -58,7 +57,7 @@
     </string-array>
     <string name="about_qq">QQ ：19334473</string>
     <string name="about_email">Email ：19334473@qq.com</string>
-    <string name="about_author">Author ：ywcai_ls</string>
+    <string name="about_author">Author ：YWCAI</string>
     <string name="about_version">Version ：1.0.0</string>
     <string name="about_date">Update Date ：2016.8</string>
 
@@ -75,18 +74,16 @@
             6：GPS数据采集模块则是通过手机GPS模块获取当前的WGS84经纬度信息，经纬度信息通过度或者度分秒格式显示，显示方式由用户自行选择。另外还可实时的查看到GPS当前收到
             卫星颗数。\n\n
         </item>
-              <item>
-            无。\n\n
+                <item>
+
         </item>
     </string-array>
     <string-array name="help_version">
         <item>1.0.0</item>
-        <item>0.9.9</item>
+        <item> </item>
     </string-array>
     <string-array name="help_update">
         <item>2016.8</item>
-        <item>2016.7</item>
+        <item> </item>
     </string-array>
-
-
 </resources>

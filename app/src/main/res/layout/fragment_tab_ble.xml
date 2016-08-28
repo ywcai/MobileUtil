@@ -28,10 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/now_ble"
-        android:layout_gravity="center_horizontal"
-        android:divider="#bebebe"
-        android:footerDividersEnabled="true"
-        android:dividerHeight="1dp"
-        android:fitsSystemWindows="false" />
+        style="@style/MyListViewTheme"/>
 
 </LinearLayout >

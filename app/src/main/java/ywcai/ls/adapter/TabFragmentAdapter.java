@@ -37,8 +37,9 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
         fragmentList.add(pingFragment);
         fragmentList.add(stationFragment);
         fragmentList.add(wifiFragment);
-        fragmentList.add(sensorFragment);
         fragmentList.add(gpsFragment);
+        fragmentList.add(sensorFragment);
+
         //fragmentList.add(bleFragment);
 
     }
@@ -54,4 +55,5 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return meTitle[position];
     }
+
 }

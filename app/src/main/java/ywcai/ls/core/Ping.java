@@ -180,6 +180,7 @@ public class Ping extends Handler {
                     return false;
                 }
                 if (pingParameter.lenth < 32) {
+                    tv_log.setText("负载长度不能小于32");
                     return false;
                 }
             } catch (Exception e) {

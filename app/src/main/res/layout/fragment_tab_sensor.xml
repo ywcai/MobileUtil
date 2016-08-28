@@ -11,24 +11,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/tip_sensor"
-        android:textSize="12sp"
-        android:singleLine="true"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:textColor="#888dda"
+        style="@style/MyTitleTextTheme"
         android:id="@+id/tip_sensor"
-        android:background="#d0bcbc" />
+        />
 
     <android.support.v7.widget.ListViewCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/now_sensor"
-        android:layout_gravity="center_horizontal"
-        android:divider="#bebebe"
-        android:footerDividersEnabled="true"
-        android:dividerHeight="1dp"
-        android:fitsSystemWindows="false" />
+        style="@style/MyListViewTheme"
+ />
 
 </LinearLayout >

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ywcai.ls.bean.SensorInfo;
-import ywcai.ls.bean.ViewHolder;
+import ywcai.ls.bean.ViewTempSensor;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 
@@ -20,7 +20,6 @@ import ywcai.ls.mobileutil.R;
  */
 public class SensorAdapter  extends BaseAdapter{
     private List<SensorInfo> list;
-    private String sensor_data;
     private Context context;
     private  LayoutInflater mInflate;
     public SensorAdapter(List<SensorInfo> list)
@@ -47,10 +46,10 @@ public class SensorAdapter  extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder vh;
+        ViewTempSensor vh;
         if (convertView == null) {
             convertView = mInflate.inflate(R.layout.listview_sensor,null);
-            vh = new ViewHolder();
+            vh = new ViewTempSensor();
             /**得到各个控件的对象*/
             vh.title = (TextView) convertView.findViewById(R.id.title_sensor);
             vh.info = (TextView) convertView.findViewById(R.id.info_sensor);
@@ -61,7 +60,7 @@ public class SensorAdapter  extends BaseAdapter{
         }
         else
         {
-            vh = (ViewHolder)convertView.getTag();//取出ViewHolder对象
+            vh = (ViewTempSensor)convertView.getTag();//取出ViewHolder对象
         }
         vh.title.setText(list.get(position).name_cn);
         vh.info.setText(list.get(position).name_native);
@@ -79,5 +78,4 @@ public class SensorAdapter  extends BaseAdapter{
         }
         return convertView;
     }
-
 }

@@ -2,7 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="5dp">
     <LinearLayout
         android:divider="#63e165"
         android:dividerPadding="5dp"
@@ -10,16 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_height"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="5dp"
         android:id="@+id/list_item_sensor">
     <TextView
         android:id="@+id/title_sensor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"
+        android:layout_weight="0.3"
         android:singleLine="true"
         android:text="@string/text_null"
         android:textAlignment="textStart"
@@ -31,7 +32,7 @@
         android:id="@+id/info_sensor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.6"
+        android:layout_weight="0.7"
         android:singleLine="true"
         android:text="@string/text_null"
         android:textAlignment="textStart"
@@ -41,16 +42,13 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/context_sensor"
-        android:divider="#63e165"
-        android:dividerPadding="5dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:visibility="gone">
         <TextView
             android:id="@+id/data_sensor"
