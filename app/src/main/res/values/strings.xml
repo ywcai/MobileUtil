@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">网络工具大全</string>
-
+    <string name="app_name">多维网络分析仪</string>
     <string name="str_back"><![CDATA[<< 返回]]></string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="bot_menu1">网络工具</string>
+    <string name="bot_menu1">网络测试</string>
     <string name="bot_menu2">        </string>
     <string name="bot_menu3">        </string>
     <string name="bot_menu4">        </string>
@@ -57,7 +55,7 @@
     </string-array>
     <string name="about_qq">QQ ：19334473</string>
     <string name="about_email">Email ：19334473@qq.com</string>
-    <string name="about_author">Author ：YWCAI</string>
+    <string name="about_author">Author ：ywcai</string>
     <string name="about_version">Version ：1.0.0</string>
     <string name="about_date">Update Date ：2016.8</string>
 
@@ -70,7 +68,7 @@
             3：基站侦测可实时监听手机信号的小区、场强、网咯模式等的变换情况，可用于无线网络信号的检测。
             若个别手机存在不兼容无法获取信息的情况，可反馈机型至作者以便做兼容适配；\n\n
             4：传感器模块可获取当前设备所支持的所有传感元器件列表。同时点击后还可查看传感器实时获取的数据；\n\n
-            5：WIFI信号测试模块可扫描当前内网的活跃IP地址，扫描当前可获取的WIFI信号、频点等相关信息；\n\n
+            5：WIFI信号测试模块可扫描扫描当前可获取的WIFI信号、频点、信道等相关信息；\n\n
             6：GPS数据采集模块则是通过手机GPS模块获取当前的WGS84经纬度信息，经纬度信息通过度或者度分秒格式显示，显示方式由用户自行选择。另外还可实时的查看到GPS当前收到
             卫星颗数。\n\n
         </item>

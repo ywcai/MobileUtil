@@ -92,13 +92,12 @@ public class WifiAdapter extends BaseAdapter{
         {
             vh.tv_sid.setText("已连接 " + list.get(position).sid + "");
             vh.tv_frequency.setText("频率: " + list.get(position).frequency + "MHZ    速率: " + list.get(position).speed + "M");
-            vh.tv_sid.setTextColor(0xFFB1f3B1);
-            vh.tv_channel.setTextColor(0xFFB1f3B1);
-            vh.tv_frequency.setTextColor(0xFFB1f3B1);
-            vh.tv_keyType.setTextColor(0xFFB1f3B1);
-            vh.tv_mac.setTextColor(0xFFB1f3B1);
-            vh.tv_device.setTextColor(0xFFB1f3B1);
-
+            vh.tv_sid.setTextColor(0xFF30BF30);
+            vh.tv_channel.setTextColor(0xFF30BF30);
+            vh.tv_frequency.setTextColor(0xFF30BF30);
+            vh.tv_keyType.setTextColor(0xFF30BF30);
+            vh.tv_mac.setTextColor(0xFF30BF30);
+            vh.tv_device.setTextColor(0xFF30BF30);
         }
         else
         {

@@ -12,7 +12,7 @@ public class MyUtil {
         return ipaddr;
     }
     public static int ConvertFrequencyToChannel(int frequency) {
-        int channel = -1;
+        int channel = 0;
         switch (frequency) {
             case 2412:
                 channel = 1;
@@ -53,8 +53,23 @@ public class MyUtil {
             case 2472:
                 channel = 13;
                 break;
+            case 5745:
+                channel = 149;
+                break;
+            case 5765:
+                channel = 153;
+                break;
+            case 5785 :
+                channel = 157 ;
+                break;
+            case 5805:
+                channel = 161;
+                break;
+            case 5825:
+                channel = 165;
+                break;
             default:
-                channel = -1;
+                channel = 0 ;
                 break;
         }
         return channel;

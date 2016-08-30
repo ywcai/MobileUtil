@@ -67,7 +67,6 @@ public class Station implements UpdateViewInf {
         list = getList();
         adpter = new SimpleAdapter(MyApplication.getInstance().getApplicationContext(), list, R.layout.listview_station, new String[]{"title", "info"}, new int[]{R.id.title_station, R.id.info_station});
         listViewCompat.setAdapter(adpter);
-
     }
 
     public List<HashMap<String, String>> getList() {
@@ -78,7 +77,14 @@ public class Station implements UpdateViewInf {
         for (int n = 0; n < strs.length; n++) {
             HashMap<String, String> hp = new HashMap<String, String>();
             hp.put("title", strs[n].split("=")[0]);
-            hp.put("info", strs[n].split("=")[1]);
+            if( strs[n].split("=").length>=2)
+            {
+                hp.put("info", strs[n].split("=")[1]);
+            }
+            else
+            {
+                hp.put("info", "null");
+            }
             list.add(hp);
         }
         return list;

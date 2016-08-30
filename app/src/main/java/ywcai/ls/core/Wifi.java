@@ -1,6 +1,7 @@
 package ywcai.ls.core;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,15 +9,17 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.ListViewCompat;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +40,7 @@ public class Wifi extends BroadcastReceiver {
     private View tabView;
     private Context context;
     private WifiManager wifiMg;
-    private TextView tv_title_wifi;
-    private String connSID = "-1";
+    private TextView tv_title_wifi, tv_wifiTip;
     private String connMac = "-1";
     private int connSpeed = -1;
     private String connIp = "-1";
@@ -47,14 +49,14 @@ public class Wifi extends BroadcastReceiver {
         context = MyApplication.getInstance().getApplicationContext();
         tabView = view;
         tv_title_wifi = (TextView) tabView.findViewById(R.id.tv_connNet);
+        tv_wifiTip = (TextView) tabView.findViewById(R.id.tv_wifiTip);
         wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         list = new ArrayList<WifiInfos>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            InitGpsStatus();
-        }
         ListViewCompat listView = (ListViewCompat) tabView.findViewById(R.id.now_wifiInfo);
         wifiAdpter = new WifiAdapter(list);
         listView.setAdapter(wifiAdpter);
+
+
         context.registerReceiver(this, new IntentFilter(
                 WifiManager.WIFI_STATE_CHANGED_ACTION));
         context.registerReceiver(this, new IntentFilter(
@@ -67,92 +69,128 @@ public class Wifi extends BroadcastReceiver {
                 WifiManager.NETWORK_STATE_CHANGED_ACTION));
     }
 
-    public void InitGpsStatus() {
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        if (context.getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, "ywcai.ls.mobileutil") == PackageManager.PERMISSION_GRANTED && context.getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, "ywcai.ls.mobileutil") == PackageManager.PERMISSION_GRANTED) {
-            if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                //Toast.makeText(context, "温馨提示：您系统版本为6.0以上\n需要开启GPS后可扫描WIFI!", Toast.LENGTH_LONG).show();
-                TextView tv_wifiTip = (TextView) tabView.findViewById(R.id.tv_wifiTip);
-                tv_wifiTip.setText("温馨提示：您系统版本为6.0以上\n需要开启GPS后可扫描WIFI!");
-            } else {
-                //Toast.makeText(context, "GPS模块为开启状态", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            //Toast.makeText(context, "没有获取到GPS使用权限", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction().toString()) {
             case WifiManager.RSSI_CHANGED_ACTION:
-                ListenerConnWifi();
                 ListenerAllWifi();
-                break;
-            case WifiManager.WIFI_STATE_CHANGED_ACTION:
-                ListenerStatusWifi();
                 break;
             case WifiManager.SCAN_RESULTS_AVAILABLE_ACTION:
                 ListenerAllWifi();
                 break;
-            case WifiManager.NETWORK_STATE_CHANGED_ACTION:
-                ListenerConnWifi();
+            case WifiManager.WIFI_STATE_CHANGED_ACTION:
+                ListenerWifiEnableStatus();
                 break;
-
+            case WifiManager.NETWORK_STATE_CHANGED_ACTION:
+                ListenerWifiConnStatus(intent);
+                break;
         }
     }
 
-    private void ListenerStatusWifi() {
+    private boolean checkRequestLocation() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (context.getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, "ywcai.ls.mobileutil")
+                == PackageManager.PERMISSION_GRANTED
+                && context.getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, "ywcai.ls.mobileutil")
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        tv_wifiTip.setText("你没有授予应用权限");
+        return false;
+    }
+
+
+    private void ListenerWifiEnableStatus() {
         int state = wifiMg.getWifiState();
         if (state == WifiManager.WIFI_STATE_ENABLED) {
-            ListenerConnWifi();
+            tv_title_wifi.setText("WIFI模块开启！");
             ListenerAllWifi();
         }
         if (state == WifiManager.WIFI_STATE_DISABLED) {
             tv_title_wifi.setText("WIFI模块关闭！");
+            tv_wifiTip.setText("WIFI模块已关闭！");
+            list.clear();
+            wifiAdpter.notifyDataSetChanged();
+        }
+        if (state == WifiManager.WIFI_STATE_ENABLING) {
+            tv_title_wifi.setText("WIFI模块正在开启......");
+        }
+        if (state == WifiManager.WIFI_STATE_DISABLING) {
+            tv_title_wifi.setText("WIFI模块正在关闭......");
+
         }
     }
 
-    private void ListenerConnWifi() {
-        WifiInfo wifiInfo = wifiMg.getConnectionInfo();
-        String s = "";
-        try {
-            String ip = MyUtil.ConvertIpToStr(wifiInfo.getIpAddress());
-            if ((WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState()) == NetworkInfo.DetailedState.CONNECTED
-                    || WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState()) == NetworkInfo.DetailedState.OBTAINING_IPADDR) && wifiInfo.getLinkSpeed() > 0) {
-                //  s = "连接网络：" + wifiInfo.getSSID() + "   速率：" + wifiInfo.getLinkSpeed() + "\n网关:" + ip;
-                connMac = wifiInfo.getBSSID();
-                connSpeed = wifiInfo.getLinkSpeed();
-                connIp = ip;
-
-            } else {
-                connSID = "-1";
-                connMac = "-1";
-                connSpeed = -1;
-                connIp = "-1";
-                //s = "无WIFI连接 ! ";
+    private void ListenerWifiConnStatus(Intent intent) {
+        Parcelable parcelableExtra = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+        if (null != parcelableExtra) {
+            NetworkInfo networkInfo = (NetworkInfo) parcelableExtra;
+            State state = networkInfo.getState();
+            if (state == State.CONNECTED) {
+                tv_title_wifi.setText("WIFI已连接！");
+                ListenerWifiConn();
             }
+            if (state == State.CONNECTING) {
+                tv_title_wifi.setText("正在连接WIFI......");
+            }
+            if (state == State.DISCONNECTING) {
+                tv_title_wifi.setText("正在断开WIFI......");
+            }
+            if (state == State.DISCONNECTED) {
+                tv_title_wifi.setText("WIFI未连接！");
+                ListenerWifiDisconnect();
+            }
+            if (state == State.SUSPENDED) {
+                tv_title_wifi.setText("WIFI状态:State.SUSPENDED");
+                ListenerWifiDisconnect();
+            }
+        }
+    }
+
+    private void ListenerWifiDisconnect() {
+        connMac = "-1";
+        connSpeed = -1;
+        connIp = "-1";
+    }
+
+    private void ListenerWifiConn() {
+        try {
+            WifiInfo wifiInfo = wifiMg.getConnectionInfo();
+            String ip = MyUtil.ConvertIpToStr(wifiInfo.getIpAddress());
+            connMac = wifiInfo.getBSSID();
+            connSpeed = wifiInfo.getLinkSpeed();
+            connIp = ip;
         } catch (Exception e) {
-            //s = "WIFI连接获取信息异常" + e;
-            connSID = "-1";
+            connMac = "-1";
             connSpeed = -1;
             connIp = "-1";
         }
-        //tv_title_wifi.setText(s);
+    }
+
+    public boolean checkGpsStatus() {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return true;
+        }
+        return false;
     }
 
     private void ListenerAllWifi() {
         list.clear();
-        List<ScanResult> results = wifiMg.getScanResults();
-        if (results.size() != 0) {
-            TextView tv_wifiTip = (TextView) tabView.findViewById(R.id.tv_wifiTip);
-            tv_wifiTip.setVisibility(View.GONE);
-        } else {
-            TextView tv_wifiTip = (TextView) tabView.findViewById(R.id.tv_wifiTip);
-            tv_wifiTip.setVisibility(View.VISIBLE);
-            tv_wifiTip.setText("温馨提示：您系统版本为6.0以上\n需要开启GPS后可扫描WIFI!");
+        if (!checkRequestLocation()) {
+            return;
         }
-        int[] channelSum=new int[15];
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!checkGpsStatus()) {
+                wifiAdpter.notifyDataSetChanged();
+                tv_wifiTip.setText("温馨提示：您系统版本为6.0以上\n需要开启GPS后可扫描WIFI!");
+                return;
+            }
+        }
+        List<ScanResult> results = wifiMg.getScanResults();
+        int[] channelSum = new int[166];
         for (ScanResult result : results) {
             WifiInfos wifiInfos = new WifiInfos();
             WifiInfo wifiInfo = wifiMg.getConnectionInfo();
@@ -174,15 +212,18 @@ public class Wifi extends BroadcastReceiver {
             channelSum[wifiInfos.channel]++;
         }
         wifiAdpter.notifyDataSetChanged();
-        String s="";
-        s+="扫描到WIFI连接: "+list.size()+" 个，信道分布:\n";
-        for(int i=0;i<channelSum.length;i++)
-        {
-            if(channelSum[i]!=0)
-            {
-                s+="信道"+i+" ["+channelSum[i]+"] ";
+        String s = "";
+        s += "扫描到WIFI连接: " + list.size() + " 个，信道分布情况:\n";
+        for (int i = 1; i < 14; i++) {
+            if (channelSum[i] != 0) {
+                s += "信道" + i + " [" + channelSum[i] + "]   ";
             }
         }
-        tv_title_wifi.setText(s);
+        for (int i = 149; i < 166; i++) {
+            if (channelSum[i] != 0) {
+                s += "信道" + i + " [" + channelSum[i] + "]   ";
+            }
+        }
+        tv_wifiTip.setText(s);
     }
 }
