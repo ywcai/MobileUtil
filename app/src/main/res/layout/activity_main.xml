@@ -11,15 +11,26 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:id="@+id/ad_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"></RelativeLayout>
-    <RelativeLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/toolbar_main"
-        android:layout_below="@+id/ad_banner"></RelativeLayout>
-    <include layout="@layout/toolbar_main"></include>
+        android:layout_alignParentTop="false"
+        android:layout_above="@+id/ad_banner"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ad_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/toolbar_portal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/toolbar_portal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"><include layout="@layout/toolbar_main"></include></RelativeLayout>
+
+
 </RelativeLayout>

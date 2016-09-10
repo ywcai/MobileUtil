@@ -8,12 +8,13 @@ android {
         applicationId "ywcai.ls.mobileutil"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.3"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,8 +26,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23+'
     compile 'com.android.support:design:23+'
     compile 'com.android.support:support-v4:23+'
-//    compile 'com.android.support:appcompat-v7:23.4.0'
-//    compile 'com.android.support:design:23.4.0'
-//    compile 'com.android.support:support-v4:23.4.0'
     compile project(':bDIntegrationSDK_LibProject')
+    compile files('libs/Baidu_MobAds_SDK.jar')
 }

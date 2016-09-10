@@ -16,10 +16,10 @@ import android.view.View;
 public class MyProgress extends View {
     private int fillPercent=0;
     private int fillColor=0xFF46E123;
-    private int boldWidth=5;
+    private int boldWidth=3;
     private int boldColor=0xFFD1CFCF;
     private int fontColor=Color.RED;
-    private float fontSize=24f;
+    private float fontSize=16f;
     private int dbm=-100;
     public MyProgress(Context context) {
         super(context);
@@ -43,12 +43,10 @@ public class MyProgress extends View {
         super.onDraw(canvas);
         setBackgroundColor(Color.TRANSPARENT);
         Paint p=new Paint(Paint.ANTI_ALIAS_FLAG);
-
         p.setColor(boldColor);
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(boldWidth);
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), p);
-
         p.setColor(fillColor);
         p.setStyle(Paint.Style.FILL);
 //        int right=((this.getWidth()-2*boldWidth)*fillPercent/60)+boldWidth;
@@ -57,15 +55,12 @@ public class MyProgress extends View {
         int right=((this.getWidth())*fillPercent/60);
         int bottom=this.getHeight();
         canvas.drawRect(0,0,right,bottom,p);
-
-
-
         p.setColor(fontColor);
         p.setTextSize(fontSize);
         p.setStyle(Paint.Style.FILL);
         p.setTextAlign(Paint.Align.CENTER);
         Paint.FontMetrics fontMetrics = p.getFontMetrics();
-        int stringWidth= (int) p.measureText(dbm+"dbm");
+        int stringWidth= (int) p.measureText(dbm+"db");
         float x = (this.getWidth()-boldWidth*2) / 2 +  stringWidth / 2;
         float y = (this.getHeight()-boldWidth*2)/2 - (fontMetrics.ascent - fontMetrics.descent) / 2;
         canvas.drawText(dbm+"dbm", x, y, p);

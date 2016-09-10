@@ -28,6 +28,7 @@ import ywcai.ls.adapter.WifiAdapter;
 import ywcai.ls.bean.WifiInfos;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
+import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
 
@@ -44,6 +45,10 @@ public class Wifi extends BroadcastReceiver {
     private String connMac = "-1";
     private int connSpeed = -1;
     private String connIp = "-1";
+    private int checkScanCount=0;
+    private int selfAdd=0;
+    private int scanAutoFlag=0;
+
 
     public Wifi(View view) {
         context = MyApplication.getInstance().getApplicationContext();
@@ -55,8 +60,6 @@ public class Wifi extends BroadcastReceiver {
         ListViewCompat listView = (ListViewCompat) tabView.findViewById(R.id.now_wifiInfo);
         wifiAdpter = new WifiAdapter(list);
         listView.setAdapter(wifiAdpter);
-
-
         context.registerReceiver(this, new IntentFilter(
                 WifiManager.WIFI_STATE_CHANGED_ACTION));
         context.registerReceiver(this, new IntentFilter(
@@ -67,13 +70,38 @@ public class Wifi extends BroadcastReceiver {
                 WifiManager.EXTRA_WIFI_STATE));
         context.registerReceiver(this, new IntentFilter(
                 WifiManager.NETWORK_STATE_CHANGED_ACTION));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(scanAutoFlag< MyConfig.INT_CHECK_WIFI_AUTO_SCAN_COUNT) {
+                    try {
+                        Thread.sleep(MyConfig.INT_WIFI_AUTO_SCAN_REFRESH);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    checkScanCount++;
+                    if (checkScanCount > selfAdd) {
+                        checkScanCount = 0;
+                        selfAdd = 0;
+                        wifiMg.startScan();
+                    }
+                    if (checkScanCount < selfAdd - 2) {
+                        checkScanCount = 0;
+                        selfAdd = 0;
+                        scanAutoFlag++;
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction().toString()) {
             case WifiManager.RSSI_CHANGED_ACTION:
-                ListenerAllWifi();
+                //wifiMg.startScan();
+                //ListenerAllWifi();
                 break;
             case WifiManager.SCAN_RESULTS_AVAILABLE_ACTION:
                 ListenerAllWifi();
@@ -189,7 +217,21 @@ public class Wifi extends BroadcastReceiver {
                 return;
             }
         }
-        List<ScanResult> results = wifiMg.getScanResults();
+        List<ScanResult> results=null;
+        try {
+            results = wifiMg.getScanResults();
+        }
+        catch(Exception e)
+        {
+            results=null;
+        }
+        if(results==null)
+        {
+            wifiAdpter.notifyDataSetChanged();
+            tv_wifiTip.setText("未扫描到网络");
+            return ;
+        }
+        selfAdd++;
         int[] channelSum = new int[166];
         for (ScanResult result : results) {
             WifiInfos wifiInfos = new WifiInfos();

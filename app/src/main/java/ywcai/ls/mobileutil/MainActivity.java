@@ -11,70 +11,87 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
-
-import com.baidu.appx.BDBannerAd;
 import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
 import com.baidu.autoupdatesdk.UICheckUpdateCallback;
+import com.baidu.mobads.AdSettings;
+import com.baidu.mobads.AdView;
+import com.baidu.mobads.AdViewListener;
+;
+import org.json.JSONObject;
 
 import ywcai.ls.assist.AboutActivity;
 import ywcai.ls.assist.HelpActivity;
 import ywcai.ls.ui.FirstFragment;
 
 
+
+
 public class MainActivity extends AppCompatActivity {
-    private static final String APP_KEY="4WbdujL7dRcFtP8977XQn3Kv";
-    private static final String APP_ID="6892883";
+    private final String MSSP_BANNER_AD="2875764";
+    private  final String APPID="8569145";
+    private  final String APPKEY="qQFsduOTaU2681KsOGcY0bVhgv4rInN6";
     private ProgressDialog dialog;
     private Context context;
+    private AdView adView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context=this;
         InitView();
+        LoadMsspBanner();
         InstallFirstFragment();
-        InitBanner();
+//        InitSplash();
+//        InitBanner();
     }
-    private void InitBanner()
+    private void LoadMsspBanner()
     {
-        final RelativeLayout rl=(RelativeLayout)findViewById(R.id.ad_banner);
-        final BDBannerAd bdBannerAd=new BDBannerAd(MainActivity.this);
-        bdBannerAd.setAdSize(BDBannerAd.SIZE_FLEXIBLE);
-        bdBannerAd.setAdListener(new BDBannerAd.BannerAdListener() {
+        adView = new AdView(this,MSSP_BANNER_AD);
+        AdSettings.setKey(new String[]{"baidu", "中国"});
+        RelativeLayout rl=(RelativeLayout)findViewById(R.id.ad_banner);
+        rl.addView(adView);
+//        RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        rllp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        // 创建广告View
+        // 设置监听器
+        adView.setListener(new AdViewListener() {
             @Override
-            public void onAdvertisementDataDidLoadSuccess() {
-                if (rl != null) {
-                    rl.addView(bdBannerAd);
-                    Toast.makeText(MainActivity.this,"load the BDBannerAd success",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this,"find the container error",Toast.LENGTH_SHORT).show();
-                }
+            public void onAdReady(AdView adView) {
+                //rl.setVisibility(View.VISIBLE);
+                //Toast.makeText(context, "onAdReady", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onAdShow(JSONObject jsonObject) {
+                //Toast.makeText(context, "onAdShow", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onAdvertisementDataDidLoadFailure() {
-                Toast.makeText(MainActivity.this,"onAdvertisementDataDidLoadFailure",Toast.LENGTH_SHORT).show();
+            public void onAdClick(JSONObject jsonObject) {
+                //Toast.makeText(context, "onAdClick", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onAdvertisementViewDidShow() {
-                Toast.makeText(MainActivity.this,"onAdvertisementViewDidShow",Toast.LENGTH_SHORT).show();
+            public void onAdFailed(String s) {
+                //Toast.makeText(context, "onAdFailed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onAdvertisementViewDidClick() {
-                Toast.makeText(MainActivity.this,"onAdvertisementViewDidClick",Toast.LENGTH_SHORT).show();
+            public void onAdSwitch() {
+                //Toast.makeText(context, "onAdSwitch", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onAdvertisementViewWillStartNewIntent() {
-                Toast.makeText(MainActivity.this,"onAdvertisementViewWillStartNewIntent",Toast.LENGTH_SHORT).show();
+            public void onAdClose(JSONObject jsonObject) {
+                //Toast.makeText(context, "onAdClose", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -84,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.setIndeterminate(true);
         dialog.setTitle("检查更新");
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        mToolbar.setTitle("标题测试");
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.mipmap.nav);
         BDAutoUpdateSDK.asUpdateAction(context, new MyUICheckUpdateCallback());
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -106,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void InstallFirstFragment()
