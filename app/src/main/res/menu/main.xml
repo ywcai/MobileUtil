@@ -8,14 +8,18 @@
         <!--android:title="@string/menu1"></item>-->
     <item
         android:id="@+id/menu1"
-        android:showAsAction="never"
+
         android:title="@string/menu1"></item>
     <item
         android:id="@+id/menu2"
-        android:showAsAction="never"
+
         android:title="@string/menu2"></item>
     <item
         android:id="@+id/menu3"
-        android:showAsAction="never"
+
         android:title="@string/menu3"></item>
+    <item
+        android:id="@+id/menu4"
+
+        android:title="@string/menu4"></item>
 </menu>

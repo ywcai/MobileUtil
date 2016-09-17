@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/now_sensor"
         style="@style/MyListViewTheme"
- />
+        android:choiceMode="singleChoice" />
 
 </LinearLayout >

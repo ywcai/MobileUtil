@@ -1,23 +1,19 @@
 package ywcai.ls.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.wifi.ScanResult;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 
 import ywcai.ls.assist.MyProgress;
 import ywcai.ls.bean.ViewTempWifi;
-import ywcai.ls.bean.WifiInfos;
+import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 
@@ -25,10 +21,10 @@ import ywcai.ls.mobileutil.R;
  * Created by zmy_11 on 2016/8/15.
  */
 public class WifiAdapter extends BaseAdapter{
-    private List<WifiInfos> list;
+    private List<WifiInfo> list;
     private Context context;
     private  LayoutInflater mInflate;
-    public WifiAdapter(List<WifiInfos> pList)
+    public WifiAdapter(List<WifiInfo> pList)
     {
         this.list = pList;
         this.context= MyApplication.getInstance().getApplicationContext();

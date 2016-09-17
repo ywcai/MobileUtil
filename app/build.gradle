@@ -2,18 +2,18 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "ywcai.ls.mobileutil"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 4
+        versionName "1.0.4"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

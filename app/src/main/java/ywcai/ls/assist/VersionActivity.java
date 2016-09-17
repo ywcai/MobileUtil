@@ -16,17 +16,17 @@ import ywcai.ls.mobileutil.R;
 /**
  * Created by zmy_11 on 2016/8/21.
  */
-public class HelpActivity extends AppCompatActivity {
+public class VersionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
+        setContentView(R.layout.activity_version);
         loadHelpInfo();
         TextView title_back = (TextView) findViewById(R.id.title_back);
         title_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HelpActivity.this.finish();
+                VersionActivity.this.finish();
             }
         });
     }
@@ -34,20 +34,20 @@ public class HelpActivity extends AppCompatActivity {
     {
         List<HashMap<String,String>> list=new ArrayList<>();
 
-        String[] date=this.getResources().getStringArray(R.array.help_update);
-        String[] version=this.getResources().getStringArray(R.array.help_version);
-        String[] content=this.getResources().getStringArray(R.array.help_content);
+        String[] date=this.getResources().getStringArray(R.array.version_date);
+        String[] version=this.getResources().getStringArray(R.array.version_num);
+        String[] content=this.getResources().getStringArray(R.array.version_detail);
         for(int i=0;i<date.length;i++)
         {
             HashMap<String,String> hashMap=new HashMap<>();
-            hashMap.put("version",version[i]);
+            hashMap.put("num",version[i]);
             hashMap.put("date",date[i]);
-            hashMap.put("content",content[i]);
+            hashMap.put("detail",content[i]);
             list.add(hashMap);
         }
-        ListViewCompat listViewCompat = (ListViewCompat)findViewById(R.id.list_helpInfo);
+        ListViewCompat listViewCompat = (ListViewCompat)findViewById(R.id.list_versionInfo);
         SimpleAdapter simpleAdapter =new SimpleAdapter
-                (this,list,R.layout.listview_help,new String[]{"version", "date","content"},new int[]{R.id.help_version,R.id.help_update_date,R.id.help_content});
+                (this,list,R.layout.listview_version,new String[]{"num", "date","detail"},new int[]{R.id.version_num,R.id.version_date,R.id.version_content});
         listViewCompat.setAdapter(simpleAdapter);
     }
 }

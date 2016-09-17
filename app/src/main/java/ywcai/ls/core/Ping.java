@@ -1,13 +1,17 @@
 package ywcai.ls.core;
 
 
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -15,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -29,9 +32,13 @@ import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
+import ywcai.ls.mobileutil.sub.NetActivity;
+import ywcai.ls.mobileutil.sub.PingAnalysisActivity;
 import ywcai.ls.task.MyThreadFactory;
 import ywcai.ls.task.PingFast;
 import ywcai.ls.task.PingNormal;
+import ywcai.ls.ui.child.PingFragment;
+import ywcai.ls.util.MyConfig;
 
 
 /**
@@ -41,43 +48,40 @@ public class Ping extends Handler {
 
     public PingParameter pingParameter;
     public ExecutorService executorService;
-
     private View tabView;
     private Context context;
     private MyThreadFactory myThreadFactory ;
     private List<HashMap<String, String>> list;
     private Resources rs;
     private String[] title;
-//    private PingResult pingResult;
     private SimpleAdapter simpleAdapter;
     private TextView tv_log, tv_packageLenth, tv_ipAddress, tv_threadSize, tv_taskCount;
     private Button btn_ctrl, btn_saveLog, btn_clearLog;
     private Spinner spn_threadSize, spn_taskCount;
     private SwitchCompat swc_sendMethod;
     private ProgressBar bar_loading;
-
-
-
+    private ArrayList<Integer> log=new ArrayList<>();;
     private int sendCount = 0;
+    private PingFragment meFragment;
 
-    public Ping(View view) {
+    public Ping(View view, PingFragment fragment) {
+        meFragment=fragment;
         InitObj(view);
         InitView();
         regEventListener();
         InitList();
     }
     private void InitObj(View view) {
-        context = MyApplication.getInstance().getApplicationContext();
-        tabView = view;
+
+        tabView=view;
+        context = MyApplication.getInstance().getApplicationContext();;
         rs = context.getResources();
         title = rs.getStringArray(R.array.ping_results);
         myThreadFactory = new MyThreadFactory();
         pingParameter = new PingParameter();
-        //pingResult = new PingResult();
         pingParameter.sendMethod = false;
     }
     private void InitView() {
-
         tv_log = (TextView) tabView.findViewById(R.id.tv_ping_log);
         tv_log.setMovementMethod(ScrollingMovementMethod.getInstance());
         tv_threadSize = (TextView) tabView.findViewById(R.id.textView4);
@@ -91,6 +95,44 @@ public class Ping extends Handler {
         spn_threadSize = (Spinner) tabView.findViewById(R.id.tv_thread_count);
         spn_taskCount = (Spinner) tabView.findViewById(R.id.tv_package_count);
         bar_loading = (ProgressBar) tabView.findViewById(R.id.fast_ping_loader);
+        tv_threadSize.setVisibility(View.GONE);
+        tv_taskCount.setVisibility(View.GONE);
+        spn_threadSize.setVisibility(View.GONE);
+        spn_taskCount.setVisibility(View.GONE);
+        tv_log.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+                if(event.getAction()==MotionEvent.ACTION_MOVE){
+
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+                if(event.getAction()==MotionEvent.ACTION_UP){
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                }
+                return false;
+            }
+        });
+    }
+    private void AnalysisResult(ArrayList<Integer> log)
+    {
+        if(log.size()>0)
+        {
+            Intent intent=new Intent();
+            Bundle bundle=new Bundle();
+            bundle.putIntegerArrayList(MyConfig.STR_INTENT_LIST_ARGS,log);
+            intent.putExtras(bundle);
+            intent.setClass(context, PingAnalysisActivity.class);
+            meFragment.startActivity(intent);
+            tv_log.setText("数据长度:"+log.size());
+        }
+        else
+        {
+            tv_log.setText("你还没有任何日志数据！");
+        }
     }
     private void InitList()
     {
@@ -153,7 +195,10 @@ public class Ping extends Handler {
         btn_saveLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveLog();
+                log.add(10);
+                log.add(100);
+                log.add(500);
+                AnalysisResult(log);
             }
         });
 
@@ -266,10 +311,6 @@ public class Ping extends Handler {
 
     private void changLoader(int per) {
         bar_loading.setProgress(per);
-    }
-
-    private void saveLog() {
-
     }
 
     @Override

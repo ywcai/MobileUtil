@@ -1,259 +1,228 @@
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="ywcai.ls.ui.child.PingFragment"
-    android:id="@+id/tab_ping"
-    android:paddingLeft="5dp"
-    android:paddingTop="2dp"
-    android:paddingRight="5dp"
-    android:paddingBottom="5dp">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:text="PING目的地址"
-        android:id="@+id/textView1"
-        android:textSize="14sp"
-        android:gravity="left|center_vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textColor="#817c7c" />
-
-
-
-    <android.support.design.widget.TextInputEditText
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:id="@+id/tv_ip"
-        android:layout_alignParentTop="false"
-        android:gravity="left|bottom"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="false"
-        android:layout_toRightOf="@+id/textView1"
-        android:layout_marginLeft="15dp"
-        style="@style/Base.Widget.AppCompat.EditText"
-        android:textSize="10sp"
-        android:inputType="text"
-        android:layout_alignTop="@+id/textView1" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:text="PING负载长度"
-        android:id="@+id/textView2"
-        android:textSize="14sp"
-        android:gravity="left|center_vertical"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="2dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textColor="#817c7c"
-        android:visibility="visible" />
-
-    <android.support.design.widget.TextInputEditText
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:id="@+id/tv_package_lenth"
-        android:layout_alignParentTop="false"
-        android:layout_marginLeft="15dp"
-        android:gravity="left|bottom"
-        android:numeric="integer"
-        android:inputType="numberSigned"
-        android:layout_toRightOf="@+id/textView2"
-        style="@style/Base.Widget.AppCompat.EditText"
-        android:textSize="10sp"
-        android:visibility="visible"
-        android:layout_alignTop="@+id/textView2" />
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:text="不填则为默认值"
-        android:textSize="10sp"
-        android:gravity="left|center_vertical"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginLeft="5dp"
-        android:textColor="#f66060"
-        android:visibility="visible"
-        android:layout_alignTop="@+id/tv_package_lenth"
-        android:layout_toRightOf="@+id/tv_package_lenth"
-        android:singleLine="true"
-        android:ellipsize="marquee" />
-
-
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:text="多线程PING测"
-        android:id="@+id/textView3"
-        android:textSize="14sp"
-        android:gravity="left|center_vertical"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="2dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textColor="#817c7c" />
-    <android.support.v7.widget.SwitchCompat
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:id="@+id/send_method"
-        android:checked="false"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/textView3"
-        style="@style/Base.Widget.AppCompat.CompoundButton.Switch"
-        android:layout_alignTop="@+id/textView3" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:text="启动线程数量"
-        android:id="@+id/textView4"
-        android:textSize="14sp"
-        android:gravity="left|center_vertical"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="2dp"
-
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textColor="#817c7c"
-        android:visibility="gone" />
-
-
-    <Spinner
-        android:layout_toRightOf="@+id/textView4"
-        android:textSize="10sp"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
-        android:id="@+id/tv_thread_count"
-        android:layout_marginLeft="15dp"
-        android:entries="@array/thread_count"
-        android:spinnerMode="dialog"
-        style="@style/Base.Widget.AppCompat.Spinner"
-        android:background="#f6f3f3"
-        android:visibility="gone"
-        android:layout_alignTop="@+id/textView4" />
-
-
-
-
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:text="PING包数量"
-        android:id="@+id/textView5"
-        android:textSize="14sp"
-        android:gravity="left|center_vertical"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="2dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textColor="#817c7c"
-        android:visibility="gone" />
-
-
-    <Spinner
-        android:layout_toRightOf="@+id/textView5"
-        android:textSize="10sp"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
-        android:id="@+id/tv_package_count"
-        android:layout_marginLeft="15dp"
-        android:entries="@array/send_count"
-        android:spinnerMode="dialog"
-        style="@style/Base.Widget.AppCompat.Spinner"
-        android:background="#f6f3f3"
-        android:visibility="gone"
-        android:layout_alignTop="@+id/textView5" />
-
-
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="开始测试"
-        android:id="@+id/ping_ctrl"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5"
-        android:enabled="true"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="16dp"
-        style="@style/Base.Widget.AppCompat.Button.Colored" />
-
-
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="保存日志"
-        android:id="@+id/ping_save_log"
-        android:layout_alignParentLeft="false"
-        android:enabled="true"
-        android:layout_marginTop="5dp"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:layout_alignLeft="@+id/send_method"
-        android:layout_below="@+id/tv_package_count"
-        android:visibility="gone" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="清除数据"
-        android:id="@+id/ping_clear_log"
-        android:layout_alignParentLeft="false"
-        android:enabled="true"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:layout_toRightOf="@+id/ping_ctrl"
-        android:layout_marginLeft="26dp"
-        android:layout_alignTop="@+id/ping_ctrl" />
-
-    <android.support.v7.widget.ListViewCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/now_ping"
-        android:layout_gravity="center_horizontal"
-        android:divider="#bebebe"
-        android:footerDividersEnabled="true"
-        android:dividerHeight="1dp"
-        android:layout_below="@+id/ping_ctrl"
-        android:layout_marginTop="2dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp" />
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fast_ping_loader"
-        android:layout_gravity="center_horizontal"
-        android:indeterminate="false"
-        android:visibility="visible"
-        android:theme="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-        android:indeterminateBehavior="cycle"
-        android:mirrorForRtl="false"
-        android:layout_below="@+id/now_ping"
-        android:layout_marginTop="1dp" />
-
-    <android.support.v7.widget.AppCompatTextView
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tv_ping_log"
-        android:layout_below="@+id/fast_ping_loader"
-        android:inputType="text|textMultiLine"
-        android:background="#dcdcdb"
-        android:alpha="1"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:padding="5dp"
-        android:scrollbarStyle="outsideInset" />
-</RelativeLayout >
+        android:scrollbars="none">
+        <RelativeLayout
+            android:id="@+id/tab_ping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/textView1"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="left|center_vertical"
+                android:text="PING目的地址"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#817c7c"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tv_ip"
+                style="@style/Base.Widget.AppCompat.EditText"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/textView1"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/textView1"
+                android:gravity="left|bottom"
+                android:inputType="text"
+                android:textSize="10sp"
+                android:textColor="#00664C"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/textView2"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/textView1"
+                android:layout_marginTop="5dp"
+                android:gravity="left|center_vertical"
+                android:text="PING负载长度"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#817c7c"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tv_package_lenth"
+                style="@style/Base.Widget.AppCompat.EditText"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/textView2"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/textView2"
+                android:gravity="left|bottom"
+                android:inputType="numberSigned"
+                android:textSize="10sp"
+                android:visibility="visible"
+                android:textColor="#00664C"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/tv_package_lenth"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tv_package_lenth"
+                android:ellipsize="marquee"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="不填则为默认值"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#f66060"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/textView3"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/textView2"
+                android:layout_marginTop="5dp"
+                android:gravity="left|center_vertical"
+                android:text="多线程PING测"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#817c7c"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp" />
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/send_method"
+                style="@style/Base.Widget.AppCompat.CompoundButton.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/textView3"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/textView3"
+                android:checked="false"
+                android:gravity="center_vertical" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/textView4"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/textView3"
+                android:gravity="left|center_vertical"
+                android:text="启动线程数量"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#817c7c"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+            <Spinner
+                android:id="@+id/tv_thread_count"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_alignTop="@+id/textView4"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/textView4"
+                android:entries="@array/thread_count"
+                android:textSize="10sp"
+                android:visibility="visible"
+                android:textColor="#00664C"
+                android:spinnerMode="dialog"
+                android:background="#dee1e2" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/textView5"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/textView4"
+                android:layout_marginTop="15dp"
+                android:gravity="left|center_vertical"
+                android:text="PING包数量"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#817c7c"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:layout_marginBottom="15dp" />
+            <Spinner
+                android:id="@+id/tv_package_count"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_alignTop="@+id/textView5"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/textView5"
+                android:entries="@array/send_count"
+                android:spinnerMode="dialog"
+                android:textSize="10sp"
+                android:visibility="visible"
+                android:background="#dee1e2" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ping_ctrl"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView5"
+                android:enabled="true"
+                android:text="开始测试"
+                android:layout_marginLeft="-5dp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ping_clear_log"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignTop="@+id/ping_ctrl"
+                android:layout_marginLeft="27dp"
+                android:layout_toRightOf="@+id/ping_ctrl"
+                android:enabled="true"
+                android:text="清除数据" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ping_save_log"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                android:text="图表分析"
+                android:layout_alignTop="@+id/ping_clear_log"
+                android:layout_toRightOf="@+id/ping_clear_log"
+                android:layout_marginLeft="27dp" />
+
+            <android.support.v7.widget.ListViewCompat
+                android:id="@+id/now_ping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ping_ctrl"
+                android:layout_marginTop="2dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:choiceMode="none"
+                android:listSelector="@android:color/transparent" />
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/fast_ping_loader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/now_ping"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="1dp"
+                android:indeterminate="false"
+                android:indeterminateBehavior="cycle"
+                android:theme="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:visibility="visible" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_ping_log"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/fast_ping_loader"
+                android:alpha="1"
+                android:background="#64d5e9"
+                android:fadeScrollbars="false"
+                android:inputType="text|textMultiLine"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="vertical"
+                android:textSize="10sp"
+                android:padding="5dp" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

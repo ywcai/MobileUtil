@@ -15,7 +15,7 @@
     android:id="@+id/title_station"
     android:textAlignment="textStart"
     android:textStyle="bold"
-    android:textSize="14sp"
+    android:textSize="12sp"
     android:textColor="#817c7c"
     android:text="@string/text_null"
     android:singleLine="true"

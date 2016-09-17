@@ -6,8 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+
+import ywcai.ls.core.Ble;
 import ywcai.ls.mobileutil.R;
 
 /**
@@ -30,7 +31,7 @@ public class BleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_ble, container, false);
-
+        Ble ble=new Ble(tab_view);
         return tab_view;
     }
 }

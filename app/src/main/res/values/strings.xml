@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">多维网络分析仪</string>
     <string name="str_back"><![CDATA[<< 返回]]></string>
+    <string name="top_title">专业的网络测试工具包</string>
+    <string name="title_fontFamily">"华文彩云"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="bot_menu1">多维网络分析仪</string>
-    <string name="bot_menu2">        </string>
-    <string name="bot_menu3">        </string>
-    <string name="bot_menu4">        </string>
+    <string name="bot_menu1">网络工具</string>
+    <string name="bot_menu2">  </string>
+    <string name="bot_menu3">  </string>
+    <string name="bot_menu4">  </string>
+    <!--<string name="bot_menu2">虚拟鼠标</string>-->
+    <!--<string name="bot_menu3">远程控制</string>-->
+    <!--<string name="bot_menu4">个性设置</string>-->
     <string-array name="menu1_tab_title">
         <item>Ping</item>
         <item>基站</item>
@@ -14,9 +19,10 @@
         <item>GPS</item>
         <item>传感</item>
     </string-array>
-    <string name="menu1">升级</string>
-    <string name="menu2">帮助</string>
-    <string name="menu3">关于</string>
+    <string name="menu1">检查更新</string>
+    <string name="menu2">版本说明</string>
+    <string name="menu3">使用帮助</string>
+    <string name="menu4">关于我们</string>
     <string name="saved_station">是否在本地保存记录</string>
     <string name="gps_top">标题...</string>
     <string name="saved_sensor">是否在本地保存记录</string>
@@ -50,38 +56,52 @@
         <item>500</item>
         <item>1000</item>
         <item>2000</item>
-        <item>5000</item>
-        <item>10000</item>
     </string-array>
+
     <string name="about_qq">QQ ：19334473</string>
     <string name="about_email">Email ：19334473@qq.com</string>
     <string name="about_author">Author ：Jimi</string>
     <string name="about_version">Version ：1.0.0</string>
-    <string name="about_date">Update Date ：2016.8</string>
+    <string name="about_date">Online Date ：2016.8</string>
 
-
-    <string-array name="help_content">
+    <string-array name="version_detail">
+            <item>
+            1：重新设计了首页布局页面；\n
+            2：放弃各模块帧布局滑动切换方式，每一个功能都是一个独立的activity，功能互不影响；\n
+            3：增加了指南针、蓝牙4.0扫描功能；\n
+            4：优化了相关功能图标。\n
+        </item>
         <item>
-            1：新增主要网络测试模块。其中包括PING测试、基站信号监测、手机传感器监测、WIFI信号监测、原生GPS数据监测。\n\n
+            1：新增主要网络测试模块。其中包括PING测试、基站信号监测、手机传感器监测、WIFI信号监测、原生GPS数据监测。\n
             2：PING测试包括多线程快速测试和单线程普通测试两种模式。多线程模式可根据手机性能情况快速PING测大量数据包，返回测试总体情况。单线程普通测试
-            则可0.5秒发送一个数据包，检测单个包PING测数据以及同时累计本次PING测得总体情况；\n\n
+            则可0.5秒发送一个数据包，检测单个包PING测数据以及同时累计本次PING测得总体情况；\n
             3：基站侦测可实时监听手机信号的小区、场强、网咯模式等的变换情况，可用于无线网络信号的检测。
-            若个别手机存在不兼容无法获取信息的情况，可反馈机型至作者以便做兼容适配；\n\n
-            4：传感器模块可获取当前设备所支持的所有传感元器件列表。同时点击后还可查看传感器实时获取的数据；\n\n
-            5：WIFI信号测试模块可扫描扫描当前可获取的WIFI信号、频点、信道等相关信息；\n\n
+            若个别手机存在不兼容无法获取信息的情况，可反馈机型至作者以便做兼容适配；\n
+            4：传感器模块可获取当前设备所支持的所有传感元器件列表。同时点击后还可查看传感器实时获取的数据；\n
+            5：WIFI信号测试模块可扫描扫描当前可获取的WIFI信号、频点、信道等相关信息；\n
             6：GPS数据采集模块则是通过手机GPS模块获取当前的WGS84经纬度信息，经纬度信息通过度或者度分秒格式显示，显示方式由用户自行选择。另外还可实时的查看到GPS当前收到
-            卫星颗数。\n\n
+            卫星颗数。\n
         </item>
-                <item>
 
-        </item>
     </string-array>
-    <string-array name="help_version">
+    <string-array name="version_num">
+        <item>1.0.4 </item>
         <item>1.0.0</item>
-        <item> </item>
+
     </string-array>
-    <string-array name="help_update">
+    <string-array name="version_date">
+        <item>2016.9</item>
         <item>2016.8</item>
-        <item> </item>
+
+    </string-array>
+    <string-array name="homepage_menu_title">
+        <item>PING测试</item>
+        <item>WIFI分析</item>
+        <item>基站信号</item>
+        <item>原生GPS</item>
+        <item>传感器检测</item>
+        <item>蓝牙4.0</item>
+        <item>指南针</item>
+        <!--<item>计步器</item>-->
     </string-array>
 </resources>

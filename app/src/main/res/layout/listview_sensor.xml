@@ -25,7 +25,7 @@
         android:text="@string/text_null"
         android:textAlignment="textStart"
         android:textColor="#817c7c"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:ellipsize="marquee" />
     <TextView

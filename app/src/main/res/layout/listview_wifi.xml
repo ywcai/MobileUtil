@@ -33,14 +33,14 @@
             android:singleLine="true"
             android:text="[AB-AB-AB-AB-AB-AB]"
             android:textColor="#6b6969"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginLeft="20dp" />
    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="2dp">
+        android:layout_marginTop="5dp">
     <TextView
         android:id="@+id/tv_keyType"
         android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
             android:singleLine="false"
             android:text="device name"
             android:textColor="#6b6969"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginLeft="5dp" />
     </LinearLayout>
     <LinearLayout
@@ -78,7 +78,7 @@
             android:singleLine="true"
             android:text="信道:14"
             android:textColor="#6b6969"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/tv_frequency"
@@ -89,7 +89,7 @@
             android:singleLine="true"
             android:text="频点:1345MHZ      速率:73M"
             android:textColor="#6b6969"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
         <ywcai.ls.assist.MyProgress
             android:layout_width="match_parent"
             android:layout_height="15dp"

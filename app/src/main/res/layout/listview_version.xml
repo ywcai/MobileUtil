@@ -8,7 +8,6 @@
     android:paddingRight="20dp"
     android:paddingTop="5dp">
     <LinearLayout
-        android:id="@+id/list_item_gps"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_height"
         android:gravity="center_vertical"
@@ -22,46 +21,42 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="Version "
-            android:textAlignment="textStart"
             android:textColor="#ef2b2b"
             android:textSize="14sp"
             android:textStyle="bold" />
         <TextView
             android:layout_marginLeft="5dp"
-            android:id="@+id/help_version"
+            android:id="@+id/version_num"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="@string/text_null"
-            android:textAlignment="textStart"
             android:textColor="#817c7c"
             android:textSize="14sp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/help_update_date"
+            android:id="@+id/version_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.4"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="@string/text_null"
-            android:textAlignment="textStart"
             android:textColor="#817c7c"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/help_content"
+        android:id="@+id/version_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:singleLine="false"
         android:text="@string/text_null"
-        android:textAlignment="textStart"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="12sp"
         android:paddingLeft="20dp"

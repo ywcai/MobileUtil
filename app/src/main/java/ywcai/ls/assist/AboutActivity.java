@@ -30,6 +30,6 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
         TextView toolbar_title = (TextView) findViewById(R.id.toolbar_assist_title);
-        toolbar_title.setText(this.getResources().getString(R.string.menu3));
+        toolbar_title.setText(this.getResources().getString(R.string.menu4));
     }
 }

@@ -1,0 +1,41 @@
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ywcai.ls.ui.child.OrientationFragment"
+    android:id="@+id/tab_orientation"
+    android:background="#ffffff"
+    android:padding="30dp">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/orientation_bg"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/orientation_bg" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_point"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/point" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0 °"
+        android:id="@+id/text_degree"
+        android:layout_centerInParent="true"
+        android:allowUndo="false"
+        android:gravity="center_vertical"
+        android:paddingBottom="180dp"
+        android:textColor="#12b317"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</RelativeLayout >

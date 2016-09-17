@@ -1,7 +1,6 @@
 package ywcai.ls.core;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +10,9 @@ import android.location.LocationManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.ListViewCompat;
 import android.view.View;
 import android.widget.TextView;
@@ -25,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ywcai.ls.adapter.WifiAdapter;
-import ywcai.ls.bean.WifiInfos;
+import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.util.MyConfig;
@@ -36,7 +33,7 @@ import ywcai.ls.util.MyUtil;
  * Created by zmy_11 on 2016/8/12.
  */
 public class Wifi extends BroadcastReceiver {
-    private List<WifiInfos> list;
+    private List<WifiInfo> list;
     private WifiAdapter wifiAdpter;
     private View tabView;
     private Context context;
@@ -56,7 +53,7 @@ public class Wifi extends BroadcastReceiver {
         tv_title_wifi = (TextView) tabView.findViewById(R.id.tv_connNet);
         tv_wifiTip = (TextView) tabView.findViewById(R.id.tv_wifiTip);
         wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        list = new ArrayList<WifiInfos>();
+        list = new ArrayList<WifiInfo>();
         ListViewCompat listView = (ListViewCompat) tabView.findViewById(R.id.now_wifiInfo);
         wifiAdpter = new WifiAdapter(list);
         listView.setAdapter(wifiAdpter);
@@ -100,8 +97,8 @@ public class Wifi extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction().toString()) {
             case WifiManager.RSSI_CHANGED_ACTION:
-                //wifiMg.startScan();
-                //ListenerAllWifi();
+
+
                 break;
             case WifiManager.SCAN_RESULTS_AVAILABLE_ACTION:
                 ListenerAllWifi();
@@ -185,7 +182,7 @@ public class Wifi extends BroadcastReceiver {
 
     private void ListenerWifiConn() {
         try {
-            WifiInfo wifiInfo = wifiMg.getConnectionInfo();
+            android.net.wifi.WifiInfo wifiInfo = wifiMg.getConnectionInfo();
             String ip = MyUtil.ConvertIpToStr(wifiInfo.getIpAddress());
             connMac = wifiInfo.getBSSID();
             connSpeed = wifiInfo.getLinkSpeed();
@@ -234,8 +231,8 @@ public class Wifi extends BroadcastReceiver {
         selfAdd++;
         int[] channelSum = new int[166];
         for (ScanResult result : results) {
-            WifiInfos wifiInfos = new WifiInfos();
-            WifiInfo wifiInfo = wifiMg.getConnectionInfo();
+            WifiInfo wifiInfos = new WifiInfo();
+            android.net.wifi.WifiInfo wifiInfo = wifiMg.getConnectionInfo();
             wifiInfos.sid = result.SSID;
             wifiInfos.mac = result.BSSID;
             wifiInfos.channel = MyUtil.ConvertFrequencyToChannel(result.frequency);

@@ -1,11 +1,13 @@
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_assist"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    android:background="#00B0F0"
     android:minHeight="?attr/actionBarSize"
-    android:paddingRight="16dp"
-    android:background="@android:color/holo_blue_dark">
+    app:popupTheme="@style/ToolbarPopupTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,24 +20,16 @@
             android:clickable="true"
             android:gravity="center"
             android:text="@string/str_back"
-            style="@style/ToolbarTextTheme"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:textAlignment="center"
-            style="@style/ToolbarTextTheme"/>
+            style="@style/ToolbarTextTopTheme"/>
 
         <TextView
             android:id="@+id/toolbar_assist_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:gravity="center"
+            android:gravity="center|right"
             android:text="@string/menu2"
-            style="@style/ToolbarTextTheme"/>
+            style="@style/ToolbarTextTopTheme"
+            android:paddingRight="20dp" />
     </LinearLayout>
 </android.support.v7.widget.Toolbar>

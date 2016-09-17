@@ -3,39 +3,55 @@
     android:id="@+id/list_item_ble"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_height"
-    android:divider="#63e165"
-    android:dividerPadding="5dp"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingBottom="5dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="5dp"
-    android:showDividers="middle|beginning|end">
+    android:paddingTop="5dp">
 
-    <TextView
-        android:id="@+id/title_ble"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.8"
-        android:singleLine="true"
-        android:text="@string/text_null"
-        android:textAlignment="textStart"
-        android:textColor="#817c7c"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:ellipsize="marquee" />
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp">
+        <TextView
+            android:id="@+id/tv_ble_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:singleLine="false"
+            android:text="device name"
+            android:textColor="#6b6969"
+            android:textSize="12sp"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/info_ble"
-        android:layout_width="0dp"
+        <ywcai.ls.assist.MyProgress
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:id="@+id/pb_ble_Dbm"
+            android:textSize="10sp"
+            android:textColor="#14ab2d"
+            android:gravity="center"
+            android:text=""
+            android:layout_weight="3" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.2"
-        android:singleLine="true"
-        android:text="@string/text_null"
-        android:textAlignment="textStart"
-        android:textColor="#f01717"
-        android:textSize="12sp"
-        android:ellipsize="marquee" />
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
 
+        <TextView
+            android:id="@+id/tv_ble_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="[AB-AB-AB-AB-AB-AB]"
+            android:textColor="#6b6969"
+            android:textSize="10sp" />
+    </LinearLayout>
 </LinearLayout>

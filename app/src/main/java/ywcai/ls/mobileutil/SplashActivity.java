@@ -61,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
     public boolean canJumpImmediately = false;
     private void jumpWhenCanClick() {
         if (canJumpImmediately) {
-            this.startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            this.startActivity(new Intent(SplashActivity.this, HomeActivity.class));
             this.finish();
         } else {
             canJumpImmediately = true;
@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity {
      * 不可点击的开屏，使用该jump方法，而不是用jumpWhenCanClick
      */
     private void jump() {
-        this.startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        this.startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         this.finish();
     }
     @Override

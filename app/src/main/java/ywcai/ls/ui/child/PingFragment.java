@@ -17,12 +17,7 @@ import ywcai.ls.mobileutil.R;
  * A simple {@link Fragment} subclass.
  */
 public class PingFragment extends Fragment {
-
     private Ping ping;
-    public PingFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +25,10 @@ public class PingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_ping, container, false);
-        ping =new Ping(tab_view);
+        ping =new Ping(tab_view,PingFragment.this);
         return tab_view;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
