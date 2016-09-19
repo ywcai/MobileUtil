@@ -1,11 +1,66 @@
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ywcai.ls.ui.child.OrientationFragment"
-    android:id="@+id/tab_ping_analysis"
     android:orientation="vertical"
-    android:paddingTop="20dp">
+    tools:context="ywcai.ls.ui.child.OrientationFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#da9e9e">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/imgSaveTip"
+        android:minHeight="40dp"
+        android:textSize="12sp"
+        android:background="@android:color/transparent"
+        android:layout_weight="1"
+        android:linksClickable="false"
+        android:gravity="center_vertical"
+        android:text="不保存！点击可直接查看历史记录"
+        android:paddingLeft="20dp"
+        android:textColor="#3748bf" />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:text="保存到本地"
+        android:id="@+id/bt_imgSave"
+        android:layout_gravity="right"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_weight="0.4"
+        android:textSize="14sp"
+        android:textColor="#f3ef09" />
 
+</LinearLayout>
+    <android.support.v7.widget.ListViewCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/now_local_img"
+        style="@style/MyListViewTheme"
+        android:choiceMode="singleChoice"
+        android:visibility="visible" />
 
-</LinearLayout >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="false"
+        android:id="@+id/scroll_bmp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/tab_ping_analysis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="@drawable/divider_ping_img"
+            android:showDividers="middle"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

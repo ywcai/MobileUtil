@@ -1,5 +1,13 @@
 package ywcai.ls.util;
 
+
+import android.graphics.Bitmap;
+import android.os.Environment;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Calendar;
+
+
 /**
  * Created by zmy_11 on 2016/8/28.
  */
@@ -11,6 +19,7 @@ public class MyUtil {
                 "." + String.valueOf((ip & 0x00FFFFFF) >>> 16) + "." + String.valueOf(ip >>> 24);
         return ipaddr;
     }
+
     public static int ConvertFrequencyToChannel(int frequency) {
         int channel = 0;
         switch (frequency) {
@@ -59,8 +68,8 @@ public class MyUtil {
             case 5765:
                 channel = 153;
                 break;
-            case 5785 :
-                channel = 157 ;
+            case 5785:
+                channel = 157;
                 break;
             case 5805:
                 channel = 161;
@@ -69,10 +78,68 @@ public class MyUtil {
                 channel = 165;
                 break;
             default:
-                channel = 0 ;
+                channel = 0;
                 break;
         }
         return channel;
+    }
+
+    public static String getNowDate() {
+        String nowDate = Calendar.getInstance().get(Calendar.YEAR) + "-" + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        return nowDate;
+    }
+
+    public static String getNowTime() {
+        String nowTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+        return nowTime;
+    }
+
+    public static String getDetailTime() {
+        return  getNowDate()+" "+getNowTime();
+    }
+
+    public static String saveLogImGg(Bitmap bitmap,String filePath, String logImgName)
+    {
+        String tip="";
+        if(!isHaveSD())
+        {
+            tip="手机不支持外部存储";
+            return tip;
+        }
+        try {
+            File fileDir = new File(filePath);
+            if(!fileDir.exists()) {
+                fileDir.mkdir();
+            }
+            File f = new File(fileDir,logImgName);
+            f.createNewFile();
+            if(!f.exists()) {
+                tip="创建文件失败!";
+
+                return tip;
+            }
+            FileOutputStream out = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            tip="保存数据发生错误,\n错误信息:"+e.toString();
+            return  tip;
+        }
+        return "success";
+    }
+
+    public static boolean isHaveSD(){
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static String getImgDirPath()
+    {
+        return  Environment.getExternalStorageDirectory().toString()+File.separator+"MobileUtil";
     }
 
 }

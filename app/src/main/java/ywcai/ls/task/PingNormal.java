@@ -5,6 +5,7 @@ import android.os.Message;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
@@ -17,8 +18,7 @@ public class PingNormal implements Runnable {
     private Handler myHadler;
     private PingParameter pingParameter;
     private PingResult pingResult;
-    private Runtime r = Runtime.getRuntime();
-    private Process p;
+    public ArrayList<Integer> delayList=new ArrayList<>();
 
 
     public PingNormal(Handler handler, PingParameter pingParameter) {
@@ -62,12 +62,14 @@ public class PingNormal implements Runnable {
                             pingResult.average = (float) Math.round((pingResult.average * (pingResult.receive - 1) + temp) * 100 / pingResult.receive) / 100;
                         }
                         pingResult.log = delay + "ms ";
+                        delayList.add(Math.round(temp));
                         break;
                     }
                 }
 
             } else {
-                pingResult.log = "×";
+                pingResult.log = "× ";
+                delayList.add(0);
             }
             pingResult.percent = (float) Math.round(pingResult.receive * 10000 / pingResult.send) / 100;
             updateDetailLog(pingResult);

@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
 
@@ -15,6 +17,7 @@ public class PingFast implements Runnable {
     private Handler myHadler;
     private PingParameter pingParameter;
     private PingResult pingResult;
+    public ArrayList<Integer> delayList=new ArrayList<>();
 
 
     public PingFast(Handler handler, PingParameter pingParameter) {
@@ -46,6 +49,7 @@ public class PingFast implements Runnable {
                         synchronized (pingResult) {
                             pingResult.send++;
                             pingResult.log = "!";
+                            delayList.add(Math.round(temp));
                             pingResult.receive++;
                             pingResult.percent = (float) Math.round(pingResult.receive * 10000 / pingResult.send) / 100;
                             if (pingResult.receive == 1) {
@@ -68,6 +72,7 @@ public class PingFast implements Runnable {
                     pingResult.send++;
                     pingResult.percent = (float) Math.round(pingResult.receive * 10000 / pingResult.send) / 100;
                     pingResult.log = ".";
+                    delayList.add(0);
                     updateDetailLog(pingResult);
                 }
             }

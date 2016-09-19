@@ -1,7 +1,5 @@
 package ywcai.ls.core;
 
-
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -32,7 +30,6 @@ import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
-import ywcai.ls.mobileutil.sub.NetActivity;
 import ywcai.ls.mobileutil.sub.PingAnalysisActivity;
 import ywcai.ls.task.MyThreadFactory;
 import ywcai.ls.task.PingFast;
@@ -50,7 +47,7 @@ public class Ping extends Handler {
     public ExecutorService executorService;
     private View tabView;
     private Context context;
-    private MyThreadFactory myThreadFactory ;
+    private MyThreadFactory myThreadFactory;
     private List<HashMap<String, String>> list;
     private Resources rs;
     private String[] title;
@@ -60,27 +57,33 @@ public class Ping extends Handler {
     private Spinner spn_threadSize, spn_taskCount;
     private SwitchCompat swc_sendMethod;
     private ProgressBar bar_loading;
-    private ArrayList<Integer> log=new ArrayList<>();;
+    private ArrayList<Integer> delayList = new ArrayList<>();
+    private String[] logInfo=new String[7];
     private int sendCount = 0;
     private PingFragment meFragment;
+    private PingNormal pingNormal;
+    private PingFast pingFast;
 
     public Ping(View view, PingFragment fragment) {
-        meFragment=fragment;
+        meFragment = fragment;
         InitObj(view);
         InitView();
         regEventListener();
         InitList();
     }
+
     private void InitObj(View view) {
 
-        tabView=view;
-        context = MyApplication.getInstance().getApplicationContext();;
+        tabView = view;
+        context = MyApplication.getInstance().getApplicationContext();
+        ;
         rs = context.getResources();
         title = rs.getStringArray(R.array.ping_results);
         myThreadFactory = new MyThreadFactory();
         pingParameter = new PingParameter();
         pingParameter.sendMethod = false;
     }
+
     private void InitView() {
         tv_log = (TextView) tabView.findViewById(R.id.tv_ping_log);
         tv_log.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -102,40 +105,55 @@ public class Ping extends Handler {
         tv_log.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
-
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     v.getParent().requestDisallowInterceptTouchEvent(true);
                 }
-                if(event.getAction()==MotionEvent.ACTION_MOVE){
-
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     v.getParent().requestDisallowInterceptTouchEvent(true);
                 }
-                if(event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     v.getParent().requestDisallowInterceptTouchEvent(false);
                 }
                 return false;
             }
         });
     }
-    private void AnalysisResult(ArrayList<Integer> log)
-    {
-        if(log.size()>0)
-        {
-            Intent intent=new Intent();
-            Bundle bundle=new Bundle();
-            bundle.putIntegerArrayList(MyConfig.STR_INTENT_LIST_ARGS,log);
-            intent.putExtras(bundle);
+
+    private void AnalysisResult() {
+        delayList.clear();
+        try {
+            if (!pingParameter.sendMethod) {
+                delayList.addAll(pingNormal.delayList);
+
+            } else {
+                delayList.addAll(pingFast.delayList);
+            }
+        } catch (Exception e) {
+            logInfo[6] = pingParameter.ipAddress;
+            Intent intent = new Intent();
             intent.setClass(context, PingAnalysisActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putStringArray(MyConfig.STR_INTENT_LOG_ARGS,logInfo);
+            bundle.putIntegerArrayList(MyConfig.STR_INTENT_LIST_ARGS, delayList);
+            intent.putExtras(bundle);
             meFragment.startActivity(intent);
-            tv_log.setText("数据长度:"+log.size());
+            return;
         }
-        else
-        {
-            tv_log.setText("你还没有任何日志数据！");
+        logInfo[6] = pingParameter.ipAddress;
+        if (delayList.size() > 0) {
+            Intent intent = new Intent();
+            intent.setClass(context, PingAnalysisActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putStringArray(MyConfig.STR_INTENT_LOG_ARGS,logInfo);
+            bundle.putIntegerArrayList(MyConfig.STR_INTENT_LIST_ARGS, delayList);
+            intent.putExtras(bundle);
+            meFragment.startActivity(intent);
+        } else {
+            tv_log.setText("你没有任何测试记录！");
         }
     }
-    private void InitList()
-    {
+
+    private void InitList() {
         list = new ArrayList<>();
         HashMap<String, String> hs = new HashMap();
         hs.put(title[0], "0");
@@ -150,6 +168,7 @@ public class Ping extends Handler {
                 , R.id.percent, R.id.max_delay, R.id.min_delay, R.id.average_delay});
         listViewCompat.setAdapter(simpleAdapter);
     }
+
     private void regEventListener() {
         swc_sendMethod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -195,10 +214,8 @@ public class Ping extends Handler {
         btn_saveLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                log.add(10);
-                log.add(100);
-                log.add(500);
-                AnalysisResult(log);
+
+                AnalysisResult();
             }
         });
 
@@ -211,6 +228,7 @@ public class Ping extends Handler {
             }
         });
     }
+
     private boolean checkInput() {
         pingParameter.ipAddress = tv_ipAddress.getText().toString();
         if (pingParameter.ipAddress.equals("")) {
@@ -235,10 +253,12 @@ public class Ping extends Handler {
         }
         return true;
     }
+
     private void setBtnCtrlFalse() {
         btn_ctrl.setText("正在停止");
         btn_ctrl.setEnabled(false);
     }
+
     private void changUiToRunning() {
         tv_ipAddress.setEnabled(false);
         tv_packageLenth.setEnabled(false);
@@ -250,6 +270,7 @@ public class Ping extends Handler {
         btn_clearLog.setEnabled(false);
         tv_log.setText("");
     }
+
     private void changUiToOver() {
         bar_loading.setIndeterminate(false);
         tv_ipAddress.setEnabled(true);
@@ -263,6 +284,7 @@ public class Ping extends Handler {
         btn_clearLog.setEnabled(true);
         tv_log.append("\n----PING OVER !----");
     }
+
     private void startPingNormal() {
         if (!checkInput()) {
             return;
@@ -272,7 +294,7 @@ public class Ping extends Handler {
 
         changUiToRunning();
         ScheduledExecutorService executorSingle = Executors.newSingleThreadScheduledExecutor(myThreadFactory);
-        PingNormal pingNormal = new PingNormal(this, pingParameter);
+        pingNormal = new PingNormal(this, pingParameter);
         executorSingle.execute(pingNormal);
     }
 
@@ -280,16 +302,19 @@ public class Ping extends Handler {
         if (!checkInput()) {
             return;
         }
-        sendCount=0;
+        sendCount = 0;
         pingParameter.isWorking = true;
         pingParameter.count = Integer.parseInt(spn_taskCount.getSelectedItem().toString());
         int threadPoolSize = Integer.parseInt(spn_threadSize.getSelectedItem().toString());
         changUiToRunning();
-        tv_log.setText("多线程PING模式将会尽可能的使用设备计算资源，为减轻CPU负担，将不显示单包测试信息!");
+        tv_log.setText("1、多线程PING模式将会尽可能的使用设备计算资源，为减轻CPU负担，此处不实时显示单包返回时延值\n" +
+                "2、可在扫描停止或结束后查看数据分析折线图\n" +
+                "3、若网络掉包严重，则扫描结束前会有后几秒卡顿是正常情况，请等待程序自行结束\n" +
+                "4、也可强行终止程序，但强行终止数据有可能会忽略掉小部分掉包的数据");
         bar_loading.setIndeterminate(false);
         changLoader(0);
         executorService = Executors.newFixedThreadPool(threadPoolSize, myThreadFactory);
-        PingFast pingFast = new PingFast(this, pingParameter);
+        pingFast = new PingFast(this, pingParameter);
         for (int i = 0; i < pingParameter.count; i++) {
             executorService.execute(pingFast);
         }
@@ -317,8 +342,16 @@ public class Ping extends Handler {
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
         PingResult pingResult = (PingResult) msg.obj;
+
+        logInfo[0]= "发包个数 " + pingResult.send + "";
+        logInfo[1]= "收包个数 " + pingResult.receive + "";
+        logInfo[2]= "收成功率 " + pingResult.percent + "%";
+        logInfo[3]= "最小延时 " + pingResult.min + "ms";
+        logInfo[4]= "最大延时 " + pingResult.max + "ms";
+        logInfo[5]= "平均延时 " + pingResult.average + "ms";
+
         list.clear();
-        HashMap<String,String> hs=new HashMap<String,String>();
+        HashMap<String, String> hs = new HashMap<String, String>();
         hs.put(title[0], pingResult.send + "");
         hs.put(title[1], pingResult.receive + "");
         hs.put(title[2], pingResult.percent + "%");
@@ -337,18 +370,16 @@ public class Ping extends Handler {
                 changUiToOver();
                 break;
             case 2:
-            //ping fast :send the all work message until  the work is end !
+                //ping fast :send the all work message until  the work is end !
                 sendCount++;
                 changLoader(Math.round(sendCount * 100 / pingParameter.count));
-                if (sendCount >= pingParameter.count)
-                {
+                if (sendCount >= pingParameter.count) {
                     setWorkFalse();
                     changUiToOver();
                 }
                 break;
         }
     }
-
 
 
 }

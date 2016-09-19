@@ -1,5 +1,7 @@
 package ywcai.ls.bean;
 
+import java.util.ArrayList;
+
 /**
  * Created by zmy_11 on 2016/8/16.
  */

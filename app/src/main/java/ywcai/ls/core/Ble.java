@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import ywcai.ls.adapter.BleAdapter;
 import ywcai.ls.bean.BleInfo;
@@ -40,7 +42,7 @@ import ywcai.ls.util.MyConfig;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCallback {
-    private List<BleInfo> bleList;
+    private CopyOnWriteArrayList<BleInfo> bleList;
     private View tabView;
     private ListViewCompat listViewCompat;
     private Context context;
@@ -71,7 +73,7 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
         tabView = view;
         context = MyApplication.getInstance().getApplicationContext();
         listViewCompat = (ListViewCompat) tabView.findViewById(R.id.now_ble);
-        bleList = new ArrayList<>();
+        bleList = new CopyOnWriteArrayList<>();
         bleAdapter = new BleAdapter(bleList);
         listViewCompat.setAdapter(bleAdapter);
         bleTitle = (TextView) tabView.findViewById(R.id.tv_ble_title);
@@ -140,13 +142,21 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
                 newBle.device = result.getDevice().getName();
                 newBle.dbm = result.getRssi();
                 newBle.changeFrequency = 0;
-                synchronized (bleList) {
-                    processResult(newBle);
-                }
+                processResult(newBle);
             }
         };
         scanner.startScan(leCallback);
         bleTitle.setText("Android 5.0+,仅支持蓝牙4.0协议，持续扫描中......");
+    }
+
+    @Override
+    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+        BleInfo newBle = new BleInfo();
+        newBle.mac = device.getAddress();
+        newBle.device = device.getName();
+        newBle.dbm = rssi;
+        newBle.changeFrequency = 0;
+        processResult(newBle);
     }
 
     private void ShowTip() {
@@ -175,25 +185,11 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
         }
     }
 
-    @Override
-    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-        BleInfo newBle = new BleInfo();
-        newBle.mac = device.getAddress();
-        newBle.device = device.getName();
-        newBle.dbm = rssi;
-        newBle.changeFrequency = 0;
-        synchronized (bleList) {
-            processResult(newBle);
-        }
-    }
-
     private void processResult(BleInfo newInfo) {
-
-        for (BleInfo bleInfo: bleList)
-        {
+        for (BleInfo bleInfo : bleList) {
             if (newInfo.mac.equals(bleInfo.mac)) {
-                bleInfo.dbm=newInfo.dbm;
-                bleInfo.changeFrequency =bleInfo.changeFrequency + 1;
+                bleInfo.dbm = newInfo.dbm;
+                bleInfo.changeFrequency = bleInfo.changeFrequency + 1;
                 return;
             }
         }
@@ -207,7 +203,6 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            checkCache();
             reFreshUI();
         }
     }
@@ -228,10 +223,21 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
     class BleHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            synchronized (bleList) {
+            {
+                checkCache();
+                TextView tv_noBle=(TextView)tabView.findViewById(R.id.tv_has_no);
+                if(bleList.size()==0)
+                {
+
+                    tv_noBle.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    tv_noBle.setVisibility(View.GONE);
+                }
                 bleAdapter.notifyDataSetChanged();
+                super.handleMessage(msg);
             }
-            super.handleMessage(msg);
         }
     }
 }

@@ -127,7 +127,7 @@
                 android:visibility="visible"
                 android:textColor="#00664C"
                 android:spinnerMode="dialog"
-                android:background="#dee1e2" />
+                android:background="#80cfe9" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/textView5"
                 android:layout_width="100dp"
@@ -153,7 +153,7 @@
                 android:spinnerMode="dialog"
                 android:textSize="10sp"
                 android:visibility="visible"
-                android:background="#dee1e2" />
+                android:background="#80cfe9" />
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/ping_ctrl"
                 style="@style/Base.Widget.AppCompat.Button.Colored"
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="true"
-                android:text="图表分析"
+                android:text="查看记录"
                 android:layout_alignTop="@+id/ping_clear_log"
                 android:layout_toRightOf="@+id/ping_clear_log"
                 android:layout_marginLeft="27dp" />
@@ -213,7 +213,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_ping_log"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/fast_ping_loader"
                 android:alpha="1"
                 android:background="#64d5e9"
@@ -222,7 +222,9 @@
                 android:scrollbarStyle="outsideInset"
                 android:scrollbars="vertical"
                 android:textSize="10sp"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:minHeight="200dp"
+                android:maxHeight="200dp" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
