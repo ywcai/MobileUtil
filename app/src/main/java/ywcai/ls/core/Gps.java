@@ -1,7 +1,6 @@
 package ywcai.ls.core;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +14,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.ListViewCompat;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +25,7 @@ import java.util.List;
 
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
-import ywcai.ls.ui.UpdateViewInf;
+import ywcai.ls.mobileutil.UpdateViewInf;
 
 
 /**

@@ -28,7 +28,6 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:gravity="center|right"
-            android:text="@string/menu2"
             style="@style/ToolbarTextTopTheme"
             android:paddingRight="20dp" />
     </LinearLayout>

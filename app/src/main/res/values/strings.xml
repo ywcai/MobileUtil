@@ -12,26 +12,25 @@
     <!--<string name="bot_menu2">虚拟鼠标</string>-->
     <!--<string name="bot_menu3">远程控制</string>-->
     <!--<string name="bot_menu4">个性设置</string>-->
-    <string-array name="menu1_tab_title">
-        <item>Ping</item>
-        <item>基站</item>
-        <item>WIFI</item>
-        <item>GPS</item>
-        <item>传感</item>
-    </string-array>
     <string name="menu1">检查更新</string>
     <string name="menu2">版本说明</string>
     <string name="menu3">使用帮助</string>
     <string name="menu4">关于我们</string>
-    <string name="saved_station">是否在本地保存记录</string>
-    <string name="gps_top">标题...</string>
-    <string name="saved_sensor">是否在本地保存记录</string>
-    <string name="saved_ble">是否在本地保存记录</string>
-    <string name="saved_wifi">是否在本地保存记录</string>
-    <string name="saved_ping">是否保存PING测试结果</string>
+
+    <string name="images_list_title">本地历史文件</string>
+    <string name="images_save_title">不保存！点击可直接查看历史记录</string>
+    <string name="images_save_btn">保存到本地</string>
+
+
+    <string name="gps_top">gsp_top</string>
+    <string name="saved_station">saved_station</string>
     <string name="text_null">null</string>
     <string name="tip_sensor">点击选项可实时查看传感器感应数据</string>
     <string name="tip_wifi">当前未连接WIFI!</string>
+    <string name="tip_analysis">历史记录</string>
+    <string name="tip_dbm_line">场强趋势线</string>
+
+
 
     <string-array name="ping_results">
         <item>send</item>
@@ -61,11 +60,17 @@
     <string name="about_qq">QQ ：19334473</string>
     <string name="about_email">Email ：19334473@qq.com</string>
     <string name="about_author">Author ：Jimi</string>
-    <string name="about_version">Version ：1.0.0</string>
+    <string name="about_version">Version ：1.0.5</string>
     <string name="about_date">Online Date ：2016.8</string>
 
     <string-array name="version_detail">
-            <item>
+        <item>
+            1：新增WIFI信号强度波动折线分析\n
+            2：新增WIFI信道占用比分析\n
+            3：新增本机基站信号折线分析图及数据保存选项；\n
+            4：优化PING测试图片分析结果后历史图片查看界面；
+        </item>
+        <item>
             1：重新设计了首页布局页面，优化首页各个模块链接图标；\n
             2：放弃各模块帧布局滑动切换方式，每一个功能都是一个独立的activity，功能互不影响；\n
             3：增加了指南针功能模块；\n
@@ -86,10 +91,12 @@
         </item>
     </string-array>
     <string-array name="version_num">
+        <item>1.0.5 </item>
         <item>1.0.4 </item>
         <item>1.0.0</item>
     </string-array>
     <string-array name="version_date">
+        <item>2016.10</item>
         <item>2016.9</item>
         <item>2016.8</item>
 
@@ -104,4 +111,5 @@
         <item>指南针</item>
         <!--<item>计步器</item>-->
     </string-array>
+
 </resources>

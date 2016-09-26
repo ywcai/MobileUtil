@@ -1,6 +1,5 @@
 package ywcai.ls.adapter;
 
-import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +9,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ywcai.ls.assist.MyProgress;
+import ywcai.ls.control.MyProgress;
 
 import ywcai.ls.bean.BleInfo;
-import ywcai.ls.bean.ViewTempBle;
+import ywcai.ls.assist.ViewTempBle;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 

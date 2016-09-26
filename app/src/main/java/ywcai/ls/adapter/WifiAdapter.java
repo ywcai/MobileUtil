@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 
-import ywcai.ls.assist.MyProgress;
-import ywcai.ls.bean.ViewTempWifi;
+import ywcai.ls.control.MyProgress;
+import ywcai.ls.assist.ViewTempWifi;
 import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;

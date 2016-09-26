@@ -30,11 +30,11 @@ import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
-import ywcai.ls.mobileutil.sub.PingAnalysisActivity;
-import ywcai.ls.task.MyThreadFactory;
-import ywcai.ls.task.PingFast;
-import ywcai.ls.task.PingNormal;
-import ywcai.ls.ui.child.PingFragment;
+import ywcai.ls.mobileutil.main.activity.sub.PingAnalysisActivity;
+import ywcai.ls.core.thread.MyThreadFactory;
+import ywcai.ls.core.task.PingFast;
+import ywcai.ls.core.task.PingNormal;
+import ywcai.ls.mobileutil.main.fragment.sub.PingFragment;
 import ywcai.ls.util.MyConfig;
 
 

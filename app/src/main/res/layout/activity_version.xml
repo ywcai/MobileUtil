@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ywcai.ls.assist.VersionActivity">
+    tools:context=".VersionActivity">
     <include layout="@layout/toolbar_sub"></include>
   <android.support.v7.widget.ListViewCompat
       android:layout_width="match_parent"

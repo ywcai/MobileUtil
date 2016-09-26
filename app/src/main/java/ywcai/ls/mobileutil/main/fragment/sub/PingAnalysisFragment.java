@@ -1,0 +1,33 @@
+package ywcai.ls.mobileutil.main.fragment.sub;
+
+
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import ywcai.ls.core.PingAnalysis;
+import ywcai.ls.mobileutil.R;
+import ywcai.ls.util.MyConfig;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class PingAnalysisFragment extends Fragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View tab_view = inflater.inflate(R.layout.fragment_tab_ping_analysis, container, false);
+        String[] logInfo=this.getArguments().getStringArray(MyConfig.STR_INTENT_LOG_ARGS);
+        ArrayList<Integer> logList=this.getArguments().getIntegerArrayList(MyConfig.STR_INTENT_LIST_ARGS);
+        new PingAnalysis(tab_view,logList,logInfo,this);
+        return tab_view;
+    }
+}

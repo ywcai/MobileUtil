@@ -13,18 +13,21 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.v7.widget.ListViewCompat;
 import android.view.View;
-import android.widget.TextView;
-
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import ywcai.ls.adapter.WifiAdapter;
+
+import ywcai.ls.bean.BsrLineObj;
 import ywcai.ls.bean.WifiInfo;
+import ywcai.ls.control.CurveView;
+import ywcai.ls.core.task.RefreshWifi2d4G;
+import ywcai.ls.core.task.RefreshWifi5G;
+import ywcai.ls.core.task.RefreshWifiList;
+import ywcai.ls.inf.FragmentCallBack;
 import ywcai.ls.mobileutil.MyApplication;
-import ywcai.ls.mobileutil.R;
 import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
@@ -33,30 +36,26 @@ import ywcai.ls.util.MyUtil;
  * Created by zmy_11 on 2016/8/12.
  */
 public class Wifi extends BroadcastReceiver {
-    private List<WifiInfo> list;
-    private WifiAdapter wifiAdpter;
-    private View tabView;
+    private FragmentCallBack fragmentCallBack;
     private Context context;
     private WifiManager wifiMg;
-    private TextView tv_title_wifi, tv_wifiTip;
-    private String connMac = "-1";
+    private String connMac = "-1", connIp = "-1";
     private int connSpeed = -1;
-    private String connIp = "-1";
-    private int checkScanCount=0;
-    private int selfAdd=0;
-    private int scanAutoFlag=0;
+    private int checkScanCount = 0, selfAdd = 0, scanAutoFlag = 0;
+    private List<WifiInfo> list;
+    private boolean isDbmLoaded = false, is5GLoaded = false;
+    private HashMap<String, BsrLineObj> hashMap2d4G, hashMap5G;
+    private RefreshWifiList reFreshWifiList = null;
+    private RefreshWifi2d4G reFreshWifi2d4G = null;
+    private RefreshWifi5G reFreshWifi5G = null;
 
-
-    public Wifi(View view) {
+    public Wifi(FragmentCallBack pFragmentCallBack) {
+        fragmentCallBack = pFragmentCallBack;
         context = MyApplication.getInstance().getApplicationContext();
-        tabView = view;
-        tv_title_wifi = (TextView) tabView.findViewById(R.id.tv_connNet);
-        tv_wifiTip = (TextView) tabView.findViewById(R.id.tv_wifiTip);
         wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        list = new ArrayList<WifiInfo>();
-        ListViewCompat listView = (ListViewCompat) tabView.findViewById(R.id.now_wifiInfo);
-        wifiAdpter = new WifiAdapter(list);
-        listView.setAdapter(wifiAdpter);
+        list = new ArrayList<>();
+        hashMap2d4G = new HashMap<>();
+        hashMap5G = new HashMap<>();
         context.registerReceiver(this, new IntentFilter(
                 WifiManager.WIFI_STATE_CHANGED_ACTION));
         context.registerReceiver(this, new IntentFilter(
@@ -67,11 +66,10 @@ public class Wifi extends BroadcastReceiver {
                 WifiManager.EXTRA_WIFI_STATE));
         context.registerReceiver(this, new IntentFilter(
                 WifiManager.NETWORK_STATE_CHANGED_ACTION));
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(scanAutoFlag< MyConfig.INT_CHECK_WIFI_AUTO_SCAN_COUNT) {
+                while (scanAutoFlag < MyConfig.INT_CHECK_WIFI_AUTO_SCAN_COUNT) {
                     try {
                         Thread.sleep(MyConfig.INT_WIFI_AUTO_SCAN_REFRESH);
                     } catch (InterruptedException e) {
@@ -97,8 +95,6 @@ public class Wifi extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction().toString()) {
             case WifiManager.RSSI_CHANGED_ACTION:
-
-
                 break;
             case WifiManager.SCAN_RESULTS_AVAILABLE_ACTION:
                 ListenerAllWifi();
@@ -112,7 +108,7 @@ public class Wifi extends BroadcastReceiver {
         }
     }
 
-    private boolean checkRequestLocation() {
+    private boolean checkPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
@@ -122,29 +118,25 @@ public class Wifi extends BroadcastReceiver {
                 == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
-        tv_wifiTip.setText("你没有授予应用权限");
+        fragmentCallBack.callBackSetTitle("没有wifi权限");
         return false;
     }
-
 
     private void ListenerWifiEnableStatus() {
         int state = wifiMg.getWifiState();
         if (state == WifiManager.WIFI_STATE_ENABLED) {
-            tv_title_wifi.setText("WIFI模块开启！");
+            fragmentCallBack.callBackSetTitle("WIFI模块开启！");
             ListenerAllWifi();
         }
         if (state == WifiManager.WIFI_STATE_DISABLED) {
-            tv_title_wifi.setText("WIFI模块关闭！");
-            tv_wifiTip.setText("WIFI模块已关闭！");
-            list.clear();
-            wifiAdpter.notifyDataSetChanged();
+            fragmentCallBack.callBackSetTitle("WIFI模块关闭！");
+            ClearList();
         }
         if (state == WifiManager.WIFI_STATE_ENABLING) {
-            tv_title_wifi.setText("WIFI模块正在开启......");
+            fragmentCallBack.callBackSetTitle("正在开启WIFI...");
         }
         if (state == WifiManager.WIFI_STATE_DISABLING) {
-            tv_title_wifi.setText("WIFI模块正在关闭......");
-
+            fragmentCallBack.callBackSetTitle("正在关闭WIFI...");
         }
     }
 
@@ -154,21 +146,17 @@ public class Wifi extends BroadcastReceiver {
             NetworkInfo networkInfo = (NetworkInfo) parcelableExtra;
             State state = networkInfo.getState();
             if (state == State.CONNECTED) {
-                tv_title_wifi.setText("WIFI已连接！");
+                fragmentCallBack.callBackSetTitle("WIFI已连接！");
                 ListenerWifiConn();
             }
             if (state == State.CONNECTING) {
-                tv_title_wifi.setText("正在连接WIFI......");
+                fragmentCallBack.callBackSetTitle("正在连接WIFI...");
             }
             if (state == State.DISCONNECTING) {
-                tv_title_wifi.setText("正在断开WIFI......");
+                fragmentCallBack.callBackSetTitle("正在断开WIFI...");
             }
             if (state == State.DISCONNECTED) {
-                tv_title_wifi.setText("WIFI未连接！");
-                ListenerWifiDisconnect();
-            }
-            if (state == State.SUSPENDED) {
-                tv_title_wifi.setText("WIFI状态:State.SUSPENDED");
+                fragmentCallBack.callBackSetTitle("WIFI未连接");
                 ListenerWifiDisconnect();
             }
         }
@@ -194,7 +182,7 @@ public class Wifi extends BroadcastReceiver {
         }
     }
 
-    public boolean checkGpsStatus() {
+    private boolean checkGpsStatus() {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             return true;
@@ -204,65 +192,137 @@ public class Wifi extends BroadcastReceiver {
 
     private void ListenerAllWifi() {
         list.clear();
-        if (!checkRequestLocation()) {
+        ClearList();
+        if (!checkPermission()) {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!checkGpsStatus()) {
-                wifiAdpter.notifyDataSetChanged();
-                tv_wifiTip.setText("温馨提示：您系统版本为6.0以上\n需要开启GPS后可扫描WIFI!");
+                if (reFreshWifiList != null) {
+                    reFreshWifiList.setTextTip("系统版本为6.0以上需要开启GPS才可扫描WIFI!");
+                }
                 return;
             }
         }
-        List<ScanResult> results=null;
+        List<ScanResult> results;
         try {
             results = wifiMg.getScanResults();
+        } catch (Exception e) {
+            results = null;
         }
-        catch(Exception e)
-        {
-            results=null;
-        }
-        if(results==null)
-        {
-            wifiAdpter.notifyDataSetChanged();
-            tv_wifiTip.setText("未扫描到网络");
-            return ;
+        if (results == null) {
+            if (reFreshWifiList != null) {
+                reFreshWifiList.setTextTip("没扫描到任何wifi信号");
+            }
+            return;
         }
         selfAdd++;
         int[] channelSum = new int[166];
         for (ScanResult result : results) {
-            WifiInfo wifiInfos = new WifiInfo();
-            android.net.wifi.WifiInfo wifiInfo = wifiMg.getConnectionInfo();
-            wifiInfos.sid = result.SSID;
-            wifiInfos.mac = result.BSSID;
-            wifiInfos.channel = MyUtil.ConvertFrequencyToChannel(result.frequency);
-            wifiInfos.dbm = result.level;
-            wifiInfos.device = "";
-            wifiInfos.frequency = result.frequency;
-            wifiInfos.keyType = result.capabilities;
+            WifiInfo wifiInfo = new WifiInfo();
+            wifiInfo.sid = result.SSID;
+            wifiInfo.mac = result.BSSID;
+            wifiInfo.channel = MyUtil.ConvertFrequencyToChannel(result.frequency);
+            wifiInfo.dbm = result.level;
+            wifiInfo.device = "";
+            wifiInfo.frequency = result.frequency;
+            wifiInfo.keyType = result.capabilities;
             if (connMac.toString().equals(result.BSSID.toString())) {
-                wifiInfos.isConnWifi = true;
-                wifiInfos.device = connIp;
-                wifiInfos.speed = connSpeed;
-                list.add(0, wifiInfos);
+                wifiInfo.isConnWifi = true;
+                wifiInfo.device = connIp;
+                wifiInfo.speed = connSpeed;
+                list.add(0, wifiInfo);
             } else {
-                list.add(wifiInfos);
+                list.add(wifiInfo);
             }
-            channelSum[wifiInfos.channel]++;
+            updateHashMap(wifiInfo);
+            channelSum[wifiInfo.channel]++;
         }
-        wifiAdpter.notifyDataSetChanged();
-        String s = "";
-        s += "扫描到WIFI连接: " + list.size() + " 个，信道分布情况:\n";
-        for (int i = 1; i < 14; i++) {
-            if (channelSum[i] != 0) {
-                s += "信道" + i + " [" + channelSum[i] + "]   ";
-            }
-        }
-        for (int i = 149; i < 166; i++) {
-            if (channelSum[i] != 0) {
-                s += "信道" + i + " [" + channelSum[i] + "]   ";
-            }
-        }
-        tv_wifiTip.setText(s);
+        UpdateAllUI(channelSum);
     }
+
+    private void updateHashMap(WifiInfo wifiInfo) {
+        if (reFreshWifi2d4G != null) {
+            if (wifiInfo.channel < 14 && wifiInfo.channel > 0) {
+                if (hashMap2d4G.containsKey(wifiInfo.mac)) {
+                    BsrLineObj bsrLineObj = hashMap2d4G.get(wifiInfo.mac);
+                    bsrLineObj.isNew = false;
+                    bsrLineObj.isExist = true;
+                    bsrLineObj.wifiInfo = wifiInfo;
+                } else {
+                    BsrLineObj bsrLineObj = new BsrLineObj();
+                    bsrLineObj.isNew = true;
+                    bsrLineObj.isExist = true;
+                    bsrLineObj.wifiInfo = wifiInfo;
+                    bsrLineObj.curveView = new CurveView(context);
+                    hashMap2d4G.put(wifiInfo.mac, bsrLineObj);
+                }
+            }
+        }
+        if (reFreshWifi5G != null) {
+            if (wifiInfo.channel >= 14) {
+                if (hashMap5G.containsKey(wifiInfo.mac)) {
+                    BsrLineObj bsrLineObj = hashMap5G.get(wifiInfo.mac);
+                    bsrLineObj.isNew = false;
+                    bsrLineObj.isExist = true;
+                    bsrLineObj.wifiInfo = wifiInfo;
+                } else {
+                    BsrLineObj bsrLineObj = new BsrLineObj();
+                    bsrLineObj.isNew = true;
+                    bsrLineObj.isExist = true;
+                    bsrLineObj.wifiInfo = wifiInfo;
+                    bsrLineObj.curveView = new CurveView(context);
+                    hashMap5G.put(wifiInfo.mac, bsrLineObj);
+                }
+            }
+        }
+    }
+
+    private void UpdateAllUI(int[] channelSum) {
+        if (reFreshWifiList != null) {
+            reFreshWifiList.updateList();
+            reFreshWifiList.setTextTip("扫描到" + list.size() + "个WIFI信号");
+        }
+        if (reFreshWifi2d4G != null) {
+            reFreshWifi2d4G.updateNum(channelSum);
+            reFreshWifi2d4G.updateGraphic(hashMap2d4G);
+        }
+        if (reFreshWifi5G != null) {
+            reFreshWifi5G.updateNum(channelSum);
+            hashMap5G = reFreshWifi5G.updateGraphic(hashMap5G);
+        }
+        if (isDbmLoaded) {
+//            updateDbm();
+        }
+    }
+
+    private void ClearList() {
+        if (reFreshWifiList != null) {
+            reFreshWifiList.updateList();
+        }
+    }
+
+    public void setInfoView(View pView) {
+        reFreshWifiList = new RefreshWifiList(pView, list);
+    }
+
+    public void setAnalysisView(View pView) {
+        reFreshWifi2d4G = new RefreshWifi2d4G(pView);
+    }
+
+    public void setAnalysis5GView(View pView) {
+        reFreshWifi5G = new RefreshWifi5G(pView);
+    }
+
+    public void setRecordView(View pView) {
+//        recordView = pView;
+        IniRecordModule();
+    }
+
+
+    private void IniRecordModule() {
+        isDbmLoaded = true;
+    }
+
+
 }

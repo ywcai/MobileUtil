@@ -1,41 +1,60 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tab_wifi"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ywcai.ls.ui.child.WifiFragment">
+    tools:context=".main.fragment.sub.WifiFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tv_connNet"
-        style="@style/MyTitleTextTheme"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="14sp"
-        android:lineSpacingExtra="3dp"
-        android:textColor="#b1f3b1" />
+        android:layout_height="30dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:id="@+id/wifi_top_nav">
 
-    <TextView
-        android:id="@+id/tv_wifiTip"
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/wifiNav_1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/wifi_nav_1_2" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/wifiNav_2"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/wifi_nav_2_1" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:lineSpacingExtra="3dp"
-        android:textColor="#6d6a6a"
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/wifiNav_3"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/wifi_nav_2_1" />
 
-        android:minHeight="50dp"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingRight="20dp"
-        android:background="#ace5a9" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/wifiNav_4"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/wifi_nav_3_1" />
 
-    <android.support.v7.widget.ListViewCompat
-        android:id="@+id/now_wifiInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/MyListViewTheme" />
-</LinearLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/wifiViewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

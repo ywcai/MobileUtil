@@ -10,10 +10,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 
-import ywcai.ls.assist.MyProgress;
-import ywcai.ls.bean.ViewTempPingImg;
-import ywcai.ls.bean.ViewTempWifi;
-import ywcai.ls.bean.WifiInfo;
+import ywcai.ls.assist.ViewTempPingImg;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 

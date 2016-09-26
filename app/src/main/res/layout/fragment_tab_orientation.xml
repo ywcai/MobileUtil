@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ywcai.ls.ui.child.OrientationFragment"
+    tools:context=".main.fragment.sub.OrientationFragment"
     android:id="@+id/tab_orientation"
     android:background="#ffffff"
     android:padding="30dp">

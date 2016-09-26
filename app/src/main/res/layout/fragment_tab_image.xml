@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab_img"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".main.fragment.ImagesFragment"
+    android:background="#040404">
+
+    <ImageView
+        android:id="@+id/imagePager_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/imagePager_path"
+        android:scaleType="fitCenter"
+        android:layout_margin="5dp" />
+    <TextView
+        android:id="@+id/imagePager_path"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#8d8a8a"
+        android:textSize="12sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:text="aaaaaaaaaaaaaaaaaaaaaaaa" />
+
+</RelativeLayout>

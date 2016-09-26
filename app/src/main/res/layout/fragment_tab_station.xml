@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ywcai.ls.ui.child.StationFragment"
+    tools:context=".main.fragment.sub.StationFragment"
     android:orientation="vertical"
     android:id="@+id/tab_station">
 

@@ -10,11 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
-import com.baidu.autoupdatesdk.UICheckUpdateCallback;
-import ywcai.ls.assist.AboutActivity;
-import ywcai.ls.assist.VersionActivity;
-import ywcai.ls.ui.NetMenuFragment;
+//import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
+//import com.baidu.autoupdatesdk.UICheckUpdateCallback;
+
+import ywcai.ls.mobileutil.main.fragment.NetMenuFragment;
 
 public class HomeActivity extends AppCompatActivity {
     private ProgressDialog dialog;
@@ -28,18 +27,18 @@ public class HomeActivity extends AppCompatActivity {
     private void InitView() {
         dialog = new ProgressDialog(this);
         dialog.setIndeterminate(true);
-        dialog.setTitle("检查更新");
+        dialog.setTitle(R.string.menu1);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.mipmap.nav);
-        BDAutoUpdateSDK.asUpdateAction(this, new MyUICheckUpdateCallback());
+//        BDAutoUpdateSDK.asUpdateAction(this, new MyUICheckUpdateCallback());
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu1:
-                        dialog.show();
-                        BDAutoUpdateSDK.asUpdateAction(HomeActivity.this, new MyUICheckUpdateCallback());
+//                        dialog.show();
+//                        BDAutoUpdateSDK.asUpdateAction(HomeActivity.this, new MyUICheckUpdateCallback());
                         break;
                     case R.id.menu2:
                         showVersionInfo();
@@ -88,10 +87,10 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
-    private class MyUICheckUpdateCallback implements UICheckUpdateCallback {
-        @Override
-        public void onCheckComplete() {
-            dialog.dismiss();
-        }
-    }
+//    private class MyUICheckUpdateCallback implements UICheckUpdateCallback {
+//        @Override
+//        public void onCheckComplete() {
+//            dialog.dismiss();
+//        }
+//    }
 }

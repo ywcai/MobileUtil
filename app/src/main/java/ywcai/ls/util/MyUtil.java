@@ -3,9 +3,13 @@ package ywcai.ls.util;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -95,27 +99,24 @@ public class MyUtil {
     }
 
     public static String getDetailTime() {
-        return  getNowDate()+" "+getNowTime();
+        return getNowDate() + " " + getNowTime();
     }
 
-    public static String saveLogImGg(Bitmap bitmap,String filePath, String logImgName)
-    {
-        String tip="";
-        if(!isHaveSD())
-        {
-            tip="手机不支持外部存储";
+    public static String saveLogImGg(Bitmap bitmap, String filePath, String logImgName) {
+        String tip = "";
+        if (!isHaveSD()) {
+            tip = "手机不支持外部存储";
             return tip;
         }
         try {
             File fileDir = new File(filePath);
-            if(!fileDir.exists()) {
+            if (!fileDir.exists()) {
                 fileDir.mkdir();
             }
-            File f = new File(fileDir,logImgName);
+            File f = new File(fileDir, logImgName);
             f.createNewFile();
-            if(!f.exists()) {
-                tip="创建文件失败!";
-
+            if (!f.exists()) {
+                tip = "创建文件失败!";
                 return tip;
             }
             FileOutputStream out = new FileOutputStream(f);
@@ -123,13 +124,13 @@ public class MyUtil {
             out.flush();
             out.close();
         } catch (Exception e) {
-            tip="保存数据发生错误,\n错误信息:"+e.toString();
-            return  tip;
+            tip = "保存数据发生错误,\n错误信息:" + e.toString();
+            return tip;
         }
         return "success";
     }
 
-    public static boolean isHaveSD(){
+    public static boolean isHaveSD() {
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             return true;
@@ -137,9 +138,36 @@ public class MyUtil {
             return false;
         }
     }
-    public static String getImgDirPath()
-    {
-        return  Environment.getExternalStorageDirectory().toString()+File.separator+"MobileUtil";
+
+    public static String getImgDirPath(String subFilePath) {
+        return Environment.getExternalStorageDirectory().toString() + File.separator + MyConfig.STR_INTENT_LOG_PATH + File.separator + subFilePath;
+    }
+
+    public static List<File> getImgList(String subFilePath) {
+
+        List<File> imgList = new ArrayList<>();
+        FileFilter fileFilter = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                if (pathname.getName().lastIndexOf("jpg") != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+        File[] images = new File(MyUtil.getImgDirPath(subFilePath)).listFiles(fileFilter);
+        try {
+            if (images.length <= 0) {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        for (File img : images) {
+            imgList.add(img);
+        }
+        return imgList;
     }
 
 }

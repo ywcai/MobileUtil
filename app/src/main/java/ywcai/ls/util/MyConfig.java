@@ -12,5 +12,10 @@ public class MyConfig {
     public static final String STR_INTENT_ARGS="WORK_TYPE";
     public static final String STR_INTENT_LIST_ARGS="ARGS_LIST";
     public static final String STR_INTENT_LOG_ARGS="ARGS_LOG";
+    public static final String STR_INTENT_LOG_PATH="MobileUtil";
+    public static final String STR_INTENT_LOG_PATH_PING="PingLog";
+    public static final String STR_INTENT_IMAGES_INDEX="ImageIndex";
+    public static final String STR_INTENT_IMAGES_PATH="ImagePath";
+
 
 }

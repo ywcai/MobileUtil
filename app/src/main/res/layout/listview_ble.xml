@@ -27,7 +27,7 @@
             android:textSize="12sp"
             android:layout_weight="1" />
 
-        <ywcai.ls.assist.MyProgress
+        <ywcai.ls.control.MyProgress
             android:layout_width="match_parent"
             android:layout_height="15dp"
             android:id="@+id/pb_ble_Dbm"

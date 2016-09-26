@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ywcai.ls.bean.SensorInfo;
-import ywcai.ls.bean.ViewTempSensor;
+import ywcai.ls.assist.ViewTempSensor;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 
