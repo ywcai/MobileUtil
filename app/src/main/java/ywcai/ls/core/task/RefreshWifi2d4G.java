@@ -30,8 +30,8 @@ public class RefreshWifi2d4G {
     private RelativeLayout relativeLayout;
     private DrawImgChanel draw2d4G;
     private ImageView img2d4G;
-    private int[] lineColor={0xFFFD0303,0xff418f49,0xff28c2ab,0xff2663cc,0xff895739,0xff10412c,0xffe917db,0xff2aa59f,0xffeb9bbd,
-                                0xffb6b850,0xff8f7381,0xff3fa243,0xff24dc21,0xffd024c2};
+    private int[] lineColor={0xFFFD0303,0xff7b9dd4,0xff28c2ab,0xff2663cc,0xff895739,0xff10412c,0xff2ed62b,0xff2aa59f,0xffeb9bbd,
+                                0xffb6b850,0xff8f7381,0xffb84575,0xff24dc21,0xffd024c2};
     public RefreshWifi2d4G(View pView)
     {
         tabView=pView;
@@ -58,7 +58,7 @@ public class RefreshWifi2d4G {
         chanel_13 = (TextView) tabView.findViewById(R.id.chanel_num_13);
         tv_2d4G=(TextView) tabView.findViewById(R.id.tv_2d4g);
     }
-    public  HashMap<String, BsrLineObj> updateGraphic(HashMap<String,BsrLineObj> hashMap)
+    public void  updateGraphic(HashMap<String,BsrLineObj> hashMap)
     {
         Iterator iterator = hashMap.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -68,12 +68,11 @@ public class RefreshWifi2d4G {
                 draw2d4GLine(bsrLineObj);
             }
             else {
-                //容器先除View
                 iterator.remove();
                 removeLine(bsrLineObj);
             }
         }
-        return hashMap;
+        tv_2d4G.setText("2.4G 扫描到信号"+hashMap.size()+"个");
     }
 
     private void removeLine(BsrLineObj bsrLineObj) {
@@ -102,12 +101,19 @@ public class RefreshWifi2d4G {
     private void draw2d4GLine(BsrLineObj bsrLineObj)
     {
         CurveView cv = bsrLineObj.curveView;
-        cv.setBoldColor(lineColor[bsrLineObj.wifiInfo.channel]);
-        cv.setFontColor(lineColor[bsrLineObj.wifiInfo.channel]);
         if(bsrLineObj.wifiInfo.isConnWifi)
         {
             cv.setBoldColor(lineColor[0]);
             cv.setFontColor(lineColor[0]);
+            cv.setBoldWidth(5);
+            cv.setViewName("已连接"+bsrLineObj.wifiInfo.sid);
+        }
+        else
+        {
+            cv.setBoldColor(lineColor[bsrLineObj.wifiInfo.channel]);
+            cv.setFontColor(lineColor[bsrLineObj.wifiInfo.channel]);
+            cv.setBoldWidth(3);
+            cv.setViewName(bsrLineObj.wifiInfo.sid);
         }
         RelativeLayout.LayoutParams cvLayout;
         if (bsrLineObj.wifiInfo.dbm > -50) {
@@ -120,7 +126,6 @@ public class RefreshWifi2d4G {
         int h_all=tabView.findViewById(R.id.img_2d4G).getMeasuredHeight();
         int h_2d4G = (bsrLineObj.wifiInfo.dbm + 110) * h_all / 60;
         int w_2D4G = step_2d4G * 4;
-        cv.setViewName(bsrLineObj.wifiInfo.sid);
         cvLayout = new RelativeLayout.LayoutParams(w_2D4G, h_2d4G);
         cvLayout.addRule(RelativeLayout.ABOVE, R.id.img_line_2d4G);
         cvLayout.addRule(RelativeLayout.RIGHT_OF, R.id.left_line);

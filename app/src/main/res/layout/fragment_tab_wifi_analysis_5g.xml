@@ -9,7 +9,7 @@
         <RelativeLayout
             android:id="@+id/wifi_analysis_bg_5g"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:alpha="0.8"
             android:paddingLeft="5dp"
             android:paddingTop="10dp"
@@ -262,16 +262,15 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tv_5G"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="false"
                 android:layout_alignParentRight="false"
-                android:text="5.0G"
+                android:text="5G"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#f60707"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="14sp"
                 android:layout_marginLeft="10dp" />
         </RelativeLayout>
 </LinearLayout>

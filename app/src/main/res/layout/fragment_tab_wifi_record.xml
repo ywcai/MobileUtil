@@ -6,12 +6,97 @@
     android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="500dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="333333"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#e11717" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_dbm"
+        android:clipChildren="false"
+        android:layout_gravity="left">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/record_bg"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/record_img_2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/record_img"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="历史记录"
+            android:id="@+id/tv_show_record"
+            android:textColor="#384bae"
+            android:textSize="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@+id/tv_setChanel"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="设置"
+            android:id="@+id/tv_setChanel"
+            android:textColor="#777678"
+            android:textSize="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/tv_save_record"
+            android:layout_toStartOf="@+id/tv_save_record"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:layout_alignParentRight="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="保存"
+            android:id="@+id/tv_save_record"
+            android:textColor="#60b93e"
+            android:textSize="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="30dp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+
 </LinearLayout>

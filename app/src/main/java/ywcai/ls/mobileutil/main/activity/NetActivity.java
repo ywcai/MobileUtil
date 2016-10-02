@@ -21,6 +21,7 @@ import ywcai.ls.inf.FragmentCallBack;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.main.fragment.sub.BleFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.GpsFragment;
+import ywcai.ls.mobileutil.main.fragment.sub.GpsTestFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.OrientationFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.PingFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.SensorFragment;
@@ -104,9 +105,9 @@ public class NetActivity extends AppCompatActivity implements FragmentCallBack {
                 transaction.commit();
                 break;
             case 7:
-//              StepFragment stepFragment= new StepFragment();
-//              transaction.replace(R.id.net_main_container,stepFragment);
-//              transaction.commit();
+              GpsTestFragment gpsTestFragment= new GpsTestFragment();
+              transaction.replace(R.id.net_main_container,gpsTestFragment);
+              transaction.commit();
                 break;
             case 8:
                 ;

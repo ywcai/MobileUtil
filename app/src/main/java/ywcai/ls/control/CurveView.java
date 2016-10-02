@@ -15,6 +15,8 @@ import android.view.View;
  * Created by zmy_11 on 2016/8/24.
  */
 public class CurveView extends View {
+
+
     private int boldWidth=3;
     private int boldColor=0xFFD1CFCF;
     private int fontColor=Color.GREEN;
@@ -71,27 +73,25 @@ public class CurveView extends View {
         }
     }
 
-    public int getBoldColor() {
-        return boldColor;
+
+    public void setBoldWidth(int boldWidth) {
+        this.boldWidth = boldWidth;
+        this.invalidate();
     }
+
 
     public void setBoldColor(int boldColor) {
         this.boldColor = boldColor;
         this.invalidate();
     }
 
-    public int getFontColor() {
-        return fontColor;
-    }
+
 
     public void setFontColor(int fontColor) {
         this.fontColor = fontColor;
         this.invalidate();
     }
 
-    public String getViewName() {
-        return viewName;
-    }
 
     public void setViewName(String viewName) {
         this.viewName = viewName;

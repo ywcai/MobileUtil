@@ -21,7 +21,6 @@
             android:layout_height="20dp"
             android:id="@+id/wifiNav_1"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
             android:src="@drawable/wifi_nav_1_2" />
         <ImageView
             android:layout_width="20dp"
@@ -37,7 +36,6 @@
             android:id="@+id/wifiNav_3"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:src="@drawable/wifi_nav_2_1" />
 
         <ImageView
@@ -45,9 +43,9 @@
             android:layout_height="20dp"
             android:id="@+id/wifiNav_4"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/wifi_nav_3_1" />
+            android:src="@drawable/wifi_nav_3_1"
+            android:layout_marginLeft="5dp" />
 
     </LinearLayout>
 

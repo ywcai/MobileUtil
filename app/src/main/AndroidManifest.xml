@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -34,18 +36,18 @@
         <activity
             android:name="com.baidu.mobads.AppActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".SplashActivity">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" android:screenOrientation="portrait"/>
+        <activity android:name=".SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VersionActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".main.activity.NetActivity"></activity>
-        <activity android:name=".main.activity.sub.PingAnalysisActivity"></activity>
-        <activity android:name=".main.activity.ImageActivity"></activity>
+        <activity android:name=".VersionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AboutActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".HomeActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".main.activity.NetActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".main.activity.sub.PingAnalysisActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".main.activity.ImageActivity" android:screenOrientation="portrait"></activity>
     </application>
 </manifest>

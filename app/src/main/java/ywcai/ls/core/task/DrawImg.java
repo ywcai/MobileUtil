@@ -112,7 +112,6 @@ public class DrawImg {
         canvas.drawText(logInfo[4], bmpWidth * 2 / 3, 5 * fontSize, p);
         canvas.drawText(logInfo[5], bmpWidth * 2 / 3, 7 * fontSize, p);
         canvas.drawText(logInfo[6], fontLeft, 7 * fontSize, p);
-
     }
 
 

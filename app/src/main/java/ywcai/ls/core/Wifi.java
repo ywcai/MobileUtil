@@ -14,6 +14,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.control.CurveView;
 import ywcai.ls.core.task.RefreshWifi2d4G;
 import ywcai.ls.core.task.RefreshWifi5G;
+import ywcai.ls.core.task.RefreshWifiDbm;
 import ywcai.ls.core.task.RefreshWifiList;
 import ywcai.ls.inf.FragmentCallBack;
 import ywcai.ls.mobileutil.MyApplication;
@@ -43,11 +45,11 @@ public class Wifi extends BroadcastReceiver {
     private int connSpeed = -1;
     private int checkScanCount = 0, selfAdd = 0, scanAutoFlag = 0;
     private List<WifiInfo> list;
-    private boolean isDbmLoaded = false, is5GLoaded = false;
     private HashMap<String, BsrLineObj> hashMap2d4G, hashMap5G;
     private RefreshWifiList reFreshWifiList = null;
     private RefreshWifi2d4G reFreshWifi2d4G = null;
     private RefreshWifi5G reFreshWifi5G = null;
+    private RefreshWifiDbm refreshWifiDbm = null;
 
     public Wifi(FragmentCallBack pFragmentCallBack) {
         fragmentCallBack = pFragmentCallBack;
@@ -289,10 +291,12 @@ public class Wifi extends BroadcastReceiver {
         }
         if (reFreshWifi5G != null) {
             reFreshWifi5G.updateNum(channelSum);
-            hashMap5G = reFreshWifi5G.updateGraphic(hashMap5G);
+            reFreshWifi5G.updateGraphic(hashMap5G);
         }
-        if (isDbmLoaded) {
-//            updateDbm();
+        if (refreshWifiDbm != null) {
+            if (list.size() > 0) {
+                refreshWifiDbm.updateDbmLine(list);
+            }
         }
     }
 
@@ -315,14 +319,6 @@ public class Wifi extends BroadcastReceiver {
     }
 
     public void setRecordView(View pView) {
-//        recordView = pView;
-        IniRecordModule();
+        refreshWifiDbm = new RefreshWifiDbm(pView);
     }
-
-
-    private void IniRecordModule() {
-        isDbmLoaded = true;
-    }
-
-
 }
