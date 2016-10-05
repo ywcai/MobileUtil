@@ -33,7 +33,7 @@ public class WifiDbmRecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View tab_view = inflater.inflate(R.layout.fragment_tab_wifi_record, container, false);
-        wifi.setRecordView(tab_view);
+        wifi.setRecordView(tab_view,this);
         return tab_view ;
     }
 }

@@ -9,12 +9,11 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import ywcai.ls.bean.BsrLineObj;
-import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.control.CurveView;
+import ywcai.ls.core.draw.DrawImgChanel;
 import ywcai.ls.mobileutil.R;
 
 /**

@@ -66,10 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="设置"
+            android:text="设置信道"
             android:id="@+id/tv_setChanel"
             android:textColor="#777678"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/tv_save_record"
             android:layout_toStartOf="@+id/tv_save_record"
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="保存"
+            android:text="保存位图"
             android:id="@+id/tv_save_record"
             android:textColor="#60b93e"
             android:textSize="16dp"
@@ -95,6 +95,356 @@
             android:layout_marginRight="30dp"
             android:textStyle="bold"
             android:visibility="visible" />
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:background="#f6f4f4"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="30dp"
+            android:id="@+id/rl_chanel_box"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 001"
+                android:id="@+id/radioButton"
+                android:checked="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 002"
+                android:id="@+id/radioButton2"
+                android:checked="false"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/radioButton"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@+id/radioButton3"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 003"
+                android:id="@+id/radioButton3"
+                android:checked="false"
+                android:layout_alignParentTop="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 004"
+                android:id="@+id/radioButton4"
+                android:checked="false"
+                android:layout_toRightOf="@+id/radioButton3"
+                android:layout_alignParentTop="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_toLeftOf="@+id/radioButton5"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 005"
+                android:id="@+id/radioButton5"
+                android:checked="false"
+                android:layout_alignParentLeft="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 006"
+                android:id="@+id/radioButton6"
+                android:checked="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/radioButton"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 007"
+                android:id="@+id/radioButton7"
+                android:checked="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/radioButton6"
+                android:layout_toRightOf="@+id/radioButton6"
+                android:layout_toLeftOf="@+id/radioButton8"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 008"
+                android:id="@+id/radioButton8"
+                android:checked="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@+id/radioButton6"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 009"
+                android:id="@+id/radioButton9"
+                android:checked="false"
+                android:layout_alignParentLeft="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/radioButton6"
+                android:layout_toRightOf="@+id/radioButton8"
+                android:layout_toLeftOf="@+id/radioButton10"
+                android:gravity="center_vertical|center"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 010"
+                android:id="@+id/radioButton10"
+                android:checked="false"
+                android:layout_alignParentLeft="false"
+                android:layout_alignTop="@+id/radioButton6"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 011"
+                android:id="@+id/radioButton11"
+                android:checked="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/radioButton6"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 012"
+                android:id="@+id/radioButton12"
+                android:checked="false"
+                android:layout_alignLeft="@+id/radioButton7"
+                android:layout_alignTop="@+id/radioButton11"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_alignRight="@+id/radioButton7"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 013"
+                android:id="@+id/radioButton13"
+                android:checked="false"
+                android:textSize="12sp"
+                android:layout_below="@+id/radioButton9"
+                android:layout_alignParentLeft="false"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 149"
+                android:id="@+id/radioButton149"
+                android:checked="false"
+                android:textSize="12sp"
+                android:layout_alignParentLeft="true"
+                android:textStyle="bold"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/radioButton11"
+                android:layout_marginTop="10dp"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 153"
+                android:id="@+id/radioButton153"
+                android:checked="false"
+                android:textSize="12sp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignTop="@+id/radioButton149"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/radioButton149"
+                android:layout_toLeftOf="@+id/radioButton157"
+                android:gravity="center_vertical|center"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 157"
+                android:id="@+id/radioButton157"
+                android:checked="false"
+                android:textSize="12sp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignTop="@+id/radioButton149"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 161"
+                android:id="@+id/radioButton161"
+                android:checked="false"
+                android:textSize="12sp"
+                android:layout_alignParentLeft="false"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/radioButton149"
+                android:layout_toRightOf="@+id/radioButton157"
+                android:layout_toLeftOf="@+id/radioButton165"
+                android:gravity="center_vertical|center"
+                android:textColor="#777474" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="chanel 165"
+                android:id="@+id/radioButton165"
+                android:checked="false"
+                android:textSize="12sp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignTop="@+id/radioButton149"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:textColor="#777474" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="确认"
+                android:id="@+id/textView_ack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#3bcc53"
+                android:layout_marginTop="8dp"
+                android:layout_alignRight="@+id/radioButton161"
+                android:layout_below="@+id/radioButton161"
+                android:layout_alignLeft="@+id/radioButton161"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="取消"
+                android:id="@+id/textView_cancal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#b4b8b5"
+                android:layout_alignTop="@+id/textView_ack"
+                android:layout_alignParentRight="false"
+                android:layout_marginLeft="20dp"
+                android:layout_alignRight="@+id/radioButton165"
+                android:gravity="center_horizontal"
+                android:layout_alignLeft="@+id/radioButton165" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dbm_log_rl"
+            android:background="#f4f2f2"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/tv_save_record"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="20dp">
+
+            <android.support.v7.widget.ListViewCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dbm_record_list"
+                style="@style/MyListViewTheme"
+                android:layout_below="@+id/tv_out" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="暂无历史数据"
+                android:id="@+id/tv_has_no_log"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="false"
+                android:textColor="#f10909"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentLeft="false"
+                android:layout_marginLeft="20dp"
+                android:textSize="10sp"
+                android:layout_below="@+id/tv_out" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="退出列表"
+                android:id="@+id/tv_out"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="false"
+                android:textColor="#686666"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:textSize="14sp" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -20,7 +20,7 @@ import ywcai.ls.bean.SensorInfo;
 
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
-import ywcai.ls.mobileutil.UpdateViewInf;
+import ywcai.ls.inf.UpdateViewInf;
 
 
 /**

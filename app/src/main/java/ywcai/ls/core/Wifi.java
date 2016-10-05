@@ -30,6 +30,8 @@ import ywcai.ls.core.task.RefreshWifiDbm;
 import ywcai.ls.core.task.RefreshWifiList;
 import ywcai.ls.inf.FragmentCallBack;
 import ywcai.ls.mobileutil.MyApplication;
+import ywcai.ls.mobileutil.main.fragment.sub.WifiDbmRecordFragment;
+import ywcai.ls.mobileutil.main.fragment.sub.WifiFragment;
 import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
@@ -51,7 +53,7 @@ public class Wifi extends BroadcastReceiver {
     private RefreshWifi5G reFreshWifi5G = null;
     private RefreshWifiDbm refreshWifiDbm = null;
 
-    public Wifi(FragmentCallBack pFragmentCallBack) {
+    public Wifi(FragmentCallBack pFragmentCallBack ) {
         fragmentCallBack = pFragmentCallBack;
         context = MyApplication.getInstance().getApplicationContext();
         wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -318,7 +320,7 @@ public class Wifi extends BroadcastReceiver {
         reFreshWifi5G = new RefreshWifi5G(pView);
     }
 
-    public void setRecordView(View pView) {
-        refreshWifiDbm = new RefreshWifiDbm(pView);
+    public void setRecordView(View pView,WifiDbmRecordFragment pWifiFragment) {
+        refreshWifiDbm = new RefreshWifiDbm(pView,pWifiFragment);
     }
 }

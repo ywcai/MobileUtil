@@ -15,7 +15,6 @@ import ywcai.ls.mobileutil.main.fragment.ImagesFragment;
  */
 public class ShowImageAdapter extends FragmentStatePagerAdapter {
     private List<File> list;
-    private FragmentCallBack fragmentCallBack;
 
     public ShowImageAdapter(FragmentManager fm, List<File> fileList) {
         super(fm);

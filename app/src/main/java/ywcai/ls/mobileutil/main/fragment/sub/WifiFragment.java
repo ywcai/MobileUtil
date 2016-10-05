@@ -2,7 +2,6 @@ package ywcai.ls.mobileutil.main.fragment.sub;
 
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

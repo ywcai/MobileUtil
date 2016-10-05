@@ -57,17 +57,18 @@
         <item>2000</item>
     </string-array>
 
-    <string name="about_qq">QQ ：19334473</string>
-    <string name="about_email">Email ：19334473@qq.com</string>
+    <string name="about_qq">App Name ：MobileUtil</string>
+    <string name="about_email">Type ：NetWork Analysis</string>
     <string name="about_author">Author ：Jimi</string>
     <string name="about_version">Version ：1.0.5</string>
-    <string name="about_date">Online Date ：2016.8</string>
+    <string name="about_date">Online Date ：2016.10</string>
 
     <string-array name="version_detail">
         <item>
-            1：新增WIFI信号强度波动折线分析\n
-            2：新增WIFI信道占用比分析\n
-            3：优化PING测试图片分析结果后历史图片查看界面；
+            1：新增WIFI信号强度波动历史折线动态图\n
+            2：新增WIFI信道占用比分析,可查看2.4G和5G所有国内支持信道\n
+            3：新增WIFI信号强度波动历史折线图本地存储功能\n
+            4：优化PING测试后，本地历史图片查看界面
         </item>
         <item>
             1：重新设计了首页布局页面，优化首页各个模块链接图标；\n

@@ -1,9 +1,7 @@
 package ywcai.ls.core.task;
 
-import android.support.v7.widget.ListViewCompat;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -11,13 +9,11 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-import ywcai.ls.adapter.WifiAdapter;
 import ywcai.ls.bean.BsrLineObj;
-import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.control.CurveView;
+import ywcai.ls.core.draw.DrawImgChanel;
 import ywcai.ls.mobileutil.R;
 
 /**

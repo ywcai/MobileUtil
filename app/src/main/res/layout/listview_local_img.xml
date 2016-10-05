@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_item_local_img"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="30dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="@dimen/list_height"
+        android:layout_height="30dp"
         android:ellipsize="marquee"
         android:gravity="center_vertical"
         android:singleLine="true"
@@ -20,7 +20,7 @@
 
     <TextView
         android:layout_width="80dp"
-        android:layout_height="@dimen/list_height"
+        android:layout_height="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="删除"
         android:id="@+id/btn_del"

@@ -12,21 +12,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.support.v7.widget.ListViewCompat;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import ywcai.ls.mobileutil.MyApplication;
-import ywcai.ls.mobileutil.R;
-import ywcai.ls.mobileutil.UpdateViewInf;
 
 
 /**

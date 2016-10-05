@@ -1,4 +1,4 @@
-package ywcai.ls.core.task;
+package ywcai.ls.core.draw;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -43,11 +43,11 @@ public class DrawImgDbm {
     private CallBackClearBg callBack;
     private String makeTime;
 
-    public DrawImgDbm(int w, int h,CallBackClearBg pCallBack) {
+    public DrawImgDbm(int w, int h,CallBackClearBg pCallBack,int chanel) {
         bmpWidth = w;
         bmpHeight = h;
         callBack=pCallBack;
-        init(bmpWidth,bmpHeight);
+        init(bmpWidth,bmpHeight,chanel);
     }
 
     public void DrawBaseLine() {
@@ -102,11 +102,12 @@ public class DrawImgDbm {
 
     public Bitmap getRecordImg(HashMap tempHash, HashMap nowDbmHash) {
         int bsrWidth = 3;
+        p.setAntiAlias(false);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(bsrWidth);
         Bitmap record = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
         int xStep = bmpWidth / MyConfig.INT_WIFI_RECORD_X_MAX;
         Canvas canTemp = new Canvas(record);
-        canTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
-                | Paint.FILTER_BITMAP_FLAG));
         Matrix m = new Matrix();
         m.setTranslate(xStep, 0);
         canTemp.drawBitmap(temp, m, null);
@@ -142,14 +143,12 @@ public class DrawImgDbm {
             float yStart = baseTop - nowDbm * lineSpace / 10 - 5 * lineSpace;
             float xEnd = xStep;
             float yEnd = baseTop - lastDbm * lineSpace / 10 - 5 * lineSpace;
-            p.setAntiAlias(true);
-            p.setStyle(Paint.Style.STROKE);
-            p.setStrokeWidth(bsrWidth);
             if(lastDbm!=-500) {
                 if(!hashColor.containsKey(key))
                 {
                     if(colorNum>=dbmColor.length)
                     {
+                        saveLog();
                         reset();
                         return Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
                     }
@@ -197,7 +196,7 @@ public class DrawImgDbm {
         c.drawBitmap(bg,0,0,null);
         c.drawBitmap(temp,0,0,null);
         String fileName= MyUtil.getDetailTime();
-        String fileDirPath = MyUtil.getImgDirPath(MyConfig.STR_INTENT_LOG_PATH_PING);
+        String fileDirPath = MyUtil.getImgDirPath(MyConfig.STR_INTENT_LOG_PATH_DBM);
         if (!(MyUtil.saveLogImGg(dbmLog, fileDirPath, fileName+".jpg")).equals("success")) {
             Toast.makeText(MyApplication.getInstance().getApplicationContext(), "日志保存失败!", Toast.LENGTH_LONG).show();
         }
@@ -207,7 +206,7 @@ public class DrawImgDbm {
         }
     }
 
-    public void init(int w, int h)
+    public void init(int w, int h,int chanel)
     {
         bg = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
@@ -223,11 +222,10 @@ public class DrawImgDbm {
         canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
                 | Paint.FILTER_BITMAP_FLAG));
         DrawBaseLine();
-        drawLogo(11);
+        drawLogo(chanel);
     }
     public void reset()
     {
-        saveLog();
         temp = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
         hashColor=new HashMap<>();
         colorNum=0;

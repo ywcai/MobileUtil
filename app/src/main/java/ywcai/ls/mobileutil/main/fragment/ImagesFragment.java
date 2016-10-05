@@ -39,7 +39,7 @@ public class ImagesFragment extends Fragment {
         imgName=(TextView)view.findViewById(R.id.imagePager_path);
         Bitmap bmp = BitmapFactory.decodeFile(String.valueOf(showFile),null);
         img.setImageBitmap(bmp);
-        imgName.setText(showFile.getPath()+File.separator+showFile.getName());
+        imgName.setText(showFile.getPath());
         return view;
     }
     public static ImagesFragment newInstance(File img) {
