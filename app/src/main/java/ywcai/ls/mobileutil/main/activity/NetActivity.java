@@ -17,7 +17,7 @@ import com.baidu.mobads.AdViewListener;
 
 import org.json.JSONObject;
 
-import ywcai.ls.inf.FragmentCallBack;
+import ywcai.ls.inf.CallBackMainTitle;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.main.fragment.sub.BleFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.GpsFragment;
@@ -30,7 +30,7 @@ import ywcai.ls.mobileutil.main.fragment.sub.WifiFragment;
 import ywcai.ls.util.MyConfig;
 
 
-public class NetActivity extends AppCompatActivity implements FragmentCallBack {
+public class NetActivity extends AppCompatActivity implements CallBackMainTitle {
     private final String MSSP_BANER_AD="2875764";
     private ProgressDialog dialog;
     @Override

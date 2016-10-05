@@ -7,20 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import ywcai.ls.core.Wifi;
-import ywcai.ls.inf.FragmentCallBack;
+import ywcai.ls.core.task.RefreshWifiList;
 import ywcai.ls.mobileutil.R;
 
 /**
  * Created by zmy_11 on 2016/9/22.
  */
 @SuppressLint("ValidFragment")
-public class WifiAllInfoFragment extends Fragment {
-    private Wifi wifi;
-    public WifiAllInfoFragment(Wifi pWifi) {
-        wifi=pWifi;
-    }
-    public WifiAllInfoFragment() {
+public class WifiInfoListFragment extends Fragment {
+    public RefreshWifiList refreshWifiList=null;
+    public WifiInfoListFragment() {
 
     }
     @Override
@@ -33,7 +32,11 @@ public class WifiAllInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View tab_view = inflater.inflate(R.layout.fragment_tab_wifi_all_info, container, false);
-        wifi.setInfoView(tab_view);
+        refreshWifiList=new RefreshWifiList(tab_view);
         return tab_view;
     }
+
+
+
+
 }

@@ -14,7 +14,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Parcelable;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,10 +27,10 @@ import ywcai.ls.core.task.RefreshWifi2d4G;
 import ywcai.ls.core.task.RefreshWifi5G;
 import ywcai.ls.core.task.RefreshWifiDbm;
 import ywcai.ls.core.task.RefreshWifiList;
-import ywcai.ls.inf.FragmentCallBack;
+import ywcai.ls.inf.CallBackMainTitle;
+import ywcai.ls.inf.WifiRefreshInf;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.main.fragment.sub.WifiDbmRecordFragment;
-import ywcai.ls.mobileutil.main.fragment.sub.WifiFragment;
 import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
@@ -40,21 +39,19 @@ import ywcai.ls.util.MyUtil;
  * Created by zmy_11 on 2016/8/12.
  */
 public class Wifi extends BroadcastReceiver {
-    private FragmentCallBack fragmentCallBack;
+    private CallBackMainTitle fragmentCallBack;
     private Context context;
     private WifiManager wifiMg;
     private String connMac = "-1", connIp = "-1";
     private int connSpeed = -1;
     private int checkScanCount = 0, selfAdd = 0, scanAutoFlag = 0;
-    private List<WifiInfo> list;
-    private HashMap<String, BsrLineObj> hashMap2d4G, hashMap5G;
-    private RefreshWifiList reFreshWifiList = null;
-    private RefreshWifi2d4G reFreshWifi2d4G = null;
-    private RefreshWifi5G reFreshWifi5G = null;
-    private RefreshWifiDbm refreshWifiDbm = null;
+    private List<WifiInfo> list=null;
+    private HashMap<String, BsrLineObj> hashMap2d4G=null, hashMap5G=null;
+    private WifiRefreshInf wifiRefreshInf;
 
-    public Wifi(FragmentCallBack pFragmentCallBack ) {
+    public Wifi(CallBackMainTitle pFragmentCallBack, WifiRefreshInf pWifiRefreshInf) {
         fragmentCallBack = pFragmentCallBack;
+        wifiRefreshInf = pWifiRefreshInf;
         context = MyApplication.getInstance().getApplicationContext();
         wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         list = new ArrayList<>();
@@ -202,9 +199,7 @@ public class Wifi extends BroadcastReceiver {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!checkGpsStatus()) {
-                if (reFreshWifiList != null) {
-                    reFreshWifiList.setTextTip("系统版本为6.0以上需要开启GPS才可扫描WIFI!");
-                }
+                wifiRefreshInf.SetListInfoTip("系统版本为6.0以上需要开启GPS才可扫描WIFI!");
                 return;
             }
         }
@@ -215,9 +210,7 @@ public class Wifi extends BroadcastReceiver {
             results = null;
         }
         if (results == null) {
-            if (reFreshWifiList != null) {
-                reFreshWifiList.setTextTip("没扫描到任何wifi信号");
-            }
+            wifiRefreshInf.SetListInfoTip("没扫描到任何wifi信号");
             return;
         }
         selfAdd++;
@@ -239,88 +232,60 @@ public class Wifi extends BroadcastReceiver {
             } else {
                 list.add(wifiInfo);
             }
-            updateHashMap(wifiInfo);
             channelSum[wifiInfo.channel]++;
+            updateHashMap(wifiInfo);
         }
         UpdateAllUI(channelSum);
     }
-
     private void updateHashMap(WifiInfo wifiInfo) {
-        if (reFreshWifi2d4G != null) {
-            if (wifiInfo.channel < 14 && wifiInfo.channel > 0) {
-                if (hashMap2d4G.containsKey(wifiInfo.mac)) {
-                    BsrLineObj bsrLineObj = hashMap2d4G.get(wifiInfo.mac);
-                    bsrLineObj.isNew = false;
-                    bsrLineObj.isExist = true;
-                    bsrLineObj.wifiInfo = wifiInfo;
-                } else {
-                    BsrLineObj bsrLineObj = new BsrLineObj();
-                    bsrLineObj.isNew = true;
-                    bsrLineObj.isExist = true;
-                    bsrLineObj.wifiInfo = wifiInfo;
-                    bsrLineObj.curveView = new CurveView(context);
-                    hashMap2d4G.put(wifiInfo.mac, bsrLineObj);
-                }
+        if (wifiInfo.channel < 14 && wifiInfo.channel > 0) {
+            if (hashMap2d4G.containsKey(wifiInfo.mac)) {
+                BsrLineObj bsrLineObj = hashMap2d4G.get(wifiInfo.mac);
+                bsrLineObj.isNew = false;
+                bsrLineObj.isExist = true;
+                bsrLineObj.wifiInfo = wifiInfo;
+            } else {
+                BsrLineObj bsrLineObj = new BsrLineObj();
+                bsrLineObj.isNew = true;
+                bsrLineObj.isExist = true;
+                bsrLineObj.wifiInfo = wifiInfo;
+                bsrLineObj.curveView = new CurveView(context);
+                hashMap2d4G.put(wifiInfo.mac, bsrLineObj);
             }
         }
-        if (reFreshWifi5G != null) {
-            if (wifiInfo.channel >= 14) {
-                if (hashMap5G.containsKey(wifiInfo.mac)) {
-                    BsrLineObj bsrLineObj = hashMap5G.get(wifiInfo.mac);
-                    bsrLineObj.isNew = false;
-                    bsrLineObj.isExist = true;
-                    bsrLineObj.wifiInfo = wifiInfo;
-                } else {
-                    BsrLineObj bsrLineObj = new BsrLineObj();
-                    bsrLineObj.isNew = true;
-                    bsrLineObj.isExist = true;
-                    bsrLineObj.wifiInfo = wifiInfo;
-                    bsrLineObj.curveView = new CurveView(context);
-                    hashMap5G.put(wifiInfo.mac, bsrLineObj);
-                }
+        if (wifiInfo.channel >= 14) {
+            if (hashMap5G.containsKey(wifiInfo.mac)) {
+                BsrLineObj bsrLineObj = hashMap5G.get(wifiInfo.mac);
+                bsrLineObj.isNew = false;
+                bsrLineObj.isExist = true;
+                bsrLineObj.wifiInfo = wifiInfo;
+            } else {
+                BsrLineObj bsrLineObj = new BsrLineObj();
+                bsrLineObj.isNew = true;
+                bsrLineObj.isExist = true;
+                bsrLineObj.wifiInfo = wifiInfo;
+                bsrLineObj.curveView = new CurveView(context);
+                hashMap5G.put(wifiInfo.mac, bsrLineObj);
             }
         }
     }
 
     private void UpdateAllUI(int[] channelSum) {
-        if (reFreshWifiList != null) {
-            reFreshWifiList.updateList();
-            reFreshWifiList.setTextTip("扫描到" + list.size() + "个WIFI信号");
+        wifiRefreshInf.UpdateListInfoList(list);
+        wifiRefreshInf.SetListInfoTip("扫描到" + list.size() + "个WIFI信号");
+        wifiRefreshInf.UpdateChanelCount(channelSum);
+        if(hashMap2d4G!=null) {
+            wifiRefreshInf.UpdateGraphic2d4G(hashMap2d4G);
         }
-        if (reFreshWifi2d4G != null) {
-            reFreshWifi2d4G.updateNum(channelSum);
-            reFreshWifi2d4G.updateGraphic(hashMap2d4G);
+        if(hashMap5G!=null) {
+            wifiRefreshInf.UpdateGraphic5G(hashMap5G);
         }
-        if (reFreshWifi5G != null) {
-            reFreshWifi5G.updateNum(channelSum);
-            reFreshWifi5G.updateGraphic(hashMap5G);
+        if (list!=null) {
+            wifiRefreshInf.UpdateGraphicDbm(list);
         }
-        if (refreshWifiDbm != null) {
-            if (list.size() > 0) {
-                refreshWifiDbm.updateDbmLine(list);
-            }
-        }
-    }
+}
 
     private void ClearList() {
-        if (reFreshWifiList != null) {
-            reFreshWifiList.updateList();
-        }
-    }
-
-    public void setInfoView(View pView) {
-        reFreshWifiList = new RefreshWifiList(pView, list);
-    }
-
-    public void setAnalysisView(View pView) {
-        reFreshWifi2d4G = new RefreshWifi2d4G(pView);
-    }
-
-    public void setAnalysis5GView(View pView) {
-        reFreshWifi5G = new RefreshWifi5G(pView);
-    }
-
-    public void setRecordView(View pView,WifiDbmRecordFragment pWifiFragment) {
-        refreshWifiDbm = new RefreshWifiDbm(pView,pWifiFragment);
+        wifiRefreshInf.ClearListInfoUI();
     }
 }

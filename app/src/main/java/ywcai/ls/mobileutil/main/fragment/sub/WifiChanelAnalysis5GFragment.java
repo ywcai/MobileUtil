@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ywcai.ls.core.Wifi;
+import ywcai.ls.core.task.RefreshWifi5G;
 import ywcai.ls.mobileutil.R;
 
 /**
@@ -16,10 +17,10 @@ import ywcai.ls.mobileutil.R;
 @SuppressLint("ValidFragment")
 public class WifiChanelAnalysis5GFragment extends Fragment {
     private Wifi wifi;
-    public WifiChanelAnalysis5GFragment(Wifi pWifi) {
-        wifi=pWifi;
-    }
-    public WifiChanelAnalysis5GFragment() {;
+    public RefreshWifi5G refreshWifi5G=null;
+
+    public WifiChanelAnalysis5GFragment() {
+
     }
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class WifiChanelAnalysis5GFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View tab_view = inflater.inflate(R.layout.fragment_tab_wifi_analysis_5g, container, false);
-        wifi.setAnalysis5GView(tab_view);
+        refreshWifi5G=new RefreshWifi5G(tab_view);
         return tab_view;
     }
+
 }

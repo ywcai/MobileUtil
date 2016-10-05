@@ -14,15 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-
 import ywcai.ls.adapter.LocalImgAdapter;
 import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.core.draw.DrawImgDbm;
-import ywcai.ls.inf.CallBackClearBg;
+import ywcai.ls.inf.WifiDbmBgClearInf;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.main.activity.ImageActivity;
 import ywcai.ls.mobileutil.main.fragment.sub.WifiDbmRecordFragment;
@@ -32,7 +30,7 @@ import ywcai.ls.util.MyUtil;
 /**
  * Created by zmy_11 on 2016/9/25.
  */
-public class RefreshWifiDbm implements CallBackClearBg {
+public class RefreshWifiDbm implements WifiDbmBgClearInf {
     private View tabView;
     private ImageView img, img_2, img_bg;
     private DrawImgDbm draw;
@@ -96,9 +94,9 @@ public class RefreshWifiDbm implements CallBackClearBg {
         rl_log = (RelativeLayout) tabView.findViewById(R.id.dbm_log_rl);
         rl_chanel_box = (RelativeLayout) tabView.findViewById(R.id.rl_chanel_box);
 
-        MoveView mv=new MoveView();
-        rl_log.setOnTouchListener(mv);
-        rl_chanel_box.setOnTouchListener(mv);
+        MoveViewEvent mvEvent=new MoveViewEvent();
+        rl_log.setOnTouchListener(mvEvent);
+        rl_chanel_box.setOnTouchListener(mvEvent);
 
         TextView tv_ack = (TextView) tabView.findViewById(R.id.textView_ack);
         TextView tv_cancal = (TextView) tabView.findViewById(R.id.textView_cancal);
@@ -296,7 +294,7 @@ public class RefreshWifiDbm implements CallBackClearBg {
         intent.putExtras(bundle);
         wifiFragment.startActivity(intent);
     }
-    class MoveView implements View.OnTouchListener
+    class MoveViewEvent implements View.OnTouchListener
     {
         int downY=0;
         int moveLastY=0;

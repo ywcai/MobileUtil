@@ -8,17 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ywcai.ls.core.Wifi;
+import ywcai.ls.core.task.RefreshWifi2d4G;
 import ywcai.ls.mobileutil.R;
 
 /**
  * Created by zmy_11 on 2016/9/22.
  */
-@SuppressLint("ValidFragment")
+
 public class WifiChanelAnalysisFragment extends Fragment {
-    private Wifi wifi;
-    public WifiChanelAnalysisFragment(Wifi pWifi) {
-        wifi=pWifi;
-    }
+    public RefreshWifi2d4G refreshWifi2d4G=null;
     public WifiChanelAnalysisFragment() {
     }
     @Override
@@ -28,7 +26,7 @@ public class WifiChanelAnalysisFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View tab_view = inflater.inflate(R.layout.fragment_tab_wifi_analysis_2d4g, container, false);
-        wifi.setAnalysisView(tab_view);
+        refreshWifi2d4G=new RefreshWifi2d4G(tab_view);
         return tab_view;
     }
 }

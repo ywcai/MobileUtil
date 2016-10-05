@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ywcai.ls.core.Wifi;
-import ywcai.ls.inf.FragmentCallBack;
+import ywcai.ls.core.task.RefreshWifiDbm;
 import ywcai.ls.mobileutil.R;
 
 /**
@@ -16,10 +16,8 @@ import ywcai.ls.mobileutil.R;
  */
 @SuppressLint("ValidFragment")
 public class WifiDbmRecordFragment extends Fragment {
-    private Wifi wifi;
-    public WifiDbmRecordFragment(Wifi pWifi) {
-        wifi=pWifi;
-    }
+
+    public RefreshWifiDbm refreshWifiDbm=null;
     public WifiDbmRecordFragment() {
 
     }
@@ -33,7 +31,7 @@ public class WifiDbmRecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View tab_view = inflater.inflate(R.layout.fragment_tab_wifi_record, container, false);
-        wifi.setRecordView(tab_view,this);
+        refreshWifiDbm=new RefreshWifiDbm(tab_view,this);
         return tab_view ;
     }
 }

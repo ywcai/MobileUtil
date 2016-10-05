@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Path;
 import android.graphics.Rect;
 import android.widget.Toast;
 
@@ -14,8 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import ywcai.ls.bean.BsrLineObj;
-import ywcai.ls.inf.CallBackClearBg;
+import ywcai.ls.inf.WifiDbmBgClearInf;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
@@ -40,10 +38,10 @@ public class DrawImgDbm {
             0xffFF9999,0xff000000,0xff00661A,0xff400000,0xff96FF73,0xffDFBFFF,0xffD90000,0xffBDBDAE,0xff003040,0xff8C008C,0xffFF007F};
     public int colorNum;
     private HashMap <String ,Integer> hashColor;
-    private CallBackClearBg callBack;
+    private WifiDbmBgClearInf callBack;
     private String makeTime;
 
-    public DrawImgDbm(int w, int h,CallBackClearBg pCallBack,int chanel) {
+    public DrawImgDbm(int w, int h, WifiDbmBgClearInf pCallBack, int chanel) {
         bmpWidth = w;
         bmpHeight = h;
         callBack=pCallBack;

@@ -4,6 +4,7 @@ import android.support.v7.widget.ListViewCompat;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ywcai.ls.adapter.WifiAdapter;
@@ -19,11 +20,11 @@ public class RefreshWifiList {
     private WifiAdapter wifiAdapter;
     private TextView tv_wifiTip;
 
-    public RefreshWifiList(View pView, List<WifiInfo> pList)
+    public RefreshWifiList(View pView)
     {
         tabView=pView;
-        wifiList=pList;
-        wifiAdapter=new WifiAdapter(pList);
+        wifiList=new ArrayList<>();
+        wifiAdapter=new WifiAdapter(wifiList);
         InitView();
     }
     private void InitView()
@@ -32,12 +33,18 @@ public class RefreshWifiList {
         ListViewCompat listView = (ListViewCompat) tabView.findViewById(R.id.now_wifiInfo);
         listView.setAdapter(wifiAdapter);
     }
-    public void updateList()
+    public void ClearList()
     {
+        wifiList.clear();
         wifiAdapter.notifyDataSetChanged();
     }
-    public void setTextTip(String text)
+    public void SetTip(String tip)
     {
-        tv_wifiTip.setText(text);
+        tv_wifiTip.setText(tip);
+    }
+    public void UpdateList(List<WifiInfo> pList)
+    {
+        wifiList.addAll(pList);
+        wifiAdapter.notifyDataSetChanged();
     }
 }

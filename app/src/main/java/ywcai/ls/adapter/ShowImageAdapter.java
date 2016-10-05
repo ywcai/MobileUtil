@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.io.File;
 import java.util.List;
 
-import ywcai.ls.inf.FragmentCallBack;
 import ywcai.ls.mobileutil.main.fragment.ImagesFragment;
 
 /**

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 
-import ywcai.ls.inf.FragmentCallBack;
 import ywcai.ls.adapter.ShowImageAdapter;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.util.MyConfig;
