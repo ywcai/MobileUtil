@@ -31,6 +31,7 @@ Eclipse projects. Here's how the projects were restructured:
 * libs\armeabi\libbase64encoder_v1_4.so => bDIntegrationSDK_LibProject\src\main\jniLibs\armeabi\libbase64encoder_v1_4.so
 * libs\armeabi\libMD5_v1.so => bDIntegrationSDK_LibProject\src\main\jniLibs\armeabi\libMD5_v1.so
 * libs\baidu_cuid.jar => bDIntegrationSDK_LibProject\libs\baidu_cuid.jar
+* libs\Baidu_Mtj_3.7.4.5.jar => bDIntegrationSDK_LibProject\libs\Baidu_Mtj_3.7.4.5.jar
 * libs\BaiduAppX_V2.4.1_20160530.jar => bDIntegrationSDK_LibProject\libs\BaiduAppX_V2.4.1_20160530.jar
 * libs\BDAutoUpdateSDK_20150605_V1.2.0.jar => bDIntegrationSDK_LibProject\libs\BDAutoUpdateSDK_20150605_V1.2.0.jar
 * libs\patchupdate.jar => bDIntegrationSDK_LibProject\libs\patchupdate.jar

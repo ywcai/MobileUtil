@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
+
 import java.util.ArrayList;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.main.fragment.sub.PingAnalysisFragment;
@@ -55,5 +57,16 @@ public class PingAnalysisActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatService.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
     }
 }

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.baidu.mobads.SplashAd;
 import com.baidu.mobads.SplashAdListener;
+import com.baidu.mobstat.StatService;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -71,6 +72,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        StatService.onPause(this);
         canJumpImmediately = false;
     }
     /**
@@ -83,6 +85,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        StatService.onPause(this);
         if (canJumpImmediately) {
             jumpWhenCanClick();
         }

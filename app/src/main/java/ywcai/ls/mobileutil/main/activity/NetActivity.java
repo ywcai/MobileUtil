@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.baidu.mobads.AdSettings;
 import com.baidu.mobads.AdView;
 import com.baidu.mobads.AdViewListener;
+import com.baidu.mobstat.StatService;
 
 import org.json.JSONObject;
 
@@ -177,5 +178,16 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
     @Override
     public void callBackLoad() {
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatService.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
     }
 }

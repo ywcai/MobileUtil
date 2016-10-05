@@ -100,9 +100,7 @@ public class DrawImgDbm {
 
     public Bitmap getRecordImg(HashMap tempHash, HashMap nowDbmHash) {
         int bsrWidth = 3;
-        p.setAntiAlias(false);
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(bsrWidth);
+        p.setAntiAlias(true);
         Bitmap record = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
         int xStep = bmpWidth / MyConfig.INT_WIFI_RECORD_X_MAX;
         Canvas canTemp = new Canvas(record);
@@ -156,6 +154,8 @@ public class DrawImgDbm {
                     colorNum++;
                 }
                 LineBsrColor=dbmColor[((int)hashColor.get(key))%dbmColor.length];
+                p.setStyle(Paint.Style.STROKE);
+                p.setStrokeWidth(bsrWidth);
                 p.setColor(LineBsrColor);
                 canTemp.drawLine(xStart, yStart, xEnd, yEnd, p);
             }
@@ -175,8 +175,6 @@ public class DrawImgDbm {
         int textLeft=20;
         int textWidth=300;
         int lineColor=dbmColor[colorNum%dbmColor.length];
-
-
         p.setStyle(Paint.Style.FILL);
         p.setTextSize(fontSize);
         p.setTextAlign(Paint.Align.LEFT);

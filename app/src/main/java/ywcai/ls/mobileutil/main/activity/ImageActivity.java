@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
+
 import java.io.File;
 import java.util.List;
 
@@ -75,7 +77,17 @@ public class ImageActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatService.onResume(this);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

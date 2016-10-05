@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.baidu.integrationsdk.lib"
     android:versionCode="1"
     android:versionName="1.0">
@@ -12,19 +11,21 @@
             android:name="BDAPPKEY"
             android:value="qQFsduOTaU2681KsOGcY0bVhgv4rInN6" />
 
-        <!--<receiver android:name="com.baidu.appx.app_download.CompleteReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.DOWNLOAD_COMPLETE" />-->
-                <!--<action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.PACKAGE_ADDED" />-->
-                <!--<data android:scheme="package" />-->
-                <!--&lt;!&ndash; 注意！！ 这句必须要加，否则接收不到安装完成广播 &ndash;&gt;-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
 
-        <!-- 注册SDK的activity -->
+        <receiver android:name="com.baidu.appx.app_download.CompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" /> <!-- 注意！！ 这句必须要加，否则接收不到安装完成广播 -->
+            </intent-filter>
+        </receiver><!-- 注册SDK的activity -->
+        <activity
+            android:name="com.baidu.appx.uikit.BDActivity"
+            android:configChanges="orientation|screenSize"></activity>
         <activity
             android:name="com.baidu.autoupdatesdk.ConfirmDialoigActivity"
             android:exported="false"
@@ -41,23 +42,16 @@
                 <action android:name="com.baidu.autoupdatesdk.ACTION_AS_DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
-
     </application>
 
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /><!-- cuid需要write settings -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!--suppress DeprecatedClassUsageInspection -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 </manifest>

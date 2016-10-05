@@ -9,19 +9,19 @@ import java.util.HashMap;
  */
 public class MyApplication extends Application {
 
-    public HashMap<String,Object> hashMap;
+//    public HashMap<String,Object> hashMap;
     private static MyApplication instance;
     public static MyApplication getInstance() {
         return instance;
     }
-    public HashMap<String,Object> getHashMap()
-    {
-        return hashMap;
-    }
+//    public HashMap<String,Object> getHashMap()
+//    {
+//        return hashMap;
+//    }
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-        hashMap=new HashMap<String,Object>();
+//        hashMap=new HashMap<String,Object>();
     }
 }
