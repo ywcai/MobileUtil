@@ -52,7 +52,8 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
     private BleHandler bleHandle;
 
 
-    public Ble(View view) {
+    public Ble(View view,Context pContext) {
+        context=pContext;
         InitView(view);
         InitBroadCast();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -71,7 +72,6 @@ public class Ble extends BroadcastReceiver implements BluetoothAdapter.LeScanCal
     private void InitView(View view) {
         bleHandle = new BleHandler();
         tabView = view;
-        context = MyApplication.getInstance().getApplicationContext();
         listViewCompat = (ListViewCompat) tabView.findViewById(R.id.now_ble);
         bleList = new CopyOnWriteArrayList<>();
         bleAdapter = new BleAdapter(bleList);

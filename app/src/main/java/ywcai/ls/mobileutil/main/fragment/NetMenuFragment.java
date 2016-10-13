@@ -42,13 +42,21 @@ public class NetMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        context=MyApplication.getInstance().getApplicationContext();
+        context=this.getContext();
         View view=inflater.inflate(R.layout.fragment_homepage_menu, container, false);
         GridView gridView = (GridView) view.findViewById(R.id.homePage_menuList);
-        int[] images = { R.drawable.homepage_menu_ping, R.drawable.homepage_menu_wifi,
-                R.drawable.homepage_menu_station,  R.drawable.homepage_menu_gps,
-                R.drawable.homepage_menu_sensor,R.drawable.homepage_menu_ble, R.drawable.homepage_menu_orientation, R.drawable.homepage_menu_step,
-                R.drawable.homepage_menu_more, R.drawable.homepage_menu_more, R.drawable.homepage_menu_more, R.drawable.homepage_menu_more
+        int[] images = { R.drawable.homepage_menu_ping,
+                R.drawable.homepage_menu_lan,
+                R.drawable.homepage_menu_wifi,
+//                R.drawable.homepage_menu_more,
+                R.drawable.homepage_menu_station,
+                R.drawable.homepage_menu_gps,
+                R.drawable.homepage_menu_ble,
+                R.drawable.homepage_menu_sensor,
+                R.drawable.homepage_menu_orientation,
+                R.drawable.homepage_menu_step,
+                R.drawable.homepage_menu_more,
+                R.drawable.homepage_menu_more
                };
         String[] titles =context.getResources().getStringArray(R.array.homepage_menu_title);
         List<Map<String, Object>> items = new ArrayList<>();

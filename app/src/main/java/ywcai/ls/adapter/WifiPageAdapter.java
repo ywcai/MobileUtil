@@ -3,11 +3,15 @@ package ywcai.ls.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import ywcai.ls.inf.CallBackMainTitle;
+import ywcai.ls.bean.BsrLineObj;
+import ywcai.ls.bean.WifiInfo;
+import ywcai.ls.core.task.RefreshWifi2d4G;
+import ywcai.ls.core.task.RefreshWifi5G;
+import ywcai.ls.core.task.RefreshWifiDbm;
+import ywcai.ls.core.task.RefreshWifiList;
 import ywcai.ls.inf.WifiRefreshInf;
 import ywcai.ls.mobileutil.main.fragment.sub.WifiInfoListFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.WifiChanelAnalysis5GFragment;
@@ -15,25 +19,10 @@ import ywcai.ls.mobileutil.main.fragment.sub.WifiChanelAnalysisFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.WifiDbmRecordFragment;
 
 
-/**
- * Created by zmy_11 on 2016/8/15.
- */
-public class WifiPageAdapter extends FragmentStatePagerAdapter {
-    public List<Fragment> pageList;
-//    private List<WifiRefreshInf>  infList;
+public class WifiPageAdapter extends FragmentStatePagerAdapter  implements WifiRefreshInf  {
+    public List<Fragment> pageList=new ArrayList<>();;
     public WifiPageAdapter(FragmentManager fm) {
         super(fm);
-//        list=new ArrayList<>();
-//        Wifi wifi=new Wifi(fragmentCallBack,list);
-//        WifiInfoListFragment wifiAllInfoFragment=new WifiInfoListFragment(wifi);
-//        WifiChanelAnalysisFragment wifiChanelAnalysisFragment=new WifiChanelAnalysisFragment(wifi);
-//        WifiDbmRecordFragment wifiDbmRecordFragment=new WifiDbmRecordFragment(wifi);
-//        WifiChanelAnalysis5GFragment wifiChanelAnalysis5GFragment=new WifiChanelAnalysis5GFragment(wifi);
-//        list.add(wifiAllInfoFragment);
-//        list.add(wifiChanelAnalysisFragment);
-//        list.add(wifiChanelAnalysis5GFragment);
-//        list.add(wifiDbmRecordFragment);
-        pageList=new ArrayList<>();
         WifiInfoListFragment wifiInfoListFragment=new WifiInfoListFragment();
         WifiChanelAnalysisFragment wifiChanelAnalysisFragment=new WifiChanelAnalysisFragment();
         WifiChanelAnalysis5GFragment wifiChanelAnalysis5GFragment=new WifiChanelAnalysis5GFragment();
@@ -52,4 +41,69 @@ public class WifiPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         return pageList.get(position);
     }
+    @Override
+    public void ClearListInfoUI() {
+
+        RefreshWifiList refreshWifiList = ((WifiInfoListFragment) pageList.get(0)).refreshWifiList;
+        if (refreshWifiList != null) {
+            refreshWifiList.ClearList();
+        }
+    }
+
+    @Override
+    public void SetListInfoTip(String tip) {
+        RefreshWifiList refreshWifiList = ((WifiInfoListFragment) pageList.get(0)).refreshWifiList;
+        if (refreshWifiList != null) {
+            refreshWifiList.SetTip(tip);
+        }
+    }
+
+    @Override
+    public void UpdateListInfoList(List<WifiInfo> wifiInfoList) {
+        RefreshWifiList refreshWifiList = ((WifiInfoListFragment) pageList.get(0)).refreshWifiList;
+        if (refreshWifiList != null) {
+            refreshWifiList.UpdateList(wifiInfoList);
+        }
+    }
+
+    @Override
+    public void UpdateChanelCount(int[] chanelCount) {
+        RefreshWifi2d4G refreshWifi2d4G = ((WifiChanelAnalysisFragment) pageList.get(1)).refreshWifi2d4G;
+        RefreshWifi5G refreshWifi5G = ((WifiChanelAnalysis5GFragment) pageList.get(2)).refreshWifi5G;
+        if (refreshWifi2d4G != null) {
+            refreshWifi2d4G.updateNum(chanelCount);
+        }
+        if (refreshWifi5G != null) {
+            refreshWifi5G.updateNum(chanelCount);
+        }
+    }
+
+    @Override
+    public Boolean UpdateGraphic2d4G(HashMap<String, BsrLineObj> hashMap2d4G) {
+        RefreshWifi2d4G refreshWifi2d4G = ((WifiChanelAnalysisFragment) pageList.get(1)).refreshWifi2d4G;
+        if (refreshWifi2d4G != null) {
+            refreshWifi2d4G.updateGraphic(hashMap2d4G);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean UpdateGraphic5G(HashMap<String, BsrLineObj> hashMap5G) {
+        RefreshWifi5G refreshWifi5G = ((WifiChanelAnalysis5GFragment) pageList.get(2)).refreshWifi5G;
+        if (refreshWifi5G != null) {
+            refreshWifi5G.updateGraphic(hashMap5G);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void UpdateGraphicDbm(List<WifiInfo> wifiInfoList) {
+        RefreshWifiDbm refreshWifiDbm = ((WifiDbmRecordFragment) pageList.get(3)).refreshWifiDbm;
+        if (refreshWifiDbm != null) {
+            refreshWifiDbm.updateDbmLine(wifiInfoList);
+        }
+    }
+
 }

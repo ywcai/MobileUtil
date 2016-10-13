@@ -47,8 +47,8 @@ public class Gps implements UpdateViewInf, LocationListener, GpsStatus.Listener 
 
 
 
-    public Gps(View view) {
-        context = MyApplication.getInstance().getApplicationContext();
+    public Gps(View view,Context pContext) {
+        context = pContext;
         tabView = view;
         InitGpsStatus();
         InitListView();

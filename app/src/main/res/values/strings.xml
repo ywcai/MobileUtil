@@ -2,9 +2,7 @@
     <string name="app_name">多维网络分析仪</string>
     <string name="str_back"><![CDATA[<< 返回]]></string>
     <string name="top_title">专业的网络测试工具包</string>
-    <string name="title_fontFamily">"华文彩云"</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bot_menu1">网络工具</string>
     <string name="bot_menu2">  </string>
     <string name="bot_menu3">  </string>
@@ -26,10 +24,10 @@
     <string name="saved_station">saved_station</string>
     <string name="text_null">null</string>
     <string name="tip_sensor">点击选项可实时查看传感器感应数据</string>
-    <string name="tip_wifi">当前未连接WIFI!</string>
     <string name="tip_analysis">历史记录</string>
-    <string name="tip_dbm_line">场强趋势线</string>
 
+    <string name="code_per">%</string>
+    <string name="code_unknow">%</string>
 
 
     <string-array name="ping_results">
@@ -105,13 +103,14 @@
     </string-array>
     <string-array name="homepage_menu_title">
         <item>PING测试</item>
+        <item>内网扫描</item>
         <item>WIFI分析</item>
-        <item>基站信号</item>
+        <!--<item>WIFI热点</item>-->
+        <item>基站信息</item>
         <item>原生GPS</item>
-        <item>传感器检测</item>
         <item>蓝牙4.0</item>
+        <item>手机传感器</item>
         <item>指南针</item>
-        <!--<item>位置模拟</item>-->
     </string-array>
 
 </resources>

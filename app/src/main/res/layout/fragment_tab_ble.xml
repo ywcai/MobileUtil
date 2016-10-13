@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.fragment.sub.BleFragment"
-    android:orientation="vertical"
-    android:id="@+id/tab_ble">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 

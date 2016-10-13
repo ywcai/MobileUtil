@@ -30,7 +30,7 @@ public class GpsFragment extends Fragment {
         // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_gps, container, false);
 
-        Gps gps=new Gps(tab_view);
+        Gps gps=new Gps(tab_view,this.getContext());
         return tab_view;
     }
 }

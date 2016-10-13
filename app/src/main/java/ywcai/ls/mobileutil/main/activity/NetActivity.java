@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mobads.AdSettings;
 import com.baidu.mobads.AdView;
@@ -22,7 +23,7 @@ import ywcai.ls.inf.CallBackMainTitle;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.main.fragment.sub.BleFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.GpsFragment;
-import ywcai.ls.mobileutil.main.fragment.sub.GpsTestFragment;
+import ywcai.ls.mobileutil.main.fragment.sub.LanFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.OrientationFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.PingFragment;
 import ywcai.ls.mobileutil.main.fragment.sub.SensorFragment;
@@ -33,7 +34,6 @@ import ywcai.ls.util.MyConfig;
 
 public class NetActivity extends AppCompatActivity implements CallBackMainTitle {
     private final String MSSP_BANER_AD="2875764";
-    private ProgressDialog dialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,24 +46,26 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
         CreateFragment(pos);
     }
     private void InitView() {
-        dialog = new ProgressDialog(this);
-        dialog.setIndeterminate(true);
-        dialog.setTitle("检查更新");
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_assist);
         setSupportActionBar(mToolbar);
         TextView back=(TextView)findViewById(R.id.title_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetActivity.this.finish();
-            }
-        });
+        if (back != null) {
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NetActivity.this.finish();
+                }
+            });
+        }
     }
+
     private void setToolTitle(int pos)
     {
         TextView titleText=(TextView)findViewById(R.id.toolbar_assist_title);
         String[] titles=this.getResources().getStringArray(R.array.homepage_menu_title);
-        titleText.setText(titles[pos]);
+        if (titleText != null) {
+            titleText.setText(titles[pos]);
+        }
     }
     private void CreateFragment(int pos) {
         FragmentManager fm = getSupportFragmentManager();
@@ -76,23 +78,26 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
                 transaction.commit();
                 break;
             case 1:
-                WifiFragment wifiFragment = new WifiFragment(fm,this);
-                transaction.replace(R.id.net_main_container, wifiFragment);
+                LanFragment lanFragment= new LanFragment();
+                transaction.replace(R.id.net_main_container,lanFragment);
                 transaction.commit();
                 break;
             case 2:
+                WifiFragment wifiFragment = new WifiFragment();
+                transaction.replace(R.id.net_main_container, wifiFragment);
+                transaction.commit();
+                break;
+            case 9:
+
+                break;
+            case 3:
                 StationFragment stationFragment = new StationFragment();
                 transaction.replace(R.id.net_main_container, stationFragment);
                 transaction.commit();
                 break;
-            case 3:
+            case 4:
                 GpsFragment gpsFragment = new GpsFragment();
                 transaction.replace(R.id.net_main_container, gpsFragment);
-                transaction.commit();
-                break;
-            case 4:
-                SensorFragment sensorFragment = new SensorFragment();
-                transaction.replace(R.id.net_main_container, sensorFragment);
                 transaction.commit();
                 break;
             case 5:
@@ -101,20 +106,17 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
                 transaction.commit();
                 break;
             case 6:
+                SensorFragment sensorFragment = new SensorFragment();
+                transaction.replace(R.id.net_main_container, sensorFragment);
+                transaction.commit();
+                break;
+            case 7:
                 OrientationFragment orientationFragment= new OrientationFragment();
                 transaction.replace(R.id.net_main_container,orientationFragment);
                 transaction.commit();
                 break;
-            case 7:
-              GpsTestFragment gpsTestFragment= new GpsTestFragment();
-              transaction.replace(R.id.net_main_container,gpsTestFragment);
-              transaction.commit();
-                break;
             case 8:
-                ;
-                break;
-            case 9:
-                ;
+
                 break;
         }
     }
@@ -165,10 +167,13 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
     }
 
 
+
     @Override
     public void callBackSetTitle(String content) {
         TextView titleText=(TextView)findViewById(R.id.toolbar_assist_title);
-        titleText.setText(content);
+        if (titleText != null) {
+            titleText.setText(content);
+        }
     }
 
     @Override

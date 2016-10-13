@@ -8,12 +8,12 @@ android {
         applicationId "ywcai.ls.mobileutil"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 5
-        versionName "1.0.5"
+        versionCode 6
+        versionName "1.0.6"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

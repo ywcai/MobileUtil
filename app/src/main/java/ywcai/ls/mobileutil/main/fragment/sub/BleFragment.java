@@ -31,10 +31,10 @@ public class BleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View tab_view = inflater.inflate(R.layout.fragment_tab_ble, container, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Ble ble = new Ble(tab_view);
+            new Ble(tab_view,this.getContext());
         }
         else
         {

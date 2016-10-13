@@ -45,9 +45,9 @@ public class Ping extends Handler {
 
     public PingParameter pingParameter;
     public ExecutorService executorService;
+    private MyThreadFactory myThreadFactory;
     private View tabView;
     private Context context;
-    private MyThreadFactory myThreadFactory;
     private List<HashMap<String, String>> list;
     private Resources rs;
     private String[] title;
@@ -66,6 +66,7 @@ public class Ping extends Handler {
 
     public Ping(View view, PingFragment fragment) {
         meFragment = fragment;
+        context=fragment.getContext();
         InitObj(view);
         InitView();
         regEventListener();
@@ -73,10 +74,7 @@ public class Ping extends Handler {
     }
 
     private void InitObj(View view) {
-
         tabView = view;
-        context = MyApplication.getInstance().getApplicationContext();
-        ;
         rs = context.getResources();
         title = rs.getStringArray(R.array.ping_results);
         myThreadFactory = new MyThreadFactory();
@@ -155,7 +153,7 @@ public class Ping extends Handler {
 
     private void InitList() {
         list = new ArrayList<>();
-        HashMap<String, String> hs = new HashMap();
+        HashMap hs = new HashMap();
         hs.put(title[0], "0");
         hs.put(title[1], "0");
         hs.put(title[2], "0%");
@@ -325,7 +323,7 @@ public class Ping extends Handler {
         pingParameter.isWorking = false;
     }
 
-    private void breakBackgroundThread() {
+    public void breakBackgroundThread() {
         try {
             executorService.shutdownNow();
         } catch (Exception e) {
@@ -351,7 +349,7 @@ public class Ping extends Handler {
         logInfo[5]= "平均延时 " + pingResult.average + "ms";
 
         list.clear();
-        HashMap<String, String> hs = new HashMap<String, String>();
+        HashMap<String, String> hs = new HashMap<>();
         hs.put(title[0], pingResult.send + "");
         hs.put(title[1], pingResult.receive + "");
         hs.put(title[2], pingResult.percent + "%");

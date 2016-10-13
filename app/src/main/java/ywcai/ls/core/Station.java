@@ -35,9 +35,12 @@ public class Station implements UpdateViewInf {
     private TelephonyManager telephonyManager;
     private SimpleAdapter adpter;
     private View tabView;
+    private Context context;
 
-    public Station(View view) {
-        telephonyManager = (TelephonyManager) MyApplication.getInstance().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+    public Station(View view,Context pContext) {
+        context=pContext;
+        tabView=view;
+        telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         try {
             driveId = telephonyManager.getDeviceId();
         } catch (Exception e) {
@@ -61,11 +64,11 @@ public class Station implements UpdateViewInf {
             networkOperator = "null";
             networkOperatorName = "null";
         }
-        tabView = view;
+
         ListViewCompat listViewCompat = (ListViewCompat) tabView.findViewById(R.id.now_station);
-        list = new ArrayList<HashMap<String, String>>();
+        list = new ArrayList<>();
         list = getList();
-        adpter = new SimpleAdapter(MyApplication.getInstance().getApplicationContext(), list, R.layout.listview_station, new String[]{"title", "info"}, new int[]{R.id.title_station, R.id.info_station});
+        adpter = new SimpleAdapter(context, list, R.layout.listview_station, new String[]{"title", "info"}, new int[]{R.id.title_station, R.id.info_station});
         listViewCompat.setAdapter(adpter);
     }
 
@@ -116,13 +119,13 @@ public class Station implements UpdateViewInf {
             } else if (netType == TelephonyManager.NETWORK_TYPE_LTE) {
 
                 try {
-                    rsp = (Integer) Lte_rsp.getInt(signalStrength);
+                    rsp = Lte_rsp.getInt(signalStrength);
                 } catch (Exception e) {
 
                 }
             } else {
                 try {
-                    rsp = (Integer) Wcdma_rsp.getInt(signalStrength);
+                    rsp = Wcdma_rsp.getInt(signalStrength);
                 } catch (Exception e) {
 
                 }

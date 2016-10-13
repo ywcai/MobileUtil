@@ -30,16 +30,13 @@ public class Orientation implements SensorEventListener {
     private float x = 0;
     private float y = 0;
 
-    public Orientation(View view) {
-        InitView(view);
-    }
-
-
-    @SuppressWarnings("deprecation")
-    private void InitView(View view) {
-
+    public Orientation(View view,Context pContext) {
         tabView = view;
-        context = MyApplication.getInstance().getApplicationContext();
+        context = pContext;
+        InitView();
+    }
+    @SuppressWarnings("deprecation")
+    private void InitView() {
         imgPoint = (ImageView) tabView.findViewById(R.id.img_point);
         textDegree = (TextView) tabView.findViewById(R.id.text_degree);
         ViewTreeObserver viewTreeObserver = imgPoint.getViewTreeObserver();
@@ -51,7 +48,6 @@ public class Orientation implements SensorEventListener {
                 y = imgPoint.getHeight() / 2.0f;
             }
         });
-
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_UI);
     }

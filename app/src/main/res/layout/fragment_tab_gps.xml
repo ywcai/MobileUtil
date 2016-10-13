@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.fragment.sub.GpsFragment"
-    android:orientation="vertical"
-    android:id="@+id/tab_gps" >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,7 +15,6 @@
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:textColor="#888dda"
-        android:id="@+id/tv_gpsTop"
         android:background="#d0bcbc"
         android:clickable="true"
         android:visibility="gone" />

@@ -38,7 +38,7 @@ public class Sensor implements UpdateViewInf , SensorEventListener {
     private HashMap<Integer,Integer> sensorPos=new HashMap<>();
 
 
-    public Sensor(View view) {
+    public Sensor(View view,Context pContext) {
         context=MyApplication.getInstance().getApplicationContext();
         tabView = view;
         listener=this;

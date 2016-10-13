@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -27,15 +29,12 @@ import ywcai.ls.mobileutil.main.fragment.sub.WifiDbmRecordFragment;
 import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
-/**
- * Created by zmy_11 on 2016/9/25.
- */
 public class RefreshWifiDbm implements WifiDbmBgClearInf {
     private View tabView;
     private ImageView img, img_2, img_bg;
-    private DrawImgDbm draw;
-    private Bitmap temp = null;
-    private HashMap<String, Integer> hashTemp;
+    public DrawImgDbm draw;
+    public Bitmap temp = null;
+    private HashMap<String, Integer> hashTemp=new HashMap<>();
     private int selectChanel=1,lastChanel=1;
     private ListViewCompat listView;
     private RelativeLayout rl_log, rl_chanel_box;
@@ -51,7 +50,6 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
     }
 
     private void InitView() {
-        hashTemp = new HashMap<>();
         TextView t1=(TextView)tabView.findViewById(R.id.radioButton);
         TextView t2=(TextView)tabView.findViewById(R.id.radioButton2);
         TextView t3=(TextView)tabView.findViewById(R.id.radioButton3);
@@ -151,7 +149,6 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
                 draw.saveLog();
             }
         });
-
         tv_show = (TextView) tabView.findViewById(R.id.tv_show_record);
         tv_show.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,16 +215,17 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
     }
 
     public void updateDbmLine(List<WifiInfo> infoList) {
+
         HashMap<String, Integer> hashDrawInfo = new HashMap<>();
         for (int i = 0; i < infoList.size(); i++) {
             if (infoList.get(i).channel == selectChanel) {
                 hashDrawInfo.put(infoList.get(i).sid + "(" + infoList.get(i).mac + ")", infoList.get(i).dbm);
             }
         }
-        DrawLine(hashDrawInfo);
+        temp = DrawLine(hashDrawInfo);
     }
 
-    private void DrawLine(HashMap hashDrawInfo) {
+    private Bitmap DrawLine(HashMap hashDrawInfo) {
         int step = img_bg.getMeasuredWidth() / MyConfig.INT_WIFI_RECORD_X_MAX;
         if (temp != null) {
             img_2.setImageBitmap(temp);
@@ -243,19 +241,22 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         animation2.setDuration(500);
         animation2.setInterpolator(new AccelerateDecelerateInterpolator());
         img.startAnimation(animation2);
-        hashTemp = hashDrawInfo;
-        temp = record;
+        return record;
     }
 
     @Override
     public void clearImg() {
-        img_2.setImageBitmap(temp);
+        temp=null;
         Animation animation1 = new TranslateAnimation(0, img_bg.getMeasuredWidth(), 0, 0);
         animation1.setDuration(1000);
         animation1.setFillAfter(true);
         img_2.startAnimation(animation1);
-        temp = null;
+//        Animation animation2 = new TranslateAnimation(0, img_bg.getMeasuredWidth(), 0, 0);
+//        animation2.setDuration(1000);
+//        animation2.setFillAfter(true);
+//        img.startAnimation(animation1);
         img.setImageBitmap(null);
+        hashTemp.clear();
     }
 
     private void showDbmRecord() {

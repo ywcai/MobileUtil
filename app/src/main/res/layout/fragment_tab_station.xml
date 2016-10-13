@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.fragment.sub.StationFragment"
-    android:orientation="vertical"
-    android:id="@+id/tab_station">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.SwitchCompat
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/isStationSave"
         android:text="@string/saved_station"
         android:checked="false"
         android:hapticFeedbackEnabled="false"

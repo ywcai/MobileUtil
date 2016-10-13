@@ -51,6 +51,7 @@ public class PingAnalysis {
 
     public PingAnalysis(View view, ArrayList<Integer> logList, String[] logInfo, PingAnalysisFragment paf) {
         pingAnalysisFragment = paf;
+        context = paf.getContext();
         fileDirPath = MyUtil.getImgDirPath(MyConfig.STR_INTENT_LOG_PATH_PING);
         InitView(view);
         if (logList.size() != 0) {
@@ -59,10 +60,9 @@ public class PingAnalysis {
             showImgPathList();
         }
     }
-
     private void InitView(View view) {
         makeTime = MyUtil.getDetailTime();
-        context = MyApplication.getInstance().getApplicationContext();
+
         tabView = view;
         ll = (LinearLayout) tabView.findViewById(R.id.tab_ping_analysis);
         btnSave = (Button) tabView.findViewById(R.id.bt_imgSave);

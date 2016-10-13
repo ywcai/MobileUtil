@@ -13,31 +13,22 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Parcelable;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import ywcai.ls.bean.BsrLineObj;
 import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.control.CurveView;
-import ywcai.ls.core.task.RefreshWifi2d4G;
-import ywcai.ls.core.task.RefreshWifi5G;
-import ywcai.ls.core.task.RefreshWifiDbm;
-import ywcai.ls.core.task.RefreshWifiList;
+import ywcai.ls.core.thread.MyThreadFactory;
 import ywcai.ls.inf.CallBackMainTitle;
 import ywcai.ls.inf.WifiRefreshInf;
-import ywcai.ls.mobileutil.MyApplication;
-import ywcai.ls.mobileutil.main.fragment.sub.WifiDbmRecordFragment;
 import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
-
-/**
- * Created by zmy_11 on 2016/8/12.
- */
 public class Wifi extends BroadcastReceiver {
     private CallBackMainTitle fragmentCallBack;
     private Context context;
@@ -45,14 +36,15 @@ public class Wifi extends BroadcastReceiver {
     private String connMac = "-1", connIp = "-1";
     private int connSpeed = -1;
     private int checkScanCount = 0, selfAdd = 0, scanAutoFlag = 0;
-    private List<WifiInfo> list=null;
-    private HashMap<String, BsrLineObj> hashMap2d4G=null, hashMap5G=null;
+    private List<WifiInfo> list;
+    private HashMap<String, BsrLineObj> hashMap2d4G, hashMap5G;
     private WifiRefreshInf wifiRefreshInf;
+    private ExecutorService executorService;
 
-    public Wifi(CallBackMainTitle pFragmentCallBack, WifiRefreshInf pWifiRefreshInf) {
+    public Wifi(CallBackMainTitle pFragmentCallBack, WifiRefreshInf pWifiRefreshInf, Context pContext) {
         fragmentCallBack = pFragmentCallBack;
         wifiRefreshInf = pWifiRefreshInf;
-        context = MyApplication.getInstance().getApplicationContext();
+        context = pContext;
         wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         list = new ArrayList<>();
         hashMap2d4G = new HashMap<>();
@@ -67,7 +59,9 @@ public class Wifi extends BroadcastReceiver {
                 WifiManager.EXTRA_WIFI_STATE));
         context.registerReceiver(this, new IntentFilter(
                 WifiManager.NETWORK_STATE_CHANGED_ACTION));
-        new Thread(new Runnable() {
+        MyThreadFactory myThreadFactory = new MyThreadFactory();
+        executorService = Executors.newSingleThreadExecutor(myThreadFactory);
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
                 while (scanAutoFlag < MyConfig.INT_CHECK_WIFI_AUTO_SCAN_COUNT) {
@@ -89,12 +83,12 @@ public class Wifi extends BroadcastReceiver {
                     }
                 }
             }
-        }).start();
+        });
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        switch (intent.getAction().toString()) {
+        switch (intent.getAction()) {
             case WifiManager.RSSI_CHANGED_ACTION:
                 break;
             case WifiManager.SCAN_RESULTS_AVAILABLE_ACTION:
@@ -183,12 +177,10 @@ public class Wifi extends BroadcastReceiver {
         }
     }
 
+
     private boolean checkGpsStatus() {
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            return true;
-        }
-        return false;
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     private void ListenerAllWifi() {
@@ -224,7 +216,7 @@ public class Wifi extends BroadcastReceiver {
             wifiInfo.device = "";
             wifiInfo.frequency = result.frequency;
             wifiInfo.keyType = result.capabilities;
-            if (connMac.toString().equals(result.BSSID.toString())) {
+            if (connMac.equals(result.BSSID)) {
                 wifiInfo.isConnWifi = true;
                 wifiInfo.device = connIp;
                 wifiInfo.speed = connSpeed;
@@ -235,8 +227,12 @@ public class Wifi extends BroadcastReceiver {
             channelSum[wifiInfo.channel]++;
             updateHashMap(wifiInfo);
         }
-        UpdateAllUI(channelSum);
+        if (!UpdateAllUI(channelSum)) {
+            hashMap2d4G.clear();
+            hashMap5G.clear();
+        }
     }
+
     private void updateHashMap(WifiInfo wifiInfo) {
         if (wifiInfo.channel < 14 && wifiInfo.channel > 0) {
             if (hashMap2d4G.containsKey(wifiInfo.mac)) {
@@ -270,22 +266,31 @@ public class Wifi extends BroadcastReceiver {
         }
     }
 
-    private void UpdateAllUI(int[] channelSum) {
-        wifiRefreshInf.UpdateListInfoList(list);
-        wifiRefreshInf.SetListInfoTip("扫描到" + list.size() + "个WIFI信号");
+    private boolean UpdateAllUI(int[] channelSum) {
+        boolean isRun;
         wifiRefreshInf.UpdateChanelCount(channelSum);
-        if(hashMap2d4G!=null) {
-            wifiRefreshInf.UpdateGraphic2d4G(hashMap2d4G);
+        isRun=wifiRefreshInf.UpdateGraphic2d4G(hashMap2d4G);
+        isRun= wifiRefreshInf.UpdateGraphic5G(hashMap5G) && isRun;
+        if(!isRun) {
+            return false;
         }
-        if(hashMap5G!=null) {
-            wifiRefreshInf.UpdateGraphic5G(hashMap5G);
-        }
-        if (list!=null) {
-            wifiRefreshInf.UpdateGraphicDbm(list);
-        }
-}
+        wifiRefreshInf.UpdateGraphicDbm(list);
+        wifiRefreshInf.SetListInfoTip("扫描到" + list.size() + "个WIFI信号");
+        wifiRefreshInf.UpdateListInfoList(list);
+        return true;
+    }
 
     private void ClearList() {
         wifiRefreshInf.ClearListInfoUI();
+    }
+    public void BreakBackgroundTask()
+    {
+        try {
+            executorService.shutdownNow();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 }

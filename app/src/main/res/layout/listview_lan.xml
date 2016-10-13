@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="5dp"
+    android:layout_height="wrap_content">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/lan_ip"
+    android:textSize="12sp"
+    android:textColor="#25ba57"
+    android:text="@string/text_null"
+    android:singleLine="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lan_mac"
+    android:textColor="#605e5e"
+    android:text="@string/text_null"
+    android:textSize="12dp"
+    android:singleLine="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lan_device"
+        android:text="@string/text_null"
+        android:textSize="10sp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
+        android:layout_below="@+id/lan_mac"
+        android:textColor="#605e5e"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentLeft="true" />
+
+</RelativeLayout>

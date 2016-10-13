@@ -1,22 +1,15 @@
 package ywcai.ls.mobileutil.main.fragment.sub;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import ywcai.ls.core.Wifi;
 import ywcai.ls.core.task.RefreshWifi5G;
 import ywcai.ls.mobileutil.R;
 
-/**
- * Created by zmy_11 on 2016/9/22.
- */
-@SuppressLint("ValidFragment")
+
 public class WifiChanelAnalysis5GFragment extends Fragment {
-    private Wifi wifi;
     public RefreshWifi5G refreshWifi5G=null;
 
     public WifiChanelAnalysis5GFragment() {
@@ -33,4 +26,9 @@ public class WifiChanelAnalysis5GFragment extends Fragment {
         return tab_view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        refreshWifi5G=null;
+    }
 }

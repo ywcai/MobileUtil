@@ -27,7 +27,6 @@
                 android:layout_alignBottom="@+id/img_5G">
 
                 <TextView
-                    android:id="@+id/textView24"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -38,7 +37,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView25"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -48,7 +46,6 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/textView26"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -58,7 +55,6 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/textView27"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -68,7 +64,6 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/textView28"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -78,7 +73,6 @@
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -119,7 +113,6 @@
                 android:layout_alignLeft="@+id/chanelText_5" />
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
                 android:layout_above="@+id/img_line_5G"
@@ -201,7 +194,6 @@
                 android:layout_toRightOf="@+id/left_line">
 
                 <TextView
-                    android:id="@+id/tv_chanel_149"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -213,7 +205,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_chanel_150"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -225,7 +216,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_chanel_157"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -237,7 +227,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_chanel_161"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -249,7 +238,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_chanel_165"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

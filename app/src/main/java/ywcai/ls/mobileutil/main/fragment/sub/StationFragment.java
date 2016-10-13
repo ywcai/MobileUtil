@@ -30,7 +30,7 @@ public class StationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_station, container, false);
-        Station station=new Station(tab_view);
+        Station station=new Station(tab_view,this.getContext());
         return tab_view;
     }
 }

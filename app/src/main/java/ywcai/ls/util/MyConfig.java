@@ -4,6 +4,7 @@ package ywcai.ls.util;
  * Created by zmy_11 on 2016/9/3.
  */
 public class MyConfig {
+    public static final  int INT_SCAN_LAN_THREAD_COUNT=50;
     public static final  int INT_CHECK_WIFI_AUTO_SCAN_COUNT=20;
     public static final  int INT_WIFI_AUTO_SCAN_REFRESH=2000;
     public static final  int INT_BLE_PRINT_INFO_REFRESH=3000;
@@ -19,4 +20,7 @@ public class MyConfig {
 
     public static final String STR_INTENT_IMAGES_INDEX="ImageIndex";
     public static final String STR_INTENT_IMAGES_PATH="ImagePath";
+
+    public static final String STR_ARP_FILE_PATH="/proc/net/arp";
+    public static final String STR_LOCAL_MAC_FILE="/sys/class/net/wlan0/address";
 }

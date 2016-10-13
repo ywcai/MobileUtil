@@ -1,0 +1,190 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.fragment.sub.LanFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#c93273">
+
+        <ProgressBar
+            android:id="@+id/pb_lan"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="1"
+            android:indeterminate="false"
+            android:progress="0"
+            android:progressBackgroundTintMode="screen"
+            android:progressTint="#17ef1a" />
+
+        <TextView
+            android:id="@+id/tv_load_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textSize="10dp" />
+    </RelativeLayout>
+
+    <ywcai.ls.control.MyPullListView
+        android:id="@+id/list_lan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_head" />
+
+    <FrameLayout
+        android:id="@+id/frame_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="#9b9999"></FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_show_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:alpha="1"
+        android:background="#f0efef"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 输入要扫描的网段前三位"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#9c4a4a"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/tv_ip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:ems="3"
+            android:gravity="center_horizontal"
+            android:inputType="numberSigned"
+            android:textColor="#9e2896"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:maxLength="3" />
+
+        <EditText
+            android:id="@+id/tv_ip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_ip1"
+            android:layout_toRightOf="@+id/tv_ip1"
+            android:ems="3"
+            android:gravity="center_horizontal"
+            android:textColor="#9e2896"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:maxLength="3"
+            android:inputType="numberSigned" />
+
+        <EditText
+            android:id="@+id/tv_ip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignTop="@+id/tv_ip1"
+            android:layout_toRightOf="@+id/tv_ip2"
+            android:ems="3"
+            android:gravity="center_horizontal"
+            android:inputType="numberSigned"
+            android:textColor="#9e2896"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:maxLength="3" />
+
+        <EditText
+            android:id="@+id/tv_ip4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_ip1"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_ip3"
+            android:ems="3"
+            android:enabled="false"
+            android:gravity="center_horizontal"
+            android:inputType="numberSigned"
+            android:text="0"
+            android:textColor="#9e2896"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_ip3"
+            android:layout_marginTop="20dp"
+            android:layout_toLeftOf="@+id/tv_cancal"
+            android:onClick="SetConfig"
+            android:text="设置"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#5bb640"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_cancal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_set"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignRight="@+id/textView"
+            android:layout_marginLeft="10dp"
+            android:onClick="SetAuto"
+            android:text="恢复默认"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#abafaa"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_cf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:onClick="ShowConfig"
+        android:text="点击手动设置要扫描的网段"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#97989b"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tv_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:onClick="StopNow"
+        android:text="强行停止扫描"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#f50a12"
+        android:textSize="16dp" />
+
+</RelativeLayout>

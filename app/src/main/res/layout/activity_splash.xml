@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/app_name"
-            android:id="@+id/textView6"
             android:singleLine="true"
             android:textSize="30sp"
             android:layout_alignParentLeft="false"

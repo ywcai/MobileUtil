@@ -112,12 +112,8 @@ public class RefreshWifi2d4G {
             cv.setViewName(bsrLineObj.wifiInfo.sid);
         }
         RelativeLayout.LayoutParams cvLayout;
-        if (bsrLineObj.wifiInfo.dbm > -50) {
-            bsrLineObj.wifiInfo.dbm = -50;
-        }
-        if (bsrLineObj.wifiInfo.dbm < -110) {
-            bsrLineObj.wifiInfo.dbm = -110;
-        }
+        bsrLineObj.wifiInfo.dbm=bsrLineObj.wifiInfo.dbm>-50?-50:bsrLineObj.wifiInfo.dbm;
+        bsrLineObj.wifiInfo.dbm=bsrLineObj.wifiInfo.dbm<-110?-110:bsrLineObj.wifiInfo.dbm;
         int step_2d4G = tabView.findViewById(R.id.img_2d4G).getMeasuredWidth() / 17;
         int h_all=tabView.findViewById(R.id.img_2d4G).getMeasuredHeight();
         int h_2d4G = (bsrLineObj.wifiInfo.dbm + 110) * h_all / 60;

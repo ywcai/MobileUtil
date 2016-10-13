@@ -1,22 +1,16 @@
 package ywcai.ls.mobileutil.main.fragment.sub;
 
-import android.annotation.SuppressLint;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import ywcai.ls.core.Wifi;
 import ywcai.ls.core.task.RefreshWifiList;
 import ywcai.ls.mobileutil.R;
 
-/**
- * Created by zmy_11 on 2016/9/22.
- */
-@SuppressLint("ValidFragment")
+
 public class WifiInfoListFragment extends Fragment {
     public RefreshWifiList refreshWifiList=null;
     public WifiInfoListFragment() {
@@ -36,7 +30,9 @@ public class WifiInfoListFragment extends Fragment {
         return tab_view;
     }
 
-
-
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        refreshWifiList=null;
+    }
 }

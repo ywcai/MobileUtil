@@ -10,14 +10,8 @@ import android.view.ViewGroup;
 import ywcai.ls.core.Orientation;
 import ywcai.ls.mobileutil.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class OrientationFragment extends Fragment {
 
-    public OrientationFragment() {
-        // Required empty public constructor
-    }
+public class OrientationFragment extends Fragment {
 
 
     @Override
@@ -28,10 +22,9 @@ public class OrientationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_orientation, container, false);
 
-        Orientation orientation=new Orientation(tab_view );
+        Orientation orientation=new Orientation(tab_view,this.getContext() );
 
         return tab_view;
     }

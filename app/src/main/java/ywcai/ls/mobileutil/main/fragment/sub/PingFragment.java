@@ -30,13 +30,6 @@ public class PingFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ping.pingParameter.isWorking=false;
-        try
-        {
-            ping.executorService.shutdownNow();
-        }
-        catch (Exception e)
-        {
-
-        }
+        ping.breakBackgroundThread();
     }
 }
