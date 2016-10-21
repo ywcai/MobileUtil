@@ -5,4 +5,5 @@ package ywcai.ls.bean;
  */
 public class LanInfo {
     public String lanIp, lanMac,lanDevice;
+    public boolean isExist;
 }

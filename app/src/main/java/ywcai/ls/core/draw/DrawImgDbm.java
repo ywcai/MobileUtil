@@ -45,11 +45,11 @@ public class DrawImgDbm {
 
         int LineMaxColor = 0xFFF30C0C;
         int Line110dbmColor = 0xFF747070;
-        int Line100dbmColor = 0xFFE2DEDE;
-        int Line90dbmColor = 0xFFE2DEDE;
-        int Line80dbmColor = 0xFFE2DEDE;
-        int Line70dbmColor = 0xFFE2DEDE;
-        int Line60dbmColor = 0xFFE2DEDE;
+        int Line100dbmColor = 0xFF777474;
+        int Line90dbmColor = 0xFF777474;
+        int Line80dbmColor = 0xFF777474;
+        int Line70dbmColor = 0xFF777474;
+        int Line60dbmColor = 0xFF777474;
 
 
         float LineMidThickness = 1.0f;
@@ -94,7 +94,7 @@ public class DrawImgDbm {
     public Bitmap getRecordImg(HashMap hashTemp, HashMap nowDbmHash) {
         int bsrWidth = 3;
         p.setAntiAlias(true);
-        Bitmap record = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+        Bitmap record = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_4444);
         int xStep = bmpWidth / MyConfig.INT_WIFI_RECORD_X_MAX;
         Canvas canTemp = new Canvas(record);
         Matrix m = new Matrix();
@@ -158,7 +158,7 @@ public class DrawImgDbm {
     }
 
     public void saveLog() {
-        Bitmap dbmLog = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+        Bitmap dbmLog = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_4444);
         Canvas c = new Canvas(dbmLog);
         c.drawBitmap(bg, 0, 0, null);
         c.drawBitmap(temp, 0, 0, null);
@@ -172,7 +172,7 @@ public class DrawImgDbm {
     }
     public void reset() {
         temp=null;
-        temp = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_8888);
+        temp = Bitmap.createBitmap(bmpWidth, bmpHeight, Bitmap.Config.ARGB_4444);
         hashColor.clear();
         colorNum = 0;
         p.setAntiAlias(true);
@@ -197,7 +197,7 @@ public class DrawImgDbm {
         rect.set(0, 0, bmpWidth, bmpHeight);
         canvas.drawRect(rect, p);
         hashColor = new HashMap<>();
-        temp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        temp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);
         colorNum = 0;
         canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
                 | Paint.FILTER_BITMAP_FLAG));

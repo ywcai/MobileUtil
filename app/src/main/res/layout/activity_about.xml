@@ -45,5 +45,14 @@
         android:text="@string/about_date"
         android:gravity="center_vertical"
         android:textAlignment="textStart"></TextView>
+
+    <RelativeLayout
+        android:id="@+id/ad_container_360"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="0dp"
+        android:layout_above="@+id/homePage_nav" />
 </LinearLayout>
 

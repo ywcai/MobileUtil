@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.core.Gps;
 import ywcai.ls.mobileutil.R;
 
@@ -32,5 +35,16 @@ public class GpsFragment extends Fragment {
 
         Gps gps=new Gps(tab_view,this.getContext());
         return tab_view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"GPS");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"GPS");
     }
 }

@@ -5,11 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/MobileUtil.iml" filepath="$PROJECT_DIR$/MobileUtil.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bDIntegrationSDK_LibProject/bDIntegrationSDK_LibProject.iml" filepath="$PROJECT_DIR$/bDIntegrationSDK_LibProject/bDIntegrationSDK_LibProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/leakcanary-analyzer/leakcanary-analyzer.iml" filepath="$PROJECT_DIR$/leakcanary-analyzer/leakcanary-analyzer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/leakcanary-android/leakcanary-android.iml" filepath="$PROJECT_DIR$/leakcanary-android/leakcanary-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/leakcanary-android-no-op/leakcanary-android-no-op.iml" filepath="$PROJECT_DIR$/leakcanary-android-no-op/leakcanary-android-no-op.iml" />
-      <module fileurl="file://$PROJECT_DIR$/leakcanary-sample/leakcanary-sample.iml" filepath="$PROJECT_DIR$/leakcanary-sample/leakcanary-sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/leakcanary-watcher/leakcanary-watcher.iml" filepath="$PROJECT_DIR$/leakcanary-watcher/leakcanary-watcher.iml" />
     </modules>
   </component>
 </project>

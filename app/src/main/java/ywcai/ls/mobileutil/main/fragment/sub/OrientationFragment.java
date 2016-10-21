@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.core.Orientation;
 import ywcai.ls.mobileutil.R;
 
@@ -27,5 +29,16 @@ public class OrientationFragment extends Fragment {
         Orientation orientation=new Orientation(tab_view,this.getContext() );
 
         return tab_view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"Orientation");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"Orientation");
     }
 }

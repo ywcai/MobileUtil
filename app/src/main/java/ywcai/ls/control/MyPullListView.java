@@ -70,13 +70,13 @@ public class MyPullListView extends ListView implements AbsListView.OnScrollList
                 break;
             case MotionEvent.ACTION_UP:
                 if (isLoading || (!isOnTop)) {
-                    return false;
+                    return true;
                 }
                 upY = (int) event.getRawY() - downY;
                 callBack.UpView(upY);
                 moveLastY=0;
                 break;
         }
-        return true;
+        return false;
     }
 }

@@ -33,14 +33,13 @@ import ywcai.ls.util.MyConfig;
 
 
 public class NetActivity extends AppCompatActivity implements CallBackMainTitle {
-    private final String MSSP_BANER_AD="2875764";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_net_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         InitView();
-        CreateBanner();
         Bundle bundle = this.getIntent().getExtras();
         int pos = bundle.getInt(MyConfig.STR_INTENT_ARGS);
         CreateFragment(pos);
@@ -120,45 +119,7 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
                 break;
         }
     }
-    private void CreateBanner()
-    {
-        RelativeLayout adContainer=(RelativeLayout)this.findViewById(R.id.ad_banner);
-        AdView adView=new AdView(this,MSSP_BANER_AD);
-        AdSettings.setKey(new String[]{"baidu", "中国"});
-        adContainer.addView(adView);
-        adView.setListener(new AdViewListener() {
-            @Override
-            public void onAdReady(AdView adView) {
 
-            }
-
-            @Override
-            public void onAdShow(JSONObject jsonObject) {
-
-            }
-
-            @Override
-            public void onAdClick(JSONObject jsonObject) {
-
-            }
-
-            @Override
-            public void onAdFailed(String s) {
-
-            }
-
-            @Override
-            public void onAdSwitch() {
-
-            }
-
-            @Override
-            public void onAdClose(JSONObject jsonObject) {
-
-            }
-        });
-
-    }
 
 
     @Override
@@ -183,16 +144,5 @@ public class NetActivity extends AppCompatActivity implements CallBackMainTitle 
     @Override
     public void callBackLoad() {
 
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        StatService.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        StatService.onPause(this);
     }
 }

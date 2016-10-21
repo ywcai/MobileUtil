@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.adapter.WifiPageAdapter;
 import ywcai.ls.core.Wifi;
 import ywcai.ls.inf.CallBackMainTitle;
@@ -90,5 +92,16 @@ public class WifiFragment extends Fragment{
     public void onDestroy() {
         wifi.BreakBackgroundTask();
         super.onDestroy();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"Wifi");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"Wifi");
     }
 }

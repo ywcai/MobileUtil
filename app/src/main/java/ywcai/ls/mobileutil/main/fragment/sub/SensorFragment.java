@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.core.Sensor;
 import ywcai.ls.mobileutil.R;
 
@@ -25,7 +27,18 @@ public class SensorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View tab_view = inflater.inflate(R.layout.fragment_tab_sensor, container, false);
-        Sensor sensor =new Sensor(tab_view,this.getContext());
+        new Sensor(tab_view,this.getContext());
         return tab_view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"Sensor");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"Sensor");
     }
 }

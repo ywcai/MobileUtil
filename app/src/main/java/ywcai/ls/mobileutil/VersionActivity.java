@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,5 +50,15 @@ public class VersionActivity extends AppCompatActivity {
         SimpleAdapter simpleAdapter =new SimpleAdapter
                 (this,list,R.layout.listview_version,new String[]{"num", "date","detail"},new int[]{R.id.version_num,R.id.version_date,R.id.version_content});
         listViewCompat.setAdapter(simpleAdapter);
+    }
+    protected void onResume() {
+        super.onResume();
+        StatService.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
     }
 }

@@ -81,3 +81,6 @@
 -keep class com.baidu.** {
 *;
 }
+-keep class com.mediav.** {
+*;
+}

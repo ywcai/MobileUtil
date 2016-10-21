@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+
 import ywcai.ls.adapter.LocalImgAdapter;
 import ywcai.ls.bean.WifiInfo;
 import ywcai.ls.core.draw.DrawImgDbm;
@@ -34,8 +35,8 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
     private ImageView img, img_2, img_bg;
     public DrawImgDbm draw;
     public Bitmap temp = null;
-    private HashMap<String, Integer> hashTemp=new HashMap<>();
-    private int selectChanel=1,lastChanel=1;
+    private HashMap<String, Integer> hashTemp = new HashMap<>();
+    private int selectChanel = 1, lastChanel = 1;
     private ListViewCompat listView;
     private RelativeLayout rl_log, rl_chanel_box;
     private WifiDbmRecordFragment wifiFragment;
@@ -50,25 +51,25 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
     }
 
     private void InitView() {
-        TextView t1=(TextView)tabView.findViewById(R.id.radioButton);
-        TextView t2=(TextView)tabView.findViewById(R.id.radioButton2);
-        TextView t3=(TextView)tabView.findViewById(R.id.radioButton3);
-        TextView t4=(TextView)tabView.findViewById(R.id.radioButton4);
-        TextView t5=(TextView)tabView.findViewById(R.id.radioButton5);
-        TextView t6=(TextView)tabView.findViewById(R.id.radioButton6);
-        TextView t7=(TextView)tabView.findViewById(R.id.radioButton7);
-        TextView t8=(TextView)tabView.findViewById(R.id.radioButton8);
-        TextView t9=(TextView)tabView.findViewById(R.id.radioButton9);
-        TextView t10=(TextView)tabView.findViewById(R.id.radioButton10);
-        TextView t11=(TextView)tabView.findViewById(R.id.radioButton11);
-        TextView t12=(TextView)tabView.findViewById(R.id.radioButton12);
-        TextView t13=(TextView)tabView.findViewById(R.id.radioButton13);
-        TextView t149=(TextView)tabView.findViewById(R.id.radioButton149);
-        TextView t153=(TextView)tabView.findViewById(R.id.radioButton153);
-        TextView t157=(TextView)tabView.findViewById(R.id.radioButton157);
-        TextView t161=(TextView)tabView.findViewById(R.id.radioButton161);
-        TextView t165=(TextView)tabView.findViewById(R.id.radioButton165);
-        final SelectChanel selectChanelEvent=new SelectChanel();
+        TextView t1 = (TextView) tabView.findViewById(R.id.radioButton);
+        TextView t2 = (TextView) tabView.findViewById(R.id.radioButton2);
+        TextView t3 = (TextView) tabView.findViewById(R.id.radioButton3);
+        TextView t4 = (TextView) tabView.findViewById(R.id.radioButton4);
+        TextView t5 = (TextView) tabView.findViewById(R.id.radioButton5);
+        TextView t6 = (TextView) tabView.findViewById(R.id.radioButton6);
+        TextView t7 = (TextView) tabView.findViewById(R.id.radioButton7);
+        TextView t8 = (TextView) tabView.findViewById(R.id.radioButton8);
+        TextView t9 = (TextView) tabView.findViewById(R.id.radioButton9);
+        TextView t10 = (TextView) tabView.findViewById(R.id.radioButton10);
+        TextView t11 = (TextView) tabView.findViewById(R.id.radioButton11);
+        TextView t12 = (TextView) tabView.findViewById(R.id.radioButton12);
+        TextView t13 = (TextView) tabView.findViewById(R.id.radioButton13);
+        TextView t149 = (TextView) tabView.findViewById(R.id.radioButton149);
+        TextView t153 = (TextView) tabView.findViewById(R.id.radioButton153);
+        TextView t157 = (TextView) tabView.findViewById(R.id.radioButton157);
+        TextView t161 = (TextView) tabView.findViewById(R.id.radioButton161);
+        TextView t165 = (TextView) tabView.findViewById(R.id.radioButton165);
+        final SelectChanel selectChanelEvent = new SelectChanel();
         t1.setOnClickListener(selectChanelEvent);
         t2.setOnClickListener(selectChanelEvent);
         t3.setOnClickListener(selectChanelEvent);
@@ -87,12 +88,12 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         t157.setOnClickListener(selectChanelEvent);
         t161.setOnClickListener(selectChanelEvent);
         t165.setOnClickListener(selectChanelEvent);
-        lastSelect=t1;
+        lastSelect = t1;
         lastSelect.setTextColor(0xFF6DD900);
         rl_log = (RelativeLayout) tabView.findViewById(R.id.dbm_log_rl);
         rl_chanel_box = (RelativeLayout) tabView.findViewById(R.id.rl_chanel_box);
 
-        MoveViewEvent mvEvent=new MoveViewEvent();
+        MoveViewEvent mvEvent = new MoveViewEvent();
         rl_log.setOnTouchListener(mvEvent);
         rl_chanel_box.setOnTouchListener(mvEvent);
 
@@ -101,13 +102,11 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         tv_ack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectChanel==lastChanel)
-                {
+                if (selectChanel == lastChanel) {
                     CloseMenuBox();
-                }
-                else {
+                } else {
                     ChangeChanel();
-                    lastChanel=selectChanel;
+                    lastChanel = selectChanel;
                 }
             }
         });
@@ -163,7 +162,7 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         TextView tv_cancal = (TextView) tabView.findViewById(R.id.textView_cancal);
         tv_ack.setEnabled(false);
         tv_cancal.setEnabled(false);
-        int closeH =  rl_chanel_box.getMeasuredHeight();
+        int closeH = rl_chanel_box.getMeasuredHeight();
         Animation animation1 = new TranslateAnimation(0, 0, 0, -closeH);
         animation1.setDuration(500);
         animation1.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -180,7 +179,7 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         tv_ack.setEnabled(true);
         tv_cancal.setEnabled(true);
         int h = (rl_chanel_box.getMeasuredHeight() > 0) ? rl_chanel_box.getMeasuredHeight() : 750;
-        Animation animation1 = new TranslateAnimation(0, 0,-h,0);
+        Animation animation1 = new TranslateAnimation(0, 0, -h, 0);
         animation1.setDuration(500);
         animation1.setInterpolator(new AccelerateDecelerateInterpolator());
         rl_chanel_box.startAnimation(animation1);
@@ -208,6 +207,7 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         tv_show.setVisibility(View.GONE);
         tv_save.setVisibility(View.GONE);
     }
+
     private void setBtnVisible() {
         tv_set.setVisibility(View.VISIBLE);
         tv_show.setVisibility(View.VISIBLE);
@@ -227,14 +227,14 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
 
     private Bitmap DrawLine(HashMap hashDrawInfo) {
         int step = img_bg.getMeasuredWidth() / MyConfig.INT_WIFI_RECORD_X_MAX;
-        if (temp != null) {
-            img_2.setImageBitmap(temp);
-            Animation animation1 = new TranslateAnimation(0, step, 0, 0);
-            animation1.setDuration(500);
-            animation1.setInterpolator(new AccelerateDecelerateInterpolator());
-            animation1.setFillAfter(true);
-            img_2.startAnimation(animation1);
-        }
+
+        img_2.setImageBitmap(temp);
+        Animation animation1 = new TranslateAnimation(0, step, 0, 0);
+        animation1.setDuration(500);
+        animation1.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation1.setFillAfter(true);
+        img_2.startAnimation(animation1);
+
         Bitmap record = draw.getRecordImg(hashTemp, hashDrawInfo);
         img.setImageBitmap(record);
         Animation animation2 = new TranslateAnimation(-step, 0, 0, 0);
@@ -246,17 +246,15 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
 
     @Override
     public void clearImg() {
-        temp=null;
-        Animation animation1 = new TranslateAnimation(0, img_bg.getMeasuredWidth(), 0, 0);
+        int step = img_bg.getMeasuredWidth() / MyConfig.INT_WIFI_RECORD_X_MAX;
+        Animation animation1 = new TranslateAnimation(step, img_bg.getMeasuredWidth() + step, 0, 0);
         animation1.setDuration(1000);
         animation1.setFillAfter(true);
         img_2.startAnimation(animation1);
-//        Animation animation2 = new TranslateAnimation(0, img_bg.getMeasuredWidth(), 0, 0);
-//        animation2.setDuration(1000);
-//        animation2.setFillAfter(true);
-//        img.startAnimation(animation1);
+
         img.setImageBitmap(null);
         hashTemp.clear();
+        temp = null;
     }
 
     private void showDbmRecord() {
@@ -295,130 +293,125 @@ public class RefreshWifiDbm implements WifiDbmBgClearInf {
         intent.putExtras(bundle);
         wifiFragment.startActivity(intent);
     }
-    class MoveViewEvent implements View.OnTouchListener
-    {
-        int downY=0;
-        int moveLastY=0;
-        int moveNowY=0;
-        int upY=0;
+
+    class MoveViewEvent implements View.OnTouchListener {
+        int downY = 0;
+        int moveLastY = 0;
+        int moveNowY = 0;
+        int upY = 0;
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    downY=(int)event.getRawY();
+                    downY = (int) event.getRawY();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    moveNowY=downY-(int)event.getRawY();
-                    if(moveNowY>0)
-                    {
-                        Animation animation1 = new TranslateAnimation(0, 0, -moveLastY,-moveNowY);
+                    moveNowY = downY - (int) event.getRawY();
+                    if (moveNowY > 0) {
+                        Animation animation1 = new TranslateAnimation(0, 0, -moveLastY, -moveNowY);
                         animation1.setDuration(5);
                         animation1.setFillAfter(true);
                         v.startAnimation(animation1);
-                    moveLastY=moveNowY;
+                        moveLastY = moveNowY;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    upY=(int)event.getRawY();
-                    if(upY-downY<-300)
-                    {
-                        Animation animation1 = new TranslateAnimation(0, 0, -moveLastY,-v.getMeasuredHeight());
+                    upY = (int) event.getRawY();
+                    if (upY - downY < -300) {
+                        Animation animation1 = new TranslateAnimation(0, 0, -moveLastY, -v.getMeasuredHeight());
                         animation1.setDuration(500);
                         animation1.setInterpolator(new AccelerateDecelerateInterpolator());
                         v.startAnimation(animation1);
                         v.setVisibility(View.GONE);
                         setBtnVisible();
-                    }
-                    else
-                    {
-                        Animation animation1 = new TranslateAnimation(0, 0, -moveLastY,0);
+                    } else {
+                        Animation animation1 = new TranslateAnimation(0, 0, -moveLastY, 0);
                         animation1.setDuration(200);
                         animation1.setInterpolator(new AccelerateDecelerateInterpolator());
                         v.startAnimation(animation1);
                     }
-                     downY=0;
-                     moveLastY=0;
-                     moveNowY=0;
-                     upY=0;
+                    downY = 0;
+                    moveLastY = 0;
+                    moveNowY = 0;
+                    upY = 0;
                     break;
             }
             return true;
         }
     }
 
-    class SelectChanel implements View.OnClickListener
-    {
+    class SelectChanel implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            if(v.getId()!=lastSelect.getId())
-            {
+            if (v.getId() != lastSelect.getId()) {
                 ClearLastBtn();
                 SetBtnState(v.getId());
             }
         }
     }
+
     private void ClearLastBtn() {
         lastSelect.setTextColor(0xFF777474);
     }
 
     private void SetBtnState(int mid) {
-        lastSelect=(TextView)tabView.findViewById(mid);
+        lastSelect = (TextView) tabView.findViewById(mid);
         lastSelect.setTextColor(0xFF6DD900);
-        switch (mid)
-        {
+        switch (mid) {
             case R.id.radioButton:
-                selectChanel=1;
+                selectChanel = 1;
                 break;
             case R.id.radioButton2:
-                selectChanel=2;
+                selectChanel = 2;
                 break;
             case R.id.radioButton3:
-                selectChanel=3;
+                selectChanel = 3;
                 break;
             case R.id.radioButton4:
-                selectChanel=4;
+                selectChanel = 4;
                 break;
             case R.id.radioButton5:
-                selectChanel=5;
+                selectChanel = 5;
                 break;
             case R.id.radioButton6:
-                selectChanel=6;
+                selectChanel = 6;
                 break;
             case R.id.radioButton7:
-                selectChanel=7;
+                selectChanel = 7;
                 break;
             case R.id.radioButton8:
-                selectChanel=8;
+                selectChanel = 8;
                 break;
             case R.id.radioButton9:
-                selectChanel=9;
+                selectChanel = 9;
                 break;
             case R.id.radioButton10:
-                selectChanel=10;
+                selectChanel = 10;
                 break;
             case R.id.radioButton11:
-                selectChanel=11;
+                selectChanel = 11;
                 break;
             case R.id.radioButton12:
-                selectChanel=12;
+                selectChanel = 12;
                 break;
             case R.id.radioButton13:
-                selectChanel=13;
+                selectChanel = 13;
                 break;
             case R.id.radioButton149:
-                selectChanel=149;
+                selectChanel = 149;
                 break;
             case R.id.radioButton153:
-                selectChanel=153;
+                selectChanel = 153;
                 break;
             case R.id.radioButton157:
-                selectChanel=157;
+                selectChanel = 157;
                 break;
             case R.id.radioButton161:
-                selectChanel=161;
+                selectChanel = 161;
                 break;
             case R.id.radioButton165:
-                selectChanel=165;
+                selectChanel = 165;
                 break;
         }
     }

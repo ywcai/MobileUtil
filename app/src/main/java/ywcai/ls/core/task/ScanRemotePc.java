@@ -11,13 +11,14 @@ import ywcai.ls.inf.CallBackLanScanResultInf;
 import ywcai.ls.util.MyConfig;
 
 
-public class ScanLan implements Runnable {
-    public String lanIp = "";
+public class ScanRemotePc implements Runnable {
+    public String lanIp = "",localIp="";
     CallBackLanScanResultInf callBack;
 
-    public ScanLan(String pIp, CallBackLanScanResultInf pCallBack) {
+    public ScanRemotePc(String pIp, CallBackLanScanResultInf pCallBack,String pLocalIp) {
         lanIp = pIp;
         callBack = pCallBack;
+        localIp=pLocalIp;
     }
 
     @Override
@@ -52,6 +53,11 @@ public class ScanLan implements Runnable {
             String lanDevice=GetDevice(lanMac);
             lanInfo.lanMac=lanMac;
             lanInfo.lanDevice=lanDevice;
+            if(!localIp.equals(lanIp)) {
+                SocketTest socketTest = new SocketTest();
+                lanInfo.isExist = socketTest.GetRemotePcStatus(lanIp);
+                lanInfo.lanDevice="远端应用开启";
+            }
         }
         callBack.UpdateIpList(lanInfo);
     }

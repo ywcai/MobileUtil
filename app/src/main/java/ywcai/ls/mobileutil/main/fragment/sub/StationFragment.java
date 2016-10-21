@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.core.Station;
 import ywcai.ls.mobileutil.R;
 
@@ -32,5 +35,16 @@ public class StationFragment extends Fragment {
         View tab_view = inflater.inflate(R.layout.fragment_tab_station, container, false);
         Station station=new Station(tab_view,this.getContext());
         return tab_view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"Station");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"Station");
     }
 }

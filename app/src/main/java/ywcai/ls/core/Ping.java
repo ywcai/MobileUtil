@@ -28,7 +28,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import ywcai.ls.bean.PingParameter;
 import ywcai.ls.bean.PingResult;
-import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.main.activity.sub.PingAnalysisActivity;
 import ywcai.ls.core.thread.MyThreadFactory;
@@ -85,7 +84,7 @@ public class Ping extends Handler {
     private void InitView() {
         tv_log = (TextView) tabView.findViewById(R.id.tv_ping_log);
         tv_log.setMovementMethod(ScrollingMovementMethod.getInstance());
-        tv_threadSize = (TextView) tabView.findViewById(R.id.textView4);
+        tv_threadSize = (TextView) tabView.findViewById(R.id.bot_nav_4);
         tv_taskCount = (TextView) tabView.findViewById(R.id.textView5);
         swc_sendMethod = (SwitchCompat) tabView.findViewById(R.id.send_method);
         btn_ctrl = (Button) tabView.findViewById(R.id.ping_ctrl);

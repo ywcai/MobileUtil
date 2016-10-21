@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.core.Ble;
 import ywcai.ls.mobileutil.R;
 
@@ -42,5 +44,16 @@ public class BleFragment extends Fragment {
             textView.setText("该系统版本(4.3及以下)不支持蓝牙4.0协议!");
         }
         return tab_view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"BLE");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"BLE");
     }
 }

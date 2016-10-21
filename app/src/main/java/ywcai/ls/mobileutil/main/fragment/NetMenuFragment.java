@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
+
+import com.baidu.mobstat.StatService;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,4 +84,15 @@ public class NetMenuFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"Menu");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"Menu");
+    }
 }

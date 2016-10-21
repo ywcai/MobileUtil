@@ -1,2 +1,2 @@
-include ':app', ':leakcanary-android', ':leakcanary-android-no-op', ':leakcanary-sample', ':leakcanary-analyzer', ':leakcanary-watcher'
+include ':app'
 include ':bDIntegrationSDK_LibProject'

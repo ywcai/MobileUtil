@@ -12,17 +12,16 @@
     android:background="#DBEEF4"
     xmlns:android="http://schemas.android.com/apk/res/android">
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/bot_nav_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
             android:text="@string/bot_menu1"
-            style="@style/ToolbarTextSelectTheme"
-            />
+            android:textColor="#666967" />
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/bot_nav_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -30,9 +29,9 @@
             android:gravity="center"
             android:text="@string/bot_menu2"
             android:textAlignment="center"
-            style="@style/ToolbarTextTheme"/>
+            android:textColor="#666967" />
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/bot_nav_3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -42,7 +41,7 @@
             android:textAlignment="center"
             style="@style/ToolbarTextTheme"/>
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/bot_nav_4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

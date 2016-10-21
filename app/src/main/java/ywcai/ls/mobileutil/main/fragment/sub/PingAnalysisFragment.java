@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baidu.mobstat.StatService;
+
 import java.util.ArrayList;
 import ywcai.ls.core.PingAnalysis;
 import ywcai.ls.mobileutil.R;
@@ -29,5 +31,16 @@ public class PingAnalysisFragment extends Fragment {
         ArrayList<Integer> logList=this.getArguments().getIntegerArrayList(MyConfig.STR_INTENT_LIST_ARGS);
         new PingAnalysis(tab_view,logList,logInfo,this);
         return tab_view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"PingAnalysis");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"PingAnalysis");
     }
 }

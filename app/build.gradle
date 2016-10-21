@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -29,4 +29,5 @@ dependencies {
     //    compile project(':bDIntegrationSDK_LibProject')
     compile files('libs/Baidu_MobAds_SDK.jar')
     compile project(':bDIntegrationSDK_LibProject')
+    compile files('libs/adsdk_0.1.7.0.jar')
 }

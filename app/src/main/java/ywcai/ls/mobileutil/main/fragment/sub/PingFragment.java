@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.baidu.mobstat.StatService;
+
 import ywcai.ls.core.Ping;
 import ywcai.ls.mobileutil.R;
 
@@ -31,5 +33,16 @@ public class PingFragment extends Fragment {
         super.onDestroyView();
         ping.pingParameter.isWorking=false;
         ping.breakBackgroundThread();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatService.onPageEnd(this.getContext(),"Ping");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatService.onPageStart(this.getContext(),"Ping");
     }
 }

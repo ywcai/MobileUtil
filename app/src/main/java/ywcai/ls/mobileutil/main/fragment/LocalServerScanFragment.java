@@ -1,4 +1,4 @@
-package ywcai.ls.mobileutil.main.fragment.sub;
+package ywcai.ls.mobileutil.main.fragment;
 
 
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -37,10 +38,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ywcai.ls.bean.CheckResult;
 import ywcai.ls.bean.LanInfo;
 import ywcai.ls.control.MyPullListView;
 import ywcai.ls.control.MyPullViewCallBack;
-import ywcai.ls.core.task.ScanLan;
+import ywcai.ls.core.task.CheckToken;
+import ywcai.ls.core.task.ScanRemotePc;
 import ywcai.ls.core.thread.MyThreadFactory;
 import ywcai.ls.inf.CallBackLanScanResultInf;
 import ywcai.ls.mobileutil.R;
@@ -48,7 +51,7 @@ import ywcai.ls.util.MyConfig;
 import ywcai.ls.util.MyUtil;
 
 
-public class LanFragment extends Fragment implements CallBackLanScanResultInf {
+public class LocalServerScanFragment extends Fragment implements CallBackLanScanResultInf {
 
     private View tabView;
     private MyHandler myHandler;
@@ -65,7 +68,7 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
     private String ipRecord, userInPut = "0.0.0";
     private String localIp, localMac;
     private ExecutorService executorService;
-    private boolean isAuto = true;
+    private int nowSelectPos;
 
 
     @Override
@@ -76,7 +79,7 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        tabView = inflater.inflate(R.layout.fragment_tab_lan, container, false);
+        tabView = inflater.inflate(R.layout.fragment_tab_mouse, container, false);
         InitView();
         InitAnimation();
         ScanStart();
@@ -166,42 +169,79 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
         lanListView.setAdapter(simpleAdapter);
         lanListView.h = loaderHeight;
 
-        TextView tv_config = (TextView) tabView.findViewById(R.id.tv_cf);
-        TextView tv_stop = (TextView) tabView.findViewById(R.id.tv_stop);
-        TextView tv_set = (TextView) tabView.findViewById(R.id.tv_conn);
-        TextView tv_cancal = (TextView) tabView.findViewById(R.id.tv_cancal);
         ImageView img_close  = (ImageView) tabView.findViewById(R.id.btn_close);
-
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClosePopWindow();
             }
         });
-        tv_config.setOnClickListener(new View.OnClickListener() {
+        lanListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                ShowConfig();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0) {
+                    ShowConnUi(position);
+                }
             }
         });
-        tv_stop.setOnClickListener(new View.OnClickListener() {
+        TextView btn_conn=(TextView)tabView.findViewById(R.id.tv_conn);
+        btn_conn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StopNow();
+                RequestConn();
             }
         });
-        tv_set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SetConfig();
-            }
-        });
-        tv_cancal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SetAuto();
-            }
-        });
+    }
+
+    private void RequestConn() {
+        String ipaddr=ipList.get(nowSelectPos).get("lanIp");
+        TextView text=(TextView)tabView.findViewById(R.id.tv_psw);
+        String psw=text.getText().toString();
+        SendPSW(ipaddr,psw);
+        HideFormOnly();
+        ShowLoader();
+    }
+    private void SendPSW(String ipAddr,String psw) {
+
+        MyThreadFactory myThreadFactory = new MyThreadFactory();
+        executorService = Executors.newSingleThreadExecutor(myThreadFactory);
+        CheckToken checkToken=new CheckToken(psw,ipAddr,this);
+        executorService.execute(checkToken);
+    }
+
+    private void ShowConnUi(int position) {
+        nowSelectPos=position;
+        RelativeLayout rl_config = (RelativeLayout) tabView.findViewById(R.id.rl_show_config);
+        FrameLayout fl = (FrameLayout) tabView.findViewById(R.id.frame_mask);
+        fl.setVisibility(View.VISIBLE);
+        rl_config.setVisibility(View.VISIBLE);
+    }
+    private void HideAll() {
+        HideFrameOnly();
+        HideFormOnly();
+        HideLoader();
+    }
+    private void HideFrameOnly()
+    {
+        FrameLayout fl = (FrameLayout) tabView.findViewById(R.id.frame_mask);
+        fl.setVisibility(View.GONE);
+    }
+    private void HideFormOnly()
+    {
+        RelativeLayout rl_config = (RelativeLayout) tabView.findViewById(R.id.rl_show_config);
+        rl_config.setVisibility(View.GONE);
+    }
+    private void ShowLoader()
+    {
+        lanListView.setEnabled(false);
+        ProgressBar loader=(ProgressBar)tabView.findViewById(R.id.loader);
+        loader.setVisibility(View.VISIBLE);
+    }
+    private void HideLoader()
+    {
+        lanListView.setEnabled(true);
+        ProgressBar loader=(ProgressBar)tabView.findViewById(R.id.loader);
+        loader.setVisibility(View.GONE);
     }
 
 
@@ -231,11 +271,7 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
     }
 
     private void ScanStart() {
-        TextView tv_config = (TextView) tabView.findViewById(R.id.tv_cf);
-        TextView tv_stop = (TextView) tabView.findViewById(R.id.tv_stop);
-        tv_stop.setVisibility(View.VISIBLE);
-        HideConfig();
-        tv_config.setVisibility(View.INVISIBLE);
+        HideAll();
         ipList.clear();
         simpleAdapter.notifyDataSetChanged();
         LoadNetSub();
@@ -243,20 +279,13 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
         MyThreadFactory myThreadFactory = new MyThreadFactory();
         executorService = Executors.newFixedThreadPool(MyConfig.INT_SCAN_LAN_THREAD_COUNT, myThreadFactory);
         String scanIp = ipRecord;
-        if (!isAuto) {
-            scanIp = userInPut;
-        }
         for (int i = 1; i <= 254; i++) {
-            ScanLan scanLan = new ScanLan(scanIp + "." + i, this);
-            executorService.execute(scanLan);
+                ScanRemotePc scanPc = new ScanRemotePc(scanIp + "." + i, this,localIp);
+                executorService.execute(scanPc);
         }
     }
 
     private void ScanEnd() {
-        TextView tv_config = (TextView) tabView.findViewById(R.id.tv_cf);
-        TextView tv_stop = (TextView) tabView.findViewById(R.id.tv_stop);
-        tv_config.setVisibility(View.VISIBLE);
-        tv_stop.setVisibility(View.GONE);
         lanListView.isLoading = false;
         lanLoader.setVisibility(View.INVISIBLE);
         tv_tip.setText("↓ 下拉刷新");
@@ -293,64 +322,21 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
 
     @Override
     public void CallBackCheckResult(Boolean isSuccess, String identity) {
+        Message mes=new Message();
+        mes.what=1;
+        CheckResult checkResult=new CheckResult();
+        checkResult.isSuccess=isSuccess;
+        checkResult.identity=identity;
+        mes.obj=checkResult;
+        myHandler.sendMessage(mes);
 
     }
 
-    private void StopNow() {
-        BreakBackgroundThread();
-    }
-
-    private void SetAuto() {
-        isAuto = true;
-        HideConfig();
-    }
     private void ClosePopWindow() {
-        HideConfig();
+        HideAll();
     }
 
-    private void SetConfig() {
-        TextView tv_ip1 = (TextView) tabView.findViewById(R.id.tv_ip1);
-        TextView tv_ip2 = (TextView) tabView.findViewById(R.id.tv_ip2);
-        TextView tv_ip3 = (TextView) tabView.findViewById(R.id.tv_psw);
-        if(tv_ip1.getText().toString().equals("")||tv_ip2.getText().toString().equals("")||tv_ip3.getText().toString().equals(""))
-        {
-            Toast.makeText(this.getContext(), "IP输入有误，设置失败!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try {
-            if (Integer.parseInt(tv_ip1.getText().toString()) > 255 || Integer.parseInt(tv_ip2.getText().toString()) > 255 || Integer.parseInt(tv_ip3.getText().toString()) > 255) {
-                Toast.makeText(this.getContext(), "IP输入有误，设置失败!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }catch (Exception e )
-        {
-            Toast.makeText(this.getContext(), "IP输入有误，设置失败!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        isAuto = false;
-        userInPut = tv_ip1.getText().toString() + "." + tv_ip2.getText().toString() + "." + tv_ip3.getText().toString();
-        HideConfig();
-    }
 
-    private void ShowConfig() {
-        RelativeLayout rl_config = (RelativeLayout) tabView.findViewById(R.id.rl_show_config);
-        FrameLayout fl = (FrameLayout) tabView.findViewById(R.id.frame_mask);
-        TextView tv_config=(TextView)tabView.findViewById(R.id.tv_cf);
-        tv_config.setVisibility(View.INVISIBLE);
-        rl_config.setVisibility(View.VISIBLE);
-        fl.setVisibility(View.VISIBLE);
-        lanListView.setEnabled(false);
-    }
-
-    private void HideConfig() {
-        RelativeLayout rl_config = (RelativeLayout) tabView.findViewById(R.id.rl_show_config);
-        FrameLayout fl = (FrameLayout) tabView.findViewById(R.id.frame_mask);
-        rl_config.setVisibility(View.GONE);
-        fl.setVisibility(View.GONE);
-        TextView tv_config=(TextView)tabView.findViewById(R.id.tv_cf);
-        tv_config.setVisibility(View.VISIBLE);
-        lanListView.setEnabled(true);
-    }
 
     class MyHandler extends Handler {
         private void ScanRefresh()
@@ -362,7 +348,7 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
             int per = scanNum * 100 / 254;
             lanLoader.setVisibility(View.VISIBLE);
             lanLoader.setProgress(per);
-            tv_tip.setText("扫描"+per + "%");
+            tv_tip.setText("正在扫描内网中可用的远端设备,已扫描"+per + "%");
             if (per == 100) {
                 ScanEnd();
                 ScanEndAnimation();
@@ -379,14 +365,25 @@ public class LanFragment extends Fragment implements CallBackLanScanResultInf {
                         if (!lanInfo.lanIp.equals(localIp)) {
                             hs.put("lanIp", lanInfo.lanIp);
                             hs.put("lanMac", lanInfo.lanMac);
-                            hs.put("lanDevice", "");
+                            hs.put("lanDevice", lanInfo.lanDevice);
                             ipList.add(hs);
                         }
                         simpleAdapter.notifyDataSetChanged();
                     }
                     ScanRefresh();
                     break;
+                case 1:
+                    CheckResult checkResult=(CheckResult)msg.obj;
+                    if(checkResult.isSuccess) {
+                        Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        HideAll();
+                        Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
             }
+
         }
     }
 

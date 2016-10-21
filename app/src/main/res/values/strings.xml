@@ -4,7 +4,7 @@
     <string name="top_title">专业的网络测试工具包</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="bot_menu1">网络工具</string>
-    <string name="bot_menu2">  </string>
+    <string name="bot_menu2">空中鼠标</string>
     <string name="bot_menu3">  </string>
     <string name="bot_menu4">  </string>
     <!--<string name="bot_menu2">虚拟鼠标</string>-->
@@ -58,10 +58,24 @@
     <string name="about_qq">App Name ：MobileUtil</string>
     <string name="about_email">Type ：NetWork Analysis</string>
     <string name="about_author">Author ：Jimi</string>
-    <string name="about_version">Version ：1.0.5</string>
-    <string name="about_date">Online Date ：2016.10</string>
+    <string name="about_version">Version ：1.0.7</string>
+    <string name="about_date">Online Date ：2016.11</string>
 
     <string-array name="version_detail">
+        <item>
+            1：新增模拟空中重力感应鼠标功能\n
+            2：改善基站信号监测显示界面bug\n
+            3：新增基站信号记录图形分析和记录保存bug\n
+            4：新增手机与手机、手机与PC，远程控制功能模块\n
+            5：新增功能使用帮助\n
+        </item>
+        <item>
+            1：新增内网IP地址扫描功能\n
+            2：修复wifi第一次扫描时波形图数据错误bug\n
+            3：修复自动保存wifi信号强度历史图片时候数据错乱bug\n
+            4：修复多次开启wifi模块内存溢出错误\n
+            5：移除在功能模块底部的横幅广告，首页增加一次性移除广告按钮\n
+        </item>
         <item>
             1：新增WIFI信号强度波动历史折线动态图\n
             2：新增WIFI信道占用比分析,可查看2.4G和5G所有国内支持信道\n
@@ -91,11 +105,15 @@
         </item>
     </string-array>
     <string-array name="version_num">
+        <item>1.0.7 </item>
+        <item>1.0.6 </item>
         <item>1.0.5 </item>
         <item>1.0.4 </item>
         <item>1.0.0</item>
     </string-array>
     <string-array name="version_date">
+        <item>2016.11</item>
+        <item>2016.10</item>
         <item>2016.10</item>
         <item>2016.9</item>
         <item>2016.8</item>

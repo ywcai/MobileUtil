@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textView1"
+                android:id="@+id/bot_nav_1"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
@@ -22,25 +23,25 @@
                 android:textColor="#817c7c"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="10dp" />
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/tv_ip"
                 style="@style/Base.Widget.AppCompat.EditText"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
-                android:layout_alignTop="@+id/textView1"
+                android:layout_alignTop="@+id/bot_nav_1"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/textView1"
+                android:layout_toRightOf="@+id/bot_nav_1"
                 android:gravity="left|bottom"
                 android:inputType="text"
                 android:textSize="10sp"
                 android:textColor="#00664C"/>
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textView2"
+                android:id="@+id/bot_nav_2"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:layout_below="@+id/textView1"
+                android:layout_below="@+id/bot_nav_1"
                 android:layout_marginTop="5dp"
                 android:gravity="left|center_vertical"
                 android:text="PING负载长度"
@@ -55,9 +56,9 @@
                 style="@style/Base.Widget.AppCompat.EditText"
                 android:layout_width="50dp"
                 android:layout_height="35dp"
-                android:layout_alignTop="@+id/textView2"
+                android:layout_alignTop="@+id/bot_nav_2"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/textView2"
+                android:layout_toRightOf="@+id/bot_nav_2"
                 android:gravity="left|bottom"
                 android:inputType="numberSigned"
                 android:textSize="10sp"
@@ -80,10 +81,10 @@
                 android:textStyle="bold"
                 android:visibility="visible" />
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textView3"
+                android:id="@+id/bot_nav_3"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:layout_below="@+id/textView2"
+                android:layout_below="@+id/bot_nav_2"
                 android:layout_marginTop="5dp"
                 android:gravity="left|center_vertical"
                 android:text="多线程PING测"
@@ -97,16 +98,16 @@
                 style="@style/Base.Widget.AppCompat.CompoundButton.Switch"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_alignTop="@+id/textView3"
+                android:layout_alignTop="@+id/bot_nav_3"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/textView3"
+                android:layout_toRightOf="@+id/bot_nav_3"
                 android:checked="false"
                 android:gravity="center_vertical" />
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textView4"
+                android:id="@+id/bot_nav_4"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:layout_below="@+id/textView3"
+                android:layout_below="@+id/bot_nav_3"
                 android:gravity="left|center_vertical"
                 android:text="启动线程数量"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -118,9 +119,9 @@
                 android:id="@+id/tv_thread_count"
                 android:layout_width="70dp"
                 android:layout_height="25dp"
-                android:layout_alignTop="@+id/textView4"
+                android:layout_alignTop="@+id/bot_nav_4"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/textView4"
+                android:layout_toRightOf="@+id/bot_nav_4"
                 android:entries="@array/thread_count"
                 android:textSize="10sp"
                 android:visibility="visible"
@@ -131,7 +132,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/bot_nav_4"
                 android:layout_marginTop="15dp"
                 android:gravity="left|center_vertical"
                 android:text="PING包数量"
@@ -215,15 +216,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fast_ping_loader"
                 android:alpha="1"
-                android:background="#64d5e9"
+                android:background="@drawable/background_pop_text"
                 android:fadeScrollbars="false"
                 android:inputType="text|textMultiLine"
                 android:scrollbarStyle="outsideInset"
                 android:scrollbars="vertical"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:padding="5dp"
                 android:minHeight="200dp"
-                android:maxHeight="200dp" />
+                android:maxHeight="200dp"
+                android:textColor="#ffffff" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
