@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:gravity="center">
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btn_device_del"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="删  除 设  备"
+        android:textColor="@color/red_error"
+        android:textSize="18sp"
+        fbutton:buttonColor="@color/percentBackground"
+        fbutton:cornerRadius="8dp"
+        fbutton:shadowColor="@color/fbutton_color_clouds"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="2dp" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btn_device_edit"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/btn_device_del"
+        android:layout_marginTop="10dp"
+        android:text="修  改 名  称"
+        android:textColor="@color/headBgColor"
+        android:textSize="18sp"
+        fbutton:buttonColor="@color/percentBackground"
+        fbutton:cornerRadius="8dp"
+        fbutton:shadowColor="@color/fbutton_color_clouds"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="2dp" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btn_device_conn"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/btn_device_edit"
+        android:layout_marginTop="10dp"
+        android:text="建 立 连  接"
+        android:textColor="@color/fbutton_color_nephritis"
+        android:textSize="18sp"
+        fbutton:buttonColor="@color/percentBackground"
+        fbutton:cornerRadius="8dp"
+        fbutton:shadowColor="@color/fbutton_color_clouds"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="2dp" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/btn_device_cancal"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/btn_device_conn"
+        android:layout_marginTop="20dp"
+        android:text="取  消"
+        android:textColor="@color/fbutton_color_asbestos"
+        android:textSize="18sp"
+        fbutton:buttonColor="@color/percentBackground"
+        fbutton:cornerRadius="8dp"
+        fbutton:shadowColor="@color/fbutton_color_clouds"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="2dp" />
+</RelativeLayout>

@@ -2,10 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.fragment.sub.BleFragment"
+    tools:context="ywcai.ls.module.components.ble.view.BleFragment"
     android:orientation="vertical">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/tv_ble_title"

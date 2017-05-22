@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".AboutActivity">
+    tools:context=".support.AboutActivity">
 
     <include layout="@layout/toolbar_sub"></include>
 
@@ -16,35 +15,36 @@
         android:layout_height="50dp"
         android:text="@string/about_qq"
         android:gravity="center_vertical"
-        android:textAlignment="textStart"></TextView>
+></TextView>
+
     <TextView
         android:paddingLeft="50dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/about_email"
         android:gravity="center_vertical"
-        android:textAlignment="textStart"></TextView>
+></TextView>
     <TextView
         android:paddingLeft="50dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/about_author"
         android:gravity="center_vertical"
-        android:textAlignment="textStart"></TextView>
+></TextView>
     <TextView
         android:paddingLeft="50dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/about_version"
         android:gravity="center_vertical"
-        android:textAlignment="textStart"></TextView>
+></TextView>
     <TextView
         android:paddingLeft="50dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/about_date"
         android:gravity="center_vertical"
-        android:textAlignment="textStart"></TextView>
+></TextView>
 
     <RelativeLayout
         android:id="@+id/ad_container_360"

@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">多维网络分析仪</string>
     <string name="str_back"><![CDATA[<< 返回]]></string>
     <string name="top_title">专业的网络测试工具包</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="bot_menu1">网络工具</string>
     <string name="bot_menu2">空中鼠标</string>
-    <string name="bot_menu3">  </string>
+    <string name="bot_menu3">远程控制</string>
     <string name="bot_menu4">  </string>
     <!--<string name="bot_menu2">虚拟鼠标</string>-->
     <!--<string name="bot_menu3">远程控制</string>-->
@@ -53,21 +53,28 @@
         <item>500</item>
         <item>1000</item>
         <item>2000</item>
+        <item>5000</item>
     </string-array>
 
     <string name="about_qq">App Name ：MobileUtil</string>
     <string name="about_email">Type ：NetWork Analysis</string>
     <string name="about_author">Author ：Jimi</string>
-    <string name="about_version">Version ：1.0.7</string>
-    <string name="about_date">Online Date ：2016.11</string>
+    <string name="about_version">Version ：1.0.8</string>
+    <string name="about_date">Online Date ：2017.3</string>
+    <string name="mouse_use_help">长按此键后改变手机姿态可控制远端PC鼠标移动\n\n\n\n向上滑动可控制远端PC向上翻页\n\n\n\n向滑下动可控制远端PC向下翻页</string>
 
     <string-array name="version_detail">
         <item>
+            增加手机互相远程控制功能
+            紧急修复BUG
+        </item>
+        <item>
+            app性能优化
+        </item>
+        <item>
             1：新增模拟空中重力感应鼠标功能\n
-            2：改善基站信号监测显示界面bug\n
-            3：新增基站信号记录图形分析和记录保存bug\n
-            4：新增手机与手机、手机与PC，远程控制功能模块\n
-            5：新增功能使用帮助\n
+            2：新增将手机桌面投影至PC屏幕功能（目前仅支持局域网内使用）\n
+            3：修复一些已知的BUG
         </item>
         <item>
             1：新增内网IP地址扫描功能\n
@@ -105,6 +112,8 @@
         </item>
     </string-array>
     <string-array name="version_num">
+        <item>1.0.8 </item>
+        <item>1.0.7.2 </item>
         <item>1.0.7 </item>
         <item>1.0.6 </item>
         <item>1.0.5 </item>
@@ -112,6 +121,7 @@
         <item>1.0.0</item>
     </string-array>
     <string-array name="version_date">
+        <item>2017.01</item>
         <item>2016.11</item>
         <item>2016.10</item>
         <item>2016.10</item>

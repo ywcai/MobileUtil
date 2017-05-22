@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".support.AboutActivity">
+    <include layout="@layout/toolbar_sub" android:id="@+id/help_title"></include>
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/help_title"
+        android:id="@+id/web_container"
+        android:padding="20dp"></WebView>
+</RelativeLayout>
+

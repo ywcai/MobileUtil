@@ -2,11 +2,7 @@ package ywcai.ls.mobileutil;
 
 import android.app.Application;
 
-import java.util.HashMap;
 
-/**
- * Created by zmy_11 on 2016/8/11.
- */
 public class MyApplication extends Application {
 
 

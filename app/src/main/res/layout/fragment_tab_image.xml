@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".main.fragment.ImagesFragment"
+    tools:context="ywcai.ls.common.image.container.ImagesFragment"
     android:background="#040404">
 
     <ImageView

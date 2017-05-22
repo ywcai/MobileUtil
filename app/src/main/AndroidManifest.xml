@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="ywcai.ls.mobileutil">
-    <!--<meta-data-->
-    <!--android:name="BaiduMobAd_STAT_ID"-->
-    <!--android:value="01af8e03de" />-->
-    <meta-data
-        android:name="BaiduMobAd_CHANNEL"
-        android:value="Baidu Market" />
-    <meta-data
-        android:name="BaiduMobAd_EXCEPTION_LOG"
-        android:value="true" />
-    <meta-data
-        android:name="BaiduMobAd_SEND_STRATEGY"
-        android:value="APP_START" />
-    <meta-data
-        android:name="BaiduMobAd_CELL_LOCATION"
-        android:value="true" />
-    <meta-data
-        android:name="BaiduMobAd_GPS_LOCATION"
-        android:value="true" />
-    <meta-data
-        android:name="BaiduMobAd_WIFI_LOCATION"
-        android:value="true" />
-
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
-
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -40,32 +16,38 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
-    <!--<uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"-->
-    <!--tools:ignore="ProtectedPermissions" />-->
 
     <application
         android:name=".MyApplication"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="BaiduMobAd_APP_ID"
             android:value="d89b3ac7" />
-        <service
-            android:name="com.mediav.ads.sdk.service.MvService"
-            android:enabled="true"
-            android:exported="false"></service>
-
+        <meta-data
+            android:name="BaiduMobAd_CHANNEL"
+            android:value="Baidu Market" />
+        <meta-data
+            android:name="BaiduMobAd_EXCEPTION_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="BaiduMobAd_SEND_STRATEGY"
+            android:value="APP_START" />
+        <meta-data
+            android:name="BaiduMobAd_CELL_LOCATION"
+            android:value="true" />
+        <meta-data
+            android:name="BaiduMobAd_GPS_LOCATION"
+            android:value="true" />
+        <meta-data
+            android:name="BaiduMobAd_WIFI_LOCATION"
+            android:value="true" />
         <activity
-            android:name="com.baidu.mobads.AppActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name=".SplashActivity"
+            android:name=".GuideActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,22 +55,51 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VersionActivity"
+            android:name=".support.VersionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutActivity"
+            android:name="ywcai.ls.module.mouse.view.RemoteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".support.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".HomeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".main.activity.NetActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".support.TemplateActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".main.activity.sub.PingAnalysisActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name="ywcai.ls.module.components.ping.analysis.view.PingAnalysisActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".main.activity.ImageActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name="ywcai.ls.common.image.container.ImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".support.HelpActivity"
+            android:screenOrientation="portrait" />
+        <service
+            android:name="ywcai.ls.module.mouse.model.service.ShadowService"
+            android:exported="false"></service>
+        <service
+            android:name="com.mediav.ads.sdk.service.MvService"
+            android:exported="false"
+            android:enabled="true"></service>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="1105582955" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
     </application>
+
 </manifest>

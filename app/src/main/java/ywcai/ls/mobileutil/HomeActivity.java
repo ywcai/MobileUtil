@@ -1,12 +1,19 @@
 package ywcai.ls.mobileutil;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,27 +23,101 @@ import android.widget.TextView;
 
 import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
 import com.baidu.autoupdatesdk.UICheckUpdateCallback;
-import com.baidu.mobads.AdSettings;
-import com.baidu.mobads.AdView;
 import com.baidu.mobstat.StatService;
 import com.mediav.ads.sdk.adcore.Mvad;
+import com.mediav.ads.sdk.interfaces.IMvBannerAd;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.Tencent;
 
-import ywcai.ls.mobileutil.main.fragment.NetMenuFragment;
-import ywcai.ls.mobileutil.main.fragment.LocalServerScanFragment;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+import ywcai.ls.mobileutil.support.AboutActivity;
+import ywcai.ls.mobileutil.support.FirstMenuFragment;
+import ywcai.ls.mobileutil.support.HelpActivity;
+import ywcai.ls.mobileutil.support.VersionActivity;
+import ywcai.ls.module.mouse.view.LocalServerScanFragment;
+import ywcai.ls.module.remote.login.presenter.RestfulAction;
+import ywcai.ls.module.remote.login.presenter.inf.LoginActionInf;
+import ywcai.ls.module.remote.login.view.RemoteAppFragment;
+
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ProgressDialog dialog;
-    private final String MSSP_BANER_AD_ID = "2875764";
-    private final String BANER_360_AD_ID = "5P5vpxwPHk";
-    private String isAdBaidu = "baidu_ad";//baidu_ad,360_ad,qq_ad
-    private int nowSelect=0;
-
+    private int currentPage=3;
+    private List<Fragment> fragments=new ArrayList<>();
+    private List<TextView> nav=new ArrayList<>();
+    private RestfulAction loginActionInf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         InitView();
-        InstallFragment(1);
+        InstallFragment();
+        selectFragment(0);
+        InstallAdView();
+    }
+
+    private void InstallAdView() {
+        String adSpaceid="5P5vpxwPHk";
+        RelativeLayout adContainer=(RelativeLayout)findViewById(R.id.homePage_adv);
+        IMvBannerAd bannerad = Mvad.showBanner(adContainer, HomeActivity.this, adSpaceid, false);
+    }
+
+    private void InstallFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        FirstMenuFragment netWorkFragment=new FirstMenuFragment();
+        LocalServerScanFragment localServerScanFragment = new LocalServerScanFragment();
+        RemoteAppFragment remoteControlFragment = new RemoteAppFragment();
+        Fragment reserveFragment=new Fragment();
+        transaction.add(R.id.homePage_main,netWorkFragment);
+        transaction.add(R.id.homePage_main,localServerScanFragment);
+        transaction.add(R.id.homePage_main,remoteControlFragment);
+        transaction.add(R.id.homePage_main,reserveFragment);
+        fragments.add(netWorkFragment);
+        fragments.add(localServerScanFragment);
+        fragments.add(remoteControlFragment);
+        fragments.add(reserveFragment);
+        transaction.hide(netWorkFragment);
+        transaction.hide(localServerScanFragment);
+        transaction.hide(remoteControlFragment);
+        transaction.hide(reserveFragment);
+        transaction.commit();
+        TextView nav_1 = (TextView) findViewById(R.id.bot_nav_1);
+        TextView nav_2 = (TextView) findViewById(R.id.bot_nav_2);
+        TextView nav_3 = (TextView) findViewById(R.id.bot_nav_3);
+        TextView nav_4 = (TextView) findViewById(R.id.bot_nav_4);
+        nav_1.setOnClickListener(this);
+        nav_2.setOnClickListener(this);
+        nav_3.setOnClickListener(this);
+//        nav_4.setOnClickListener(this);
+        nav.add(nav_1);
+        nav.add(nav_2);
+        nav.add(nav_3);
+        nav.add(nav_4);
+        nav_1.setTextColor(0xFF666967);
+        nav_1.setTextSize(12);
+        nav_2.setTextColor(0xFF666967);
+        nav_2.setTextSize(12);
+        nav_3.setTextColor(0xFF666967);
+        nav_3.setTextSize(12);
+        nav_4.setTextColor(0xFF666967);
+        nav_4.setTextSize(12);
+    }
+    private void selectFragment(int selectPage) {
+        if(selectPage!=currentPage)
+        {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.hide(fragments.get(currentPage));
+            transaction.show(fragments.get(selectPage));
+            transaction.commit();
+            nav.get(currentPage).setTextColor(0xFF666967);
+            nav.get(selectPage).setTextColor(0xFF3eb875);
+            nav.get(currentPage).setTextSize(12);
+            nav.get(selectPage).setTextSize(14);
+            currentPage=selectPage;
+        }
     }
 
     private void InitView() {
@@ -68,134 +149,27 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
-        if (isAdBaidu.equals("baidu_ad")) {
-            CreateBaiduBanner();
-        }
-        if (isAdBaidu.equals("360_ad")) {
-            Create360Banner();
-        }
-        if (isAdBaidu.equals("qq_ad")) {
-            CreateQQBanner();
-        }
-        TextView tv_del = (TextView) findViewById(R.id.tv_del_ad);
-        tv_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.ad_banner);
-                adContainer.setVisibility(View.GONE);
-                v.setVisibility(View.GONE);
-            }
-        });
-
-        TextView nav_1=(TextView)findViewById(R.id.bot_nav_1);
-        TextView nav_2=(TextView)findViewById(R.id.bot_nav_2);
-        TextView nav_3=(TextView)findViewById(R.id.bot_nav_3);
-        TextView nav_4=(TextView)findViewById(R.id.bot_nav_4);
-
-        nav_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InstallFragment(1);
-            }
-        });
-        nav_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InstallFragment(2);
-            }
-        });
-
-        nav_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InstallFragment(3);
-            }
-        });
-
-        nav_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InstallFragment(4);
-            }
-        });
-
-
     }
-
-
-
-    private void InstallFragment(int nowPage) {
-        TextView nav_1=(TextView)findViewById(R.id.bot_nav_1);
-        TextView nav_2=(TextView)findViewById(R.id.bot_nav_2);
-        TextView nav_3=(TextView)findViewById(R.id.bot_nav_3);
-        TextView nav_4=(TextView)findViewById(R.id.bot_nav_4);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        switch (nowPage)
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
         {
-            case 1:
-                if(nowSelect!=1) {
-                    NetMenuFragment netWorkFragment = new NetMenuFragment();
-                    transaction.replace(R.id.homePage_main, netWorkFragment);
-                    nowSelect=1;
-                    nav_1.setTextColor(0xFF3eb875);
-                    nav_1.setTextSize(14);
-                    nav_2.setTextColor(0xFF666967);
-                    nav_2.setTextSize(12);
-                    nav_3.setTextColor(0xFF666967);
-                    nav_3.setTextSize(12);
-                    nav_4.setTextColor(0xFF666967);
-                    nav_4.setTextSize(12);
-                }
+            case R.id.bot_nav_1:
+                selectFragment(0);
                 break;
-            case 2:
-                if(nowSelect!=2) {
-                    LocalServerScanFragment localServerScanFragment = new LocalServerScanFragment();
-                    transaction.replace(R.id.homePage_main, localServerScanFragment);
-                    nowSelect=2;
-                    nav_1.setTextColor(0xFF666967);
-                    nav_1.setTextSize(12);
-                    nav_2.setTextColor(0xFF3eb875);
-                    nav_2.setTextSize(14);
-                    nav_3.setTextColor(0xFF666967);
-                    nav_3.setTextSize(12);
-                    nav_4.setTextColor(0xFF666967);
-                    nav_4.setTextSize(12);
-                }
+            case R.id.bot_nav_2:
+                selectFragment(1);
                 break;
-            case 3:
-                if(nowSelect!=3) {
-//                    NetMenuFragment netWorkFragment = new NetMenuFragment();
-//                    transaction.replace(R.id.homePage_main, netWorkFragment);
-                    nowSelect=3;
-                    nav_1.setTextColor(0xFF666967);
-                    nav_2.setTextSize(12);
-                    nav_2.setTextColor(0xFF666967);
-                    nav_2.setTextSize(12);
-                    nav_3.setTextColor(0xFF3eb875);
-                    nav_3.setTextSize(14);
-                    nav_4.setTextColor(0xFF666967);
-                    nav_4.setTextSize(12);
-                }
+            case R.id.bot_nav_3:
+                selectFragment(2);
                 break;
-            case 4:
-                if(nowSelect!=4) {
-//                    NetMenuFragment netWorkFragment = new NetMenuFragment();
-//                    transaction.replace(R.id.homePage_main, netWorkFragment);
-                    nowSelect=4;
-                    nav_1.setTextColor(0xFF666967);
-                    nav_2.setTextSize(12);
-                    nav_2.setTextColor(0xFF666967);
-                    nav_2.setTextSize(12);
-                    nav_3.setTextColor(0xFF666967);
-                    nav_3.setTextSize(12);
-                    nav_4.setTextColor(0xFF3eb875);
-                    nav_4.setTextSize(14);
-                }
+            case R.id.bot_nav_4:
+                selectFragment(3);
                 break;
         }
-        transaction.commit();
     }
+
+
 
     private void showVersionInfo() {
         Intent intent = new Intent();
@@ -204,7 +178,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showHelpInfo() {
-
+        Intent intent = new Intent();
+        intent.setClass(HomeActivity.this, HelpActivity.class);
+        this.startActivity(intent);
     }
 
     private void showCopyInfo() {
@@ -221,29 +197,13 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     private class MyUICheckUpdateCallback implements UICheckUpdateCallback {
         @Override
         public void onCheckComplete() {
             dialog.dismiss();
         }
-    }
-
-    private void CreateBaiduBanner() {
-
-        RelativeLayout adContainer = (RelativeLayout) this.findViewById(R.id.ad_banner);
-        AdView adView = new AdView(this, MSSP_BANER_AD_ID);
-        AdSettings.setKey(new String[]{"baidu", "中国"});
-        adContainer.addView(adView);
-    }
-
-    private void Create360Banner() {
-
-        RelativeLayout adContainer = (RelativeLayout) this.findViewById(R.id.ad_banner);
-        Mvad.showBanner(adContainer, this, BANER_360_AD_ID, false);
-    }
-
-    private void CreateQQBanner() {
-        RelativeLayout adContainer = (RelativeLayout) this.findViewById(R.id.ad_banner);
     }
 
     @Override
@@ -256,5 +216,32 @@ public class HomeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         StatService.onPause(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        PackageManager pm = getPackageManager();
+        ResolveInfo homeInfo = pm.resolveActivity(
+                      new Intent(Intent.ACTION_MAIN)
+                        .addCategory(Intent.CATEGORY_HOME), 0);
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ActivityInfo ai = homeInfo.activityInfo;
+            Intent startIntent = new Intent(Intent.ACTION_MAIN);
+            startIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            startIntent.setComponent(new ComponentName(ai.packageName, ai.name));
+            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(startIntent);
+            return true;
+        } else
+            return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode== Constants.REQUEST_LOGIN) {
+            RemoteAppFragment fragment = (RemoteAppFragment) fragments.get(2);
+            loginActionInf = fragment.getLoginInf();
+            Tencent.onActivityResultData(requestCode,resultCode,data,loginActionInf.getListener());
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
