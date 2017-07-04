@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ywcai.ls.util.MyConfig;
+import ywcai.ls.util.statics.MyConfig;
 
 /**
  * Created by zmy_11 on 2016/12/18.

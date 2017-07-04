@@ -10,22 +10,23 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import ywcai.ls.util.MyUtil;
-import ywcai.ls.util.MyConfig;
+import ywcai.ls.mobileutil.MyApplication;
+import ywcai.ls.util.ConvertUtil;
+import ywcai.ls.util.statics.MyConfig;
 
 public class LocalInfo {
-    private Context context;
-    public LocalInfo(Context context) {
-        this.context=context;
+
+    public LocalInfo( ) {
+
     }
 
     public  String getLocalIp() {
         String localIp = "0.0.0.0";
         try {
-            WifiManager wifiMg = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiManager wifiMg = (WifiManager) MyApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             android.net.wifi.WifiInfo wifiInfo = wifiMg.getConnectionInfo();
-            localIp = MyUtil.ConvertIpToStr(wifiInfo.getIpAddress());
+            ConvertUtil convertUtil=new ConvertUtil();
+            localIp = convertUtil.ConvertIpToStr(wifiInfo.getIpAddress());
         } catch (Exception e) {
         }
         if (localIp.equals("0.0.0.0")) {
@@ -70,9 +71,6 @@ public class LocalInfo {
             e.printStackTrace();
         }
         return localIp;
-    }
-    public  String getLocalDevice() {
-        return null;
     }
     public List getLocalList(String localIp)
     {

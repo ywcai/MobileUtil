@@ -6,11 +6,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import ywcai.ls.module.mouse.model.net.RequestMsg;
 import ywcai.ls.module.mouse.presenter.inf.MouseEventInf;
 
 public class MouseEvent implements SensorEventListener, MouseEventInf {
-    private RequestMsg requestMsg = new RequestMsg();
     private boolean move = false;
     public MouseEvent(Context context) {
         RegOrientationListener(context);
@@ -27,7 +25,7 @@ public class MouseEvent implements SensorEventListener, MouseEventInf {
             x = Math.abs(x) < 3 ? 0 : x;
             y = Math.abs(y) < 3 ? 0 : y;
             if (x != 0 || y != 0) {
-                requestMsg.sendJson("move", x + "_" + y);
+//                requestMsg.sendJson("move", x + "_" + y);
             }
         }
     }
@@ -48,37 +46,37 @@ public class MouseEvent implements SensorEventListener, MouseEventInf {
 
     @Override
     public void sendLeftDown() {
-        requestMsg.sendJson("click", "left_down");
+//        requestMsg.sendJson("click", "left_down");
     }
 
     @Override
     public void sendLeftUp() {
-        requestMsg.sendJson("click", "left_up");
+//        requestMsg.sendJson("click", "left_up");
     }
 
     @Override
     public void sendRightDown() {
-        requestMsg.sendJson("click", "right_down");
+//        requestMsg.sendJson("click", "right_down");
     }
 
     @Override
     public void sendRightUp() {
-        requestMsg.sendJson("click", "right_up");
+//        requestMsg.sendJson("click", "right_up");
     }
 
     @Override
     public void sendPagePrev() {
-        requestMsg.sendJson("click", "page_up");
+//        requestMsg.sendJson("click", "page_up");
     }
 
     @Override
     public void sendPageNext() {
-        requestMsg.sendJson("click", "page_down");
+//        requestMsg.sendJson("click", "page_down");
     }
 
     @Override
     public void sendEsc() {
-        requestMsg.sendJson("click", "esc");
+//        requestMsg.sendJson("click", "esc");
     }
 
     @Override

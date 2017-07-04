@@ -1,5 +1,6 @@
 package ywcai.ls.mobileutil;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,16 +37,13 @@ import ywcai.ls.mobileutil.support.FirstMenuFragment;
 import ywcai.ls.mobileutil.support.HelpActivity;
 import ywcai.ls.mobileutil.support.VersionActivity;
 import ywcai.ls.module.mouse.view.LocalServerScanFragment;
-import ywcai.ls.module.remote.login.presenter.RestfulAction;
-import ywcai.ls.module.remote.login.presenter.inf.LoginActionInf;
-import ywcai.ls.module.remote.login.view.RemoteAppFragment;
+import ywcai.ls.module.remote.view.RemoteAppFragment;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ProgressDialog dialog;
     private int currentPage=3;
     private List<Fragment> fragments=new ArrayList<>();
     private List<TextView> nav=new ArrayList<>();
-    private RestfulAction loginActionInf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -239,8 +236,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode== Constants.REQUEST_LOGIN) {
             RemoteAppFragment fragment = (RemoteAppFragment) fragments.get(2);
-            loginActionInf = fragment.getLoginInf();
-            Tencent.onActivityResultData(requestCode,resultCode,data,loginActionInf.getListener());
+            Tencent.onActivityResultData(requestCode,resultCode,data, fragment.LoginActionInf.getListener());
+        }
+        if(requestCode == 7)
+        {
+            LocalServerScanFragment fragment = (LocalServerScanFragment) fragments.get(1);
+            fragment.action.startShadow(requestCode,resultCode,data);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 import ywcai.ls.mobileutil.R;
 import ywcai.ls.mobileutil.inf.CallBackMainTitle;
-import ywcai.ls.module.components.ble.view.BleFragment;
-import ywcai.ls.module.components.gps.GpsFragment;
-import ywcai.ls.module.components.lan.view.LanFragment;
-import ywcai.ls.module.components.orientation.OrientationFragment;
-import ywcai.ls.module.components.ping.operation.view.PingFragment;
-import ywcai.ls.module.components.sensor.view.SensorFragment;
-import ywcai.ls.module.components.station.StationFragment;
-import ywcai.ls.module.components.wifi.view.WifiFragment;
-import ywcai.ls.util.MyConfig;
+import ywcai.ls.module.tools.ble.view.BleFragment;
+import ywcai.ls.module.tools.gps.GpsFragment;
+import ywcai.ls.module.tools.lan.view.LanFragment;
+import ywcai.ls.module.tools.orientation.OrientationFragment;
+import ywcai.ls.module.tools.ping.operation.view.PingFragment;
+import ywcai.ls.module.tools.sensor.view.SensorFragment;
+import ywcai.ls.module.tools.station.StationFragment;
+import ywcai.ls.module.tools.wifi.view.WifiFragment;
+import ywcai.ls.util.statics.MyConfig;
 
 
 public class TemplateActivity extends AppCompatActivity implements CallBackMainTitle {

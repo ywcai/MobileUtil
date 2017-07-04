@@ -58,7 +58,7 @@
             android:name=".support.VersionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ywcai.ls.module.mouse.view.RemoteActivity"
+            android:name="ywcai.ls.module.mouse.view.MouseActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".support.AboutActivity"
@@ -70,7 +70,7 @@
             android:name=".support.TemplateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ywcai.ls.module.components.ping.analysis.view.PingAnalysisActivity"
+            android:name="ywcai.ls.module.tools.ping.analysis.view.PingAnalysisActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="ywcai.ls.common.image.container.ImageActivity"
@@ -79,7 +79,7 @@
             android:name=".support.HelpActivity"
             android:screenOrientation="portrait" />
         <service
-            android:name="ywcai.ls.module.mouse.model.service.ShadowService"
+            android:name="ywcai.ls.common.service.ShadowService"
             android:exported="false"></service>
         <service
             android:name="com.mediav.ads.sdk.service.MvService"

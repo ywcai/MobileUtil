@@ -2,51 +2,81 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="5dp">
+    android:padding="5dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:civ="http://schemas.android.com/apk/res-auto"
+        android:layout_marginRight="10dp"
+        android:id="@+id/device_mode"
+        android:layout_alignTop="@+id/device_name"
+        android:layout_alignBottom="@+id/device_code"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/log2"
+        civ:civ_border_width="2dp"
+        civ:civ_border_color="@color/fbutton_color_clouds"
+        />
+
     <TextView
         android:id="@+id/device_name"
-        android:layout_below="@+id/device_id"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:ellipsize="marquee"
-        android:gravity="center_vertical"
+        android:gravity="left|center_vertical"
         android:maxLines="1"
-        android:text="name"
+        android:text="deviceName"
         android:textColor="#6b6969"
-        android:textSize="14sp" />
-    <TextView
-        android:id="@+id/device_id"
-        android:layout_width="wrap_content"
-        android:ellipsize="marquee"
-        android:gravity="center_vertical"
-        android:maxLines="1"
-        android:text="0000001"
-        android:textColor="#6b6969"
-        android:textSize="12sp"
-        android:layout_height="20dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toRightOf="@id/device_mode"
+        android:textSize="12sp" />
     <TextView
         android:layout_centerVertical="true"
         android:id="@+id/device_status"
         android:layout_width="wrap_content"
-        android:text="空闲"
-        android:textColor="#6b6969"
         android:layout_height="20dp"
-        android:layout_alignParentRight="true" />
-    <!--<ywcai.ls.controls.custom.LsButton-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:backgroundTint="@color/progressEndColor"-->
-        <!--android:id="@+id/device_del"-->
-        <!--android:layout_toLeftOf="@id/device_conn"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_width="55dp"-->
-        <!--android:text="删除"-->
-        <!--android:textColor="#6b6969"-->
-        <!--android:layout_height="20dp"-->
+        android:text="onLine"
+        android:textColor="#6b6969"
+        android:textSize="12sp"
+        android:gravity="right|center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        />
+    <TextView
+        android:id="@+id/device_code"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/device_name"
+        android:layout_toRightOf="@id/device_mode"
+        android:ellipsize="marquee"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:text="0000001"
+        android:textColor="#6b6969"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/device_id"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/device_name"
+        android:layout_toRightOf="@id/device_code"
+        android:ellipsize="marquee"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:text="0000001"
+        android:textColor="#6b6969"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/device_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/device_status"
+        android:layout_alignParentRight="true"
+        android:ellipsize="marquee"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:text="本机"
+        android:textColor="#6b6969"
+        android:textSize="12sp" />
    <!--/>-->
 </RelativeLayout>

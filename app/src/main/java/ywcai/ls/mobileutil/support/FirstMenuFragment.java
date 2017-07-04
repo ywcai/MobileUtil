@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import ywcai.ls.mobileutil.R;
-import ywcai.ls.util.MyConfig;
+import ywcai.ls.util.statics.MyConfig;
 
 /**
  * A simple {@link Fragment} subclass.

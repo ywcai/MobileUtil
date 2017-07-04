@@ -3,71 +3,123 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ywcai.ls.controls.pull.LsPullView
-        android:id="@+id/list_lan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:visibility="visible"
-        ls:autoRefresh="false"
-        ls:isAppend="true"
-        ls:isLoadCache="false"
-        ls:isPercent="true"
-        ls:listMode="LIST"
-        ls:maxList="2"
-        ls:maxNum="254"
-        ls:singleResult="true"
-        ls:startNum="1"
-        ls:threadMaxNum="40" />
 
-    <!--<TextView-->
-    <!--android:id="@+id/rpc_tv_set_ip"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="设置主机"-->
-    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_marginRight="20dp"-->
-    <!--android:layout_marginBottom="20dp"-->
-    <!--android:textColor="@color/headBgColor"-->
-    <!--android:textSize="16dp"-->
-    <!--android:visibility="visible" />-->
-    <TextView
-        android:id="@+id/rpc_tv_stop_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:text="停止"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#b34044"
-        android:textSize="16dp"
-        android:visibility="visible" />
+    <RelativeLayout
+        android:id="@+id/mouse_init_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ywcai.ls.controls.pull.LsPullView
+            android:id="@+id/list_lan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:visibility="visible"
+            ls:autoRefresh="false"
+            ls:isAppend="true"
+            ls:isLoadCache="false"
+            ls:isPercent="true"
+            ls:listMode="LIST"
+            ls:maxList="2"
+            ls:maxNum="254"
+            ls:singleResult="true"
+            ls:startNum="1"
+            ls:threadMaxNum="40" />
+
+        <TextView
+            android:id="@+id/rpc_tv_stop_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/rpc_tv_set_ip"
+            android:text="停止"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#b34044"
+            android:textSize="16dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/rpc_tv_set_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:text="手动设置"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/headBgColor"
+            android:textSize="16dp"
+            android:visibility="visible" />
+
+        <ywcai.ls.controls.popwindow.PopView
+            android:id="@+id/rl_input_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:visibility="gone"
+            ls:popTitle="请输入服务接入码:"></ywcai.ls.controls.popwindow.PopView>
+
+        <ywcai.ls.controls.popwindow.PopView
+            android:id="@+id/rl_input_ip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:visibility="gone"
+            ls:popTitle="手动输入连接地址:"></ywcai.ls.controls.popwindow.PopView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mouse_conn_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/bt_mouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_blue_bright"
+            android:text="进入空中鼠标模式"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/bt_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt_mouse"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_green_dark"
+            android:text="进入手机投影模式"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/bt_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt_shadow"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_red_light"
+            android:text="断开远端会话连接"
+            android:textSize="18sp"
+            android:visibility="visible" />
+    </RelativeLayout>
 
     <ywcai.ls.controls.loader.LoaderView
         android:id="@+id/loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:visibility="gone"></ywcai.ls.controls.loader.LoaderView>
 
-    <ywcai.ls.controls.popwindow.PopView
-        android:id="@+id/rl_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:visibility="gone"
-        ls:popTitle="请输入密码:"></ywcai.ls.controls.popwindow.PopView>
-    <!--<ywcai.ls.controls.popwindow.PopView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/rl_input_ip"-->
-    <!--ls:popTitle="手动输入IP:"-->
-    <!--android:visibility="gone"-->
-    <!--android:clickable="true"></ywcai.ls.controls.popwindow.PopView>-->
 </RelativeLayout>

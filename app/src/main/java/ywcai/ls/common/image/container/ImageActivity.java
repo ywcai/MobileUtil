@@ -16,8 +16,8 @@ import java.io.File;
 import java.util.List;
 
 import ywcai.ls.mobileutil.R;
-import ywcai.ls.util.MyConfig;
-import ywcai.ls.util.MyUtil;
+import ywcai.ls.util.FileLookUtil;
+import ywcai.ls.util.statics.MyConfig;
 
 
 public class ImageActivity extends AppCompatActivity {
@@ -38,7 +38,8 @@ public class ImageActivity extends AppCompatActivity {
     }
     private void InitView() {
         relativeLayout=(RelativeLayout)findViewById(R.id.toolbar_sub);
-        List<File> imgList= MyUtil.getImgList(filePath);
+        FileLookUtil fileLookUtil=new FileLookUtil();
+        List<File> imgList= fileLookUtil.getImgList(filePath);
         final int Count=imgList.size();
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_assist);
         setSupportActionBar(mToolbar);
