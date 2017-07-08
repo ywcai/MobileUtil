@@ -15,7 +15,6 @@ import ywcai.ls.common.em.MouseViewType;
 import ywcai.ls.common.em.MouseViewUpdateType;
 import ywcai.ls.mina.socket.ClientSocket;
 import ywcai.ls.common.ComponentStatus;;
-import ywcai.ls.common.net.CreateSocket;
 import ywcai.ls.module.mouse.presenter.inf.ActionInf;
 import ywcai.ls.util.InputRule;
 import ywcai.ls.util.LookDeviceUtil;
@@ -43,11 +42,13 @@ public class ActionImpl implements ActionInf {
         LocalSocketHandler localSocketHandler = new LocalSocketHandler();
         tempSocket.addListener(localSocketHandler);
         instance.socket = tempSocket;
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CreateSocket createSocket = new CreateSocket(tempSocket, remoteIp);
-        executorService.execute(createSocket);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                tempSocket.CreateSession(remoteIp, MyConfig.INT_SOCKET_PORT);
+            }
+        }).start();
     }
-
     @Override
     public void checkPsw(final String psw) {
         InputRule rule = new InputRule();
@@ -100,11 +101,14 @@ public class ActionImpl implements ActionInf {
 
     private void reqCloseShadow() {
         instance.mouseViewType = MouseViewType.CONN;
+        instance.catchScreen.stopCatch();
         MesUtil.sendEventMsgForMouse(MouseViewUpdateType.LOAD_CONN_VIEW, "退出投影模式", null);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                MesUtil.sendJson(tempSocket, ResultCode.json_type_req_local_close_shadow, "");
+                if(tempSocket.getSessionStatus()) {
+                    MesUtil.sendJson(tempSocket, ResultCode.json_type_req_local_close_shadow, "");
+                }
             }
         }).start();
     }
@@ -155,11 +159,6 @@ public class ActionImpl implements ActionInf {
 
     @Override
     public void repeatConn() {
-
-//        tempSocket = new ClientSocket();
-//        LocalSocketHandler localSocketHandler = new LocalSocketHandler();
-//        tempSocket.addListener(localSocketHandler);
-//        instance.socket = tempSocket;
         new Thread(new Runnable() {
             @Override
             public void run() {

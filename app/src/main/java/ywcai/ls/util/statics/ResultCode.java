@@ -54,7 +54,7 @@ public class ResultCode {
     public static final int json_type_req_local_open_mouse = 43004;
     public static final int json_type_req_local_close_mouse = 43005;
     public static final int json_type_req_local_repeat_conn = 43006;
-
+    public static final int json_type_req_local_refresh_screen = 43007;
 
     public static final int json_type_notify_back_check_success = 43101;
     public static final int json_type_notify_back_check_fail = 43102;
@@ -63,5 +63,15 @@ public class ResultCode {
     public static final int json_type_notify_back_mouse_open_ok = 43301;
     public static final int json_type_notify_back_mouse_open_fail = 43302;
     public static final int json_type_notify_back_shadow_close = 43303;
+
+    public static final int json_type_cmd_mouse_event_move = 44000;
+    public static final int json_type_cmd_mouse_event_l_down= 44001;
+    public static final int json_type_cmd_mouse_event_l_up= 44002;
+    public static final int json_type_cmd_mouse_event_r_down= 44003;
+    public static final int json_type_cmd_mouse_event_r_up= 44004;
+    public static final int json_type_cmd_mouse_event_page_up= 44005;
+    public static final int json_type_cmd_mouse_event_page_down= 44006;
+    public static final int json_type_cmd_mouse_event_esc=44007;
+
 
 }

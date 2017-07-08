@@ -5,9 +5,9 @@ import android.content.Intent;
 import ywcai.ls.common.ComponentStatus;
 import ywcai.ls.common.em.MouseViewType;
 import ywcai.ls.common.em.MouseViewUpdateType;
-import ywcai.ls.common.net.ResponseMsg;
+import ywcai.ls.common.net.DisAssemblyMsg;
 import ywcai.ls.common.ApplicationProtocol;
-import ywcai.ls.common.service.ShadowService;
+import ywcai.ls.common.service.PushShadowService;
 import ywcai.ls.mobileutil.MyApplication;
 import ywcai.ls.util.statics.MesUtil;
 import ywcai.ls.util.statics.ResultCode;
@@ -18,18 +18,18 @@ import ywcai.ls.util.statics.ResultCode;
 public class MouseProcess {
     private ComponentStatus status=ComponentStatus.getInstance();
     public MouseProcess(byte[] bytes) {
-        ResponseMsg responseMsg = new ResponseMsg(bytes);
-        switch (responseMsg.dataType) {
+        DisAssemblyMsg disAssemblyMsg = new DisAssemblyMsg(bytes);
+        switch (disAssemblyMsg.dataType) {
             case ResultCode.byte_head_byte:
                 //doNothing;
-                doBytes(responseMsg.payLoad);
+                doBytes(disAssemblyMsg.payLoad);
                 break;
             case ResultCode.byte_head_json:
-                ApplicationProtocol applicationProtocol = MesUtil.getObj(responseMsg.payLoad);
+                ApplicationProtocol applicationProtocol = MesUtil.getObj(disAssemblyMsg.payLoad);
                 selectWorkType(applicationProtocol);
                 break;
             default:
-//                MesUtil.sendEventMsgForMouse(MouseViewUpdateType.SHOW_TOAST,"收到数据:"+responseMsg.dataType,null);
+//                MesUtil.sendEventMsgForMouse(MouseViewUpdateType.SHOW_TOAST,"收到数据:"+disAssemblyMsg.dataType,null);
                 break;
         }
     }
@@ -73,6 +73,6 @@ public class MouseProcess {
         status.mouseViewType=MouseViewType.SHADOW;
         MesUtil.sendEventMsgForMouse(MouseViewUpdateType.LOAD_SHADOW_VIEW,"进入投影模式",null);
         MyApplication.getInstance().getApplicationContext().
-                startService(new Intent(MyApplication.getInstance().getApplicationContext(), ShadowService.class));
+                startService(new Intent(MyApplication.getInstance().getApplicationContext(), PushShadowService.class));
     }
 }

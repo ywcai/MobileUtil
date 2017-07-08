@@ -20,11 +20,11 @@ import ywcai.ls.mobileutil.MyApplication;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class CatchScreen implements CatchScreenInf {
-    private int mWidth,mHeight,mScreenDensity,realWidth;
+    private int mWidth,mHeight,realWidth,mScreenDensity,tempWidth;
     private ImageReader mImageReader;
     private MediaProjectionManager mediaProjectionManager;
-    private MediaProjection mediaProjection;
     private WindowManager windowManager;
+    private MediaProjection mediaProjection;
 
     public CatchScreen()
     {
@@ -38,22 +38,52 @@ public class CatchScreen implements CatchScreenInf {
     }
     @Override
     public void initScreen( Intent mResultData) {
-        MediaProjection mediaProjection = mediaProjectionManager.getMediaProjection(Activity.RESULT_OK, mResultData);
-        DisplayMetrics metrics = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metrics);
-        mScreenDensity = metrics.densityDpi;
-        mWidth = metrics.widthPixels;
-        mHeight= metrics.heightPixels;
+        mediaProjection = mediaProjectionManager.getMediaProjection(Activity.RESULT_OK, mResultData);
+        setScreenSize();
         mImageReader = ImageReader.newInstance(mWidth, mHeight, PixelFormat.RGBA_8888,2);
         mediaProjection.createVirtualDisplay(
-                "MobileUtil", mWidth, mHeight, mScreenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                "MobileUtil",mWidth ,mHeight , mScreenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 mImageReader.getSurface(), null, null);
+        tempWidth=mWidth;
     }
     @Override
     public String getScreenSize()
     {
         String size=mWidth+"|"+mHeight;
         return  size;
+    }
+
+    private void setScreenSize()
+    {
+        DisplayMetrics metrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        mScreenDensity = metrics.densityDpi;
+        mWidth = metrics.widthPixels;
+        mHeight= metrics.heightPixels;
+    }
+
+    @Override
+    public boolean checkChange()
+    {
+        setScreenSize();
+        if(tempWidth==mWidth)
+        {
+            return false ;
+        }
+        else
+        {
+            createNewScreen();
+            tempWidth=mWidth;
+            return true ;
+        }
+    }
+
+    private void createNewScreen()
+    {
+        mImageReader = ImageReader.newInstance(mWidth, mHeight, PixelFormat.RGBA_8888,2);
+        mediaProjection.createVirtualDisplay(
+                "MobileUtil",mWidth ,mHeight , mScreenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                mImageReader.getSurface(), null, null);
     }
     @Override
     public byte[] getDeskByte() {
@@ -67,16 +97,20 @@ public class CatchScreen implements CatchScreenInf {
                 int rowPadding = rowStride - pixelStride * mWidth;
                 realWidth = mWidth + rowPadding / pixelStride;
                 Bitmap bitmap = Bitmap.createBitmap(realWidth, mHeight, Bitmap.Config.ARGB_8888);
+                bitmap.createBitmap(bitmap,0,0,realWidth,mHeight);
                 bitmap.copyPixelsFromBuffer(buffer);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 30, stream);
                 data = stream.toByteArray();
                 image.close();
         }
-        catch(Exception e)
-        {
-
-        }
+        catch(Exception e) {}
         return data;
     }
+    @Override
+    public void stopCatch()
+    {
+        mediaProjection.stop();
+    }
+
 }

@@ -3,18 +3,14 @@ package ywcai.ls.module.mouse.presenter;
 import org.apache.mina.core.session.IoSession;
 
 import ywcai.ls.common.ComponentStatus;
-import ywcai.ls.common.em.MouseViewType;
 import ywcai.ls.common.em.MouseViewUpdateType;
 import ywcai.ls.mina.socket.SocketEventListener;
 import ywcai.ls.util.statics.MesUtil;
 
 
-/**
- * Created by zmy_11 on 2017/6/30.
- */
-
 public class LocalSocketHandler implements SocketEventListener {
-    ComponentStatus status=ComponentStatus.getInstance();
+    ComponentStatus status = ComponentStatus.getInstance();
+
     @Override
     public void sessionCreated(IoSession ioSession) {
 
@@ -27,7 +23,7 @@ public class LocalSocketHandler implements SocketEventListener {
 
     @Override
     public void messageReceived(IoSession ioSession, byte[] bytes) {
-         new MouseProcess(bytes);
+        new MouseProcess(bytes);
     }
 
     @Override
@@ -46,9 +42,7 @@ public class LocalSocketHandler implements SocketEventListener {
 
     @Override
     public void sessionCreateStart(String s, int i) {
-//        if (status.mouseViewType == MouseViewType.NONE) {
-//            notifyHandler(MsgValue.SESSION_OPEN_START, 0);
-//        }
+
     }
 
     @Override

@@ -12,5 +12,6 @@ public interface CatchScreenInf {
     void initScreen(Intent mResultData);
     String getScreenSize();
     byte[] getDeskByte();
-
+    void stopCatch();
+    boolean checkChange();
 }

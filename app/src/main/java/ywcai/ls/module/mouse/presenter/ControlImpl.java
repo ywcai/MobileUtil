@@ -10,7 +10,6 @@ import ywcai.ls.util.statics.MesUtil;
 import ywcai.ls.util.statics.ResultCode;
 
 public class ControlImpl implements ControlInf {
-    private ComponentStatus status = ComponentStatus.getInstance();
     private MouseEventInf mouseEvent;
 
     public ControlImpl( ) {
@@ -64,12 +63,7 @@ public class ControlImpl implements ControlInf {
 
     @Override
     public void clickExitMouse() {
-        status.mouseViewType = MouseViewType.CONN;
-        MesUtil.sendJson(status.socket, ResultCode.json_type_req_local_close_mouse,"");
-    }
-
-    @Override
-    public void repeatMouse() {
-
+        ComponentStatus.getInstance().mouseViewType = MouseViewType.CONN;
+        MesUtil.sendJson(ComponentStatus.getInstance().socket, ResultCode.json_type_req_local_close_mouse,"");
     }
 }

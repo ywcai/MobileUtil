@@ -2,10 +2,10 @@ package ywcai.ls.common.net;
 
 
 
-public class ResponseMsg {
+public class DisAssemblyMsg {
     public int dataType;
     public byte[] payLoad;
-    public ResponseMsg(byte[] msg)
+    public DisAssemblyMsg(byte[] msg)
     {
         dataType=msg[0];
         payLoad = new byte[msg.length - 1];

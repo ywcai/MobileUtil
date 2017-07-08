@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import ywcai.ls.common.net.CreateSocket;
 import ywcai.ls.mina.socket.ClientSocket;
 import ywcai.ls.mina.socket.SocketEventListener;
 import ywcai.ls.mobileutil.MyApplication;
@@ -37,6 +36,7 @@ public class LoginAction implements LoginActionInf {
     private ComponentStatus status = ComponentStatus.getInstance();
     private Activity activity;
     private Context context;
+    private ClientSocket temp;
 
     public LoginAction(Activity _activity, Context _context) {
         activity = _activity;
@@ -66,13 +66,16 @@ public class LoginAction implements LoginActionInf {
     @Override
     public void ConnServer() {
         MesUtil.sendEventMsg(RemoteViewUpdateType.LOADING,"登录QQ成功，正在创建连接...",null);
-        ClientSocket temp = new ClientSocket();
+        temp = new ClientSocket();
         status.internetSocket = temp;
         SocketEventListener socketEventListener = new InternetSocketHandler();
         temp.addListener(socketEventListener);
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CreateSocket createSocket = new CreateSocket(temp, MyConfig.STR_SOCKET_IP);
-        executorService.execute(createSocket);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                temp.CreateSession(MyConfig.STR_SOCKET_IP, MyConfig.INT_SOCKET_PORT);
+            }
+        }).start();
 
     }
     @Override
@@ -80,11 +83,6 @@ public class LoginAction implements LoginActionInf {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 MesUtil.sendEventMsg(RemoteViewUpdateType.LOADING,"等待服务器返回注册信息...",null);
                 DeviceInfo deviceInfo = new DeviceInfo();
                 deviceInfo.userId = loginUser.openId;
@@ -214,5 +212,4 @@ public class LoginAction implements LoginActionInf {
             MesUtil.sendEventMsg(RemoteViewUpdateType.LOAD_END,"ERR:取消授权",null);
         }
     }
-
 }

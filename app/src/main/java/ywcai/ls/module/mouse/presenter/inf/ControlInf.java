@@ -9,7 +9,6 @@ public interface ControlInf {
     void rightUp()  ;
     void onTouchUp()  ;
     void onTouchDown()  ;
-    void clickExitMouse();
     void clickEsc();
-    void repeatMouse();
+    void clickExitMouse();
 }

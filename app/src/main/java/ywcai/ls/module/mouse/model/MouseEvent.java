@@ -6,29 +6,41 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import ywcai.ls.common.ComponentStatus;
+import ywcai.ls.mina.socket.ClientSocket;
 import ywcai.ls.module.mouse.presenter.inf.MouseEventInf;
+import ywcai.ls.util.statics.MesUtil;
+import ywcai.ls.util.statics.ResultCode;
 
 public class MouseEvent implements SensorEventListener, MouseEventInf {
     private boolean move = false;
+    private ClientSocket temp = ComponentStatus.getInstance().socket;
+
     public MouseEvent(Context context) {
         RegOrientationListener(context);
     }
+
     private void RegOrientationListener(Context context) {
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_FASTEST);
     }
+
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if(!temp.getSessionStatus()) {
+            return;
+        }
         if (move) {
-            int x = Math.round(event.values[0] * 100);
-            int y = Math.round(event.values[2] * 100);
+            int x = Math.round(event.values[2] * 100);
+            int y = Math.round(event.values[0] * 100);
             x = Math.abs(x) < 3 ? 0 : x;
             y = Math.abs(y) < 3 ? 0 : y;
             if (x != 0 || y != 0) {
-//                requestMsg.sendJson("move", x + "_" + y);
+                    MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_move, x + "|" + y);
             }
         }
     }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
@@ -46,41 +58,57 @@ public class MouseEvent implements SensorEventListener, MouseEventInf {
 
     @Override
     public void sendLeftDown() {
-//        requestMsg.sendJson("click", "left_down");
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_l_down, "");
     }
 
     @Override
     public void sendLeftUp() {
-//        requestMsg.sendJson("click", "left_up");
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_l_up, "");
     }
 
     @Override
     public void sendRightDown() {
-//        requestMsg.sendJson("click", "right_down");
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_r_down, "");
     }
 
     @Override
     public void sendRightUp() {
-//        requestMsg.sendJson("click", "right_up");
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_r_up, "");
     }
 
     @Override
     public void sendPagePrev() {
-//        requestMsg.sendJson("click", "page_up");
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_page_up, "");
     }
 
     @Override
     public void sendPageNext() {
-//        requestMsg.sendJson("click", "page_down");
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_page_down, "");
     }
 
     @Override
     public void sendEsc() {
-//        requestMsg.sendJson("click", "esc");
-    }
-
-    @Override
-    public void sendExitBack() {
-
+        if(!temp.getSessionStatus()) {
+            return;
+        }
+        MesUtil.sendJson(temp, ResultCode.json_type_cmd_mouse_event_esc, "");
     }
 }

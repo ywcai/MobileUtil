@@ -13,6 +13,4 @@ public interface MouseEventInf {
      void sendPagePrev()  ;
      void sendPageNext()  ;
      void sendEsc()  ;
-     void sendExitBack()  ;
-
 }
